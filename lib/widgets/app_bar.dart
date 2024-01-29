@@ -22,6 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         leading: IconButton(
             onPressed: widget.leadingFunc, icon: Icon(widget.leadingIcon)),
       ),
+      
     );
   }
 }
