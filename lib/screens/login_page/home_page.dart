@@ -1,3 +1,4 @@
+import 'package:casca/screens/login_page/local_widgets/login_with_widget.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const Expanded(
+              child: SizedBox(
+            height: 10,
+          )),
           Align(
             alignment: Alignment.center,
             child: Image.asset(
@@ -28,7 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
               width: (MediaQuery.of(context).size.width - 170),
             ),
           ),
-          const Expanded(child: SizedBox(height: 10),),
+          const Expanded(
+            child: SizedBox(height: 10),
+          ),
           Text(
             "Let's you in",
             textAlign: TextAlign.center,
@@ -45,115 +52,39 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 13,
             ),
           ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color.fromARGB(255, 238, 238, 238))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.facebook_rounded,
-                  color: Colors.blue.shade900,
-                  size: 32,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Continue with Facebook",
-                  style: GoogleFonts.urbanist(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Constants.lightTextColor,
-                      letterSpacing: 1.2,
-                      fontStyle: FontStyle.normal),
-                )
-              ],
-            ),
+          LoginWithWidget(
+              icon: Icon(
+                Icons.facebook_rounded,
+                color: Colors.blue.shade900,
+                size: 32,
+              ),
+              text: "Continue with Facebook"),
+          const SizedBox(
+            height: 13,
           ),
-          const Expanded(
-            child: SizedBox(
-              height: 13,
-            ),
+          LoginWithWidget(
+              icon: Image.asset(
+                "assets/images/google_icon.png",
+                fit: BoxFit.contain,
+                width: 32,
+                height: 32,
+              ),
+              text: "Continue with Google"),
+          const SizedBox(
+            height: 13,
           ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color.fromARGB(255, 238, 238, 238))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/google_icon.png",
-                  fit: BoxFit.contain,
-                  width: 32,
-                  height: 32,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Continue with Google",
-                  style: GoogleFonts.urbanist(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Constants.lightTextColor,
-                      letterSpacing: 1.2,
-                      fontStyle: FontStyle.normal),
-                )
-              ],
-            ),
-          ),
-          const Expanded(
-            child: SizedBox(
-              height: 13,
-            ),
-          ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: const Color.fromARGB(255, 238, 238, 238))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.apple_rounded,
-                  size: 32,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Continue with Apple",
-                  style: GoogleFonts.urbanist(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Constants.lightTextColor,
-                      letterSpacing: 1.2,
-                      fontStyle: FontStyle.normal),
-                )
-              ],
-            ),
-          ),
+          const LoginWithWidget(
+              icon: Icon(
+                Icons.apple_rounded,
+                size: 32,
+              ),
+              text: "Continue with Apple"),
           Container(
             margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
             child: Row(children: [
-              const Expanded(
+              Expanded(
                   child: Divider(
-                color: Color.fromARGB(255, 238, 238, 238),
+                color: Constants.lightBorderColor,
               )),
               Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
@@ -165,9 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.grey.shade600,
                         fontStyle: FontStyle.normal),
                   )),
-              const Expanded(
+              Expanded(
                   child: Divider(
-                color: Color.fromARGB(255, 238, 238, 238),
+                color: Constants.lightBorderColor,
               )),
             ]),
           ),
@@ -197,7 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 )),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
+            margin:
+                const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
