@@ -1,4 +1,5 @@
-import 'package:casca/screens/login_page/home_page.dart';
+import 'package:casca/utils/routes.dart';
+import 'package:casca/utils/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,15 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Casca',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(0, 0, 0, 0)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(),
+      themeMode: ThemeMode.system,
+      theme: CascaTheme.lightTheme,
+      darkTheme: CascaTheme.darkTheme,
+      routerConfig: CascaRouter().router,
     );
   }
 }
-
-

@@ -1,3 +1,4 @@
+import 'package:casca/utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -19,6 +20,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Container(
       margin: const EdgeInsets.only(top: 24),
       child: AppBar(
+        backgroundColor: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightPrimary
+                          : Constants.darkPrimary,
         leading: IconButton(
           onPressed: widget.leadingFunc,
           icon: Icon(widget.leadingIcon),

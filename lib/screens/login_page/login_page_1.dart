@@ -4,14 +4,14 @@ import 'package:casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class LoginPage1 extends StatefulWidget {
+  const LoginPage1({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage1> createState() => _LoginPage1State();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginPage1State extends State<LoginPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Align(
             alignment: Alignment.center,
             child: Image.asset(
-              "assets/images/1.png",
+              Theme.of(context).brightness == Brightness.light
+                  ? "assets/images/1-Light.png"
+                  : "assets/images/1-Dark.png",
               fit: BoxFit.contain,
               width: (MediaQuery.of(context).size.width - 170),
             ),
@@ -42,7 +44,9 @@ class _MyHomePageState extends State<MyHomePage> {
             style: GoogleFonts.urbanist(
                 fontSize: 38,
                 fontWeight: FontWeight.w800,
-                color: Constants.lightTextColor,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Constants.lightTextColor
+                    : Constants.darkTextColor,
                 letterSpacing: 1.75,
                 wordSpacing: 1.25,
                 fontStyle: FontStyle.normal),
@@ -84,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Row(children: [
               Expanded(
                   child: Divider(
-                color: Constants.lightBorderColor,
+                color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightBorderColor
+                          : Constants.darkBorderColor,
               )),
               Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
@@ -93,12 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: GoogleFonts.urbanist(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey.shade600,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey.shade600
+                            : Colors.grey.shade300,
                         fontStyle: FontStyle.normal),
                   )),
               Expanded(
                   child: Divider(
-                color: Constants.lightBorderColor,
+                color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightBorderColor
+                          : Constants.darkBorderColor,
               )),
             ]),
           ),
@@ -107,11 +117,15 @@ class _MyHomePageState extends State<MyHomePage> {
             width: double.infinity,
             height: 50,
             decoration: BoxDecoration(
-              color: Constants.lightSecondary,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Constants.lightSecondary
+                  : Constants.darkSecondary,
               borderRadius: BorderRadius.circular(25),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: Constants.lightSecondary,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightSecondary
+                      : Constants.darkSecondary,
                   blurRadius: 20.0,
                   spreadRadius: -20.0,
                   offset: const Offset(0.0, 20.0),
@@ -138,14 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: GoogleFonts.urbanist(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade600,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade600
+                          : Colors.grey.shade300,
                       fontStyle: FontStyle.normal,
                     )),
                 Text(" Sign up",
                     style: GoogleFonts.urbanist(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: Constants.lightSecondary,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightSecondary
+                          : Constants.darkSecondary,
                       fontStyle: FontStyle.normal,
                     )),
               ],

@@ -18,8 +18,13 @@ class _LoginWithWidgetState extends State<LoginWithWidget> {
       height: 50,
       margin: const EdgeInsets.only(left: 24, right: 24),
       decoration: BoxDecoration(
+        color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightCardFillColor
+                          : Constants.darkCardFillColor,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Constants.lightBorderColor)),
+          border: Border.all(color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightBorderColor
+                          : Constants.darkBorderColor)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,7 +38,9 @@ class _LoginWithWidgetState extends State<LoginWithWidget> {
             style: GoogleFonts.urbanist(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                color: Constants.lightTextColor,
+                color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
                 letterSpacing: 1.2,
                 fontStyle: FontStyle.normal),
           )
