@@ -1,9 +1,11 @@
 import 'dart:developer';
 
-import 'package:casca/screens/login_page/local_widgets/login_with_widget.dart';
+import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
 import 'package:casca/utils/consts.dart';
+import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage1 extends StatefulWidget {
@@ -18,7 +20,10 @@ class _LoginPage1State extends State<LoginPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          leadingIcon: Icons.arrow_back_rounded, leadingFunc: () {log('AppBar BackButton');}),
+          leadingIcon: Icons.arrow_back_rounded,
+          leadingFunc: () {
+            log('AppBar BackButton');
+          }),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,8 +49,8 @@ class _LoginPage1State extends State<LoginPage1> {
             "Let's you in",
             textAlign: TextAlign.center,
             style: GoogleFonts.urbanist(
-                fontSize: 38,
-                fontWeight: FontWeight.w800,
+                fontSize: 40,
+                fontWeight: FontWeight.w700,
                 color: Theme.of(context).brightness == Brightness.light
                     ? Constants.lightTextColor
                     : Constants.darkTextColor,
@@ -167,6 +172,7 @@ class _LoginPage1State extends State<LoginPage1> {
                 GestureDetector(
                   onTap: () {
                     log('Sign up');
+                    GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
                   },
                   child: Text(" Sign up",
                       style: GoogleFonts.urbanist(
