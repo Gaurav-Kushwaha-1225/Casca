@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:casca/screens/login_page/local_widgets/login_with_widget.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
@@ -16,7 +18,7 @@ class _LoginPage1State extends State<LoginPage1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          leadingIcon: Icons.arrow_back_rounded, leadingFunc: () {}),
+          leadingIcon: Icons.arrow_back_rounded, leadingFunc: () {log('AppBar BackButton');}),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,8 +91,8 @@ class _LoginPage1State extends State<LoginPage1> {
               Expanded(
                   child: Divider(
                 color: Theme.of(context).brightness == Brightness.light
-                          ? Constants.lightBorderColor
-                          : Constants.darkBorderColor,
+                    ? Constants.lightBorderColor
+                    : Constants.darkBorderColor,
               )),
               Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
@@ -107,39 +109,44 @@ class _LoginPage1State extends State<LoginPage1> {
               Expanded(
                   child: Divider(
                 color: Theme.of(context).brightness == Brightness.light
-                          ? Constants.lightBorderColor
-                          : Constants.darkBorderColor,
+                    ? Constants.lightBorderColor
+                    : Constants.darkBorderColor,
               )),
             ]),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightSecondary
-                  : Constants.darkSecondary,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightSecondary
-                      : Constants.darkSecondary,
-                  blurRadius: 20.0,
-                  spreadRadius: -20.0,
-                  offset: const Offset(0.0, 20.0),
-                )
-              ],
+          GestureDetector(
+            onTap: () {
+              log('Sign in with password');
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Constants.lightSecondary
+                    : Constants.darkSecondary,
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightSecondary
+                        : Constants.darkSecondary,
+                    blurRadius: 20.0,
+                    spreadRadius: -20.0,
+                    offset: const Offset(0.0, 20.0),
+                  )
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Text("Sign in with password",
+                  style: GoogleFonts.urbanist(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontStyle: FontStyle.normal,
+                  )),
             ),
-            alignment: Alignment.center,
-            child: Text("Sign in with password",
-                style: GoogleFonts.urbanist(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontStyle: FontStyle.normal,
-                )),
           ),
           Container(
             margin:
@@ -157,15 +164,20 @@ class _LoginPage1State extends State<LoginPage1> {
                           : Colors.grey.shade300,
                       fontStyle: FontStyle.normal,
                     )),
-                Text(" Sign up",
-                    style: GoogleFonts.urbanist(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Constants.lightSecondary
-                          : Constants.darkSecondary,
-                      fontStyle: FontStyle.normal,
-                    )),
+                GestureDetector(
+                  onTap: () {
+                    log('Sign up');
+                  },
+                  child: Text(" Sign up",
+                      style: GoogleFonts.urbanist(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Constants.lightSecondary
+                            : Constants.darkSecondary,
+                        fontStyle: FontStyle.normal,
+                      )),
+                ),
               ],
             ),
           )
