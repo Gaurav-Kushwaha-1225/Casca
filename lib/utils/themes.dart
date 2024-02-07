@@ -7,18 +7,24 @@ class CascaTheme {
   CascaTheme._();
 
   static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
     useMaterial3: true,
-    primaryColor: Constants.darkPrimary,
-    primaryColorDark: Constants.darkSecondary,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Constants.darkSecondary,
+      brightness: Brightness.dark,
+      primary: Constants.darkPrimary,
+      secondary: Constants.darkSecondary,
+    ),
     scaffoldBackgroundColor: Constants.darkPrimary,
   );
 
   static final ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
     useMaterial3: true,
-    primaryColor: Constants.lightPrimary,
-    primaryColorDark: Constants.lightSecondary,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Constants.lightSecondary,
+      brightness: Brightness.light,
+      primary: Constants.lightPrimary,
+      secondary: Constants.lightSecondary,
+    ),
     scaffoldBackgroundColor: Constants.lightPrimary,
   );
 }
