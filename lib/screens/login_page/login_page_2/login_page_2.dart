@@ -16,6 +16,11 @@ class LoginPage2 extends StatefulWidget {
 class _LoginPage2State extends State<LoginPage2> {
   final TextEditingController emailTextEditingController =
       TextEditingController();
+  final FocusNode emailFocusNode = FocusNode();
+  final TextEditingController passwordTextEditingController =
+      TextEditingController();
+  final FocusNode passwordFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +60,7 @@ class _LoginPage2State extends State<LoginPage2> {
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
               child: TextFormField(
                 autofocus: false,
+                focusNode: emailFocusNode,
                 controller: emailTextEditingController,
                 style: GoogleFonts.urbanist(
                     decoration: TextDecoration.none,
@@ -75,25 +81,24 @@ class _LoginPage2State extends State<LoginPage2> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15)),
                         gapPadding: 24),
+                    // TODO: prefix icon color when in focus
                     prefixIcon: Icon(
                       Icons.mail_rounded,
-                      // color: MaterialStateColor.resolveWith((states) => states
-                      //             .contains(MaterialState.focused) &&
-                      //         Theme.of(context).brightness == Brightness.light
-                      //     ? Constants.lightSecondary
-                      //     : MaterialStateColor.resolveWith(
-                      //         (states) => states
-                      //                     .contains(MaterialState.focused) &&
-                      //                 Theme.of(context).brightness ==
-                      //                     Brightness.dark
-                      //             ? Constants.darkSecondary
-                      //             : MaterialStateColor.resolveWith((states) =>
-                      //                 !states.contains(MaterialState.focused) &&
-                      //                         Theme.of(context).brightness ==
-                      //                             Brightness.light
-                      //                     ? Colors.grey.shade600
-                      //                     : Colors.grey.shade300),
-                      //       )),
+                      color: (emailFocusNode ==
+                                  FocusManager.instance.primaryFocus) &&
+                              Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightSecondary
+                          : (emailFocusNode ==
+                                      FocusManager.instance.primaryFocus) &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                              ? Constants.darkSecondary
+                              : (emailFocusNode !=
+                                          FocusManager.instance.primaryFocus) &&
+                                      Theme.of(context).brightness ==
+                                          Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
                       size: 25,
                     ),
                     hintText: 'Email',
@@ -106,22 +111,135 @@ class _LoginPage2State extends State<LoginPage2> {
                             : Colors.grey.shade300,
                         letterSpacing: 1.2,
                         fontStyle: FontStyle.normal),
-                    fillColor: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightCardFillColor
-                        : Constants.darkCardFillColor,
-                    // focusColor: Theme.of(context).brightness == Brightness.light
-                    //     ? Constants.lightSecondary.withOpacity(0.05)
-                    //     : Constants.darkSecondary.withOpacity(0.05),
+                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                    fillColor: (emailFocusNode ==
+                                FocusManager.instance.primaryFocus) &&
+                            Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightSecondary
+                        : (emailFocusNode == FocusManager.instance.primaryFocus) &&
+                                Theme.of(context).brightness == Brightness.dark
+                            ? Constants.darkSecondary
+                            : (emailFocusNode != FocusManager.instance.primaryFocus) &&
+                                    Theme.of(context).brightness ==
+                                        Brightness.light
+                                ? Constants.lightCardFillColor
+                                : Constants.darkCardFillColor,
+                    // focusColor: (emailFocusNode ==
+                    //             FocusManager.instance.primaryFocus) &&
+                    //         Theme.of(context).brightness == Brightness.light
+                    //     ? Constants.lightSecondary
+                    //     : (emailFocusNode == FocusManager.instance.primaryFocus) &&
+                    //             Theme.of(context).brightness == Brightness.dark
+                    //         ? Constants.darkSecondary
+                    //         : (emailFocusNode != FocusManager.instance.primaryFocus) &&
+                    //                 Theme.of(context).brightness == Brightness.light
+                    //             ? Constants.lightSecondary.withOpacity(0.05)
+                    //             : Constants.darkSecondary.withOpacity(0.05),
                     filled: true,
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Constants.lightSecondary : Constants.darkSecondary), borderRadius: const BorderRadius.all(Radius.circular(15)), gapPadding: 24)),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+              child: TextFormField(
+                autofocus: false,
+                focusNode: passwordFocusNode,
+                controller: passwordTextEditingController,
+                style: GoogleFonts.urbanist(
+                    decoration: TextDecoration.none,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightTextColor
+                        : Constants.darkTextColor,
+                    letterSpacing: 1.2,
+                    fontStyle: FontStyle.normal),
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary),
+                                    ? Constants.lightBorderColor
+                                    : Constants.darkBorderColor),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15)),
-                        gapPadding: 24)),
+                        gapPadding: 24),
+                    // TODO: prefix icon color when in focus
+                    prefixIcon: Icon(
+                      Icons.lock_outline_rounded,
+                      color: (passwordFocusNode ==
+                                  FocusManager.instance.primaryFocus) &&
+                              Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightSecondary
+                          : (passwordFocusNode ==
+                                      FocusManager.instance.primaryFocus) &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                              ? Constants.darkSecondary
+                              : (passwordFocusNode !=
+                                          FocusManager.instance.primaryFocus) &&
+                                      Theme.of(context).brightness ==
+                                          Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                      size: 25,
+                    ),
+                    // TODO: Suffix icon change when pressed
+                    suffixIcon: Icon(
+                      Icons.remove_red_eye_rounded,
+                      color: (passwordFocusNode ==
+                                  FocusManager.instance.primaryFocus) &&
+                              Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightSecondary
+                          : (passwordFocusNode ==
+                                      FocusManager.instance.primaryFocus) &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                              ? Constants.darkSecondary
+                              : (passwordFocusNode !=
+                                          FocusManager.instance.primaryFocus) &&
+                                      Theme.of(context).brightness ==
+                                          Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                      size: 25,
+                    ),
+                    hintText: 'Passowrd',
+                    hintStyle: GoogleFonts.urbanist(
+                        decoration: TextDecoration.none,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey.shade600
+                            : Colors.grey.shade300,
+                        letterSpacing: 1.2,
+                        fontStyle: FontStyle.normal),
+                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                    fillColor: (passwordFocusNode ==
+                                FocusManager.instance.primaryFocus) &&
+                            Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightSecondary
+                        : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
+                                Theme.of(context).brightness == Brightness.dark
+                            ? Constants.darkSecondary
+                            : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
+                                    Theme.of(context).brightness ==
+                                        Brightness.light
+                                ? Constants.lightCardFillColor
+                                : Constants.darkCardFillColor,
+                    // focusColor: (passwordFocusNode ==
+                    //             FocusManager.instance.primaryFocus) &&
+                    //         Theme.of(context).brightness == Brightness.light
+                    //     ? Constants.lightSecondary
+                    //     : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
+                    //             Theme.of(context).brightness == Brightness.dark
+                    //         ? Constants.darkSecondary
+                    //         : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
+                    //                 Theme.of(context).brightness == Brightness.light
+                    //             ? Constants.lightSecondary.withOpacity(0.05)
+                    //             : Constants.darkSecondary.withOpacity(0.05),
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Constants.lightSecondary : Constants.darkSecondary), borderRadius: const BorderRadius.all(Radius.circular(15)), gapPadding: 24)),
               ),
             ),
           ]),
