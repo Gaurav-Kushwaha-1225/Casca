@@ -163,7 +163,7 @@ class _LoginPage1State extends State<LoginPage1> {
                 Text("Don't have an account? ",
                     style: GoogleFonts.urbanist(
                       fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: Theme.of(context).brightness == Brightness.light
                           ? Colors.grey.shade600
                           : Colors.grey.shade300,
