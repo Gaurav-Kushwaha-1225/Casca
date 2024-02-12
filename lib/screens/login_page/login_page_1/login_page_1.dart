@@ -122,6 +122,7 @@ class _LoginPage1State extends State<LoginPage1> {
           GestureDetector(
             onTap: () {
               log('Sign in with password');
+              GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage3);
             },
             child: Container(
               margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
