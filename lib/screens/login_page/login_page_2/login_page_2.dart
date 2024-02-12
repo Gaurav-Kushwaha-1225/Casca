@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:casca/utils/consts.dart';
+import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage2 extends StatefulWidget {
@@ -477,7 +479,7 @@ class _LoginPage2State extends State<LoginPage2> {
                   GestureDetector(
                     onTap: () {
                       log('Sign in');
-                      // GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
+                      GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage3);
                     },
                     child: Text(" Sign in",
                         style: GoogleFonts.urbanist(

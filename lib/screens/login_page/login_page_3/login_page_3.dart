@@ -503,7 +503,7 @@ class _LoginPage3State extends State<LoginPage3> {
                     onTap: () {
                       log('Sign up');
                       GoRouter.of(context)
-                          .pushNamed(CascaRoutesNames.loginPage2);
+                          .pushReplacementNamed(CascaRoutesNames.loginPage2);
                     },
                     child: Text(" Sign up",
                         style: GoogleFonts.urbanist(
