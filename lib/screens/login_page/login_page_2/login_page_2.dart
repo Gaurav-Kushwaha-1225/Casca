@@ -23,7 +23,8 @@ class _LoginPage2State extends State<LoginPage2> {
   bool passwordRememberMe = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(resizeToAvoidBottomInset: false,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
           leadingIcon: Icons.arrow_back_rounded,
           leadingFunc: () {
@@ -33,7 +34,7 @@ class _LoginPage2State extends State<LoginPage2> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(),
+            const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(
                   left: 24, right: 24, bottom: 35, top: 50),
@@ -52,7 +53,7 @@ class _LoginPage2State extends State<LoginPage2> {
                 textAlign: TextAlign.left,
               ),
             ),
-            const SizedBox(),
+            const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
               height: 53,
