@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
+import 'package:casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -315,40 +316,7 @@ class _LoginPage3State extends State<LoginPage3> {
             const SizedBox(
               height: 5,
             ),
-            GestureDetector(
-              onTap: () {
-                log('Sign in');
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: 24, right: 24),
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightSecondary
-                      : Constants.darkSecondary,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Constants.lightSecondary
-                          : Constants.darkSecondary,
-                      blurRadius: 20.0,
-                      spreadRadius: -20.0,
-                      offset: const Offset(0.0, 20.0),
-                    )
-                  ],
-                ),
-                alignment: Alignment.center,
-                child: Text("Sign in",
-                    style: GoogleFonts.urbanist(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      fontStyle: FontStyle.normal,
-                    )),
-              ),
-            ),
+            const ScreenWidthButton(text: "Sign up", route: CascaRoutesNames.loginPage1),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
               alignment: Alignment.center,

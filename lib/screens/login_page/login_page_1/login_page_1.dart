@@ -4,12 +4,13 @@ import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_w
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
+import 'package:casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage1 extends StatefulWidget {
-  const LoginPage1({super.key});
+  const LoginPage1({Key? key}) : super(key: key);
 
   @override
   State<LoginPage1> createState() => _LoginPage1State();
@@ -91,7 +92,7 @@ class _LoginPage1State extends State<LoginPage1> {
               ),
               text: "Continue with Apple"),
           Container(
-            margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
+            margin: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
             child: Row(children: [
               Expanded(
                   child: Divider(
@@ -119,41 +120,9 @@ class _LoginPage1State extends State<LoginPage1> {
               )),
             ]),
           ),
-          GestureDetector(
-            onTap: () {
-              log('Sign in with password');
-              GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage3);
-            },
-            child: Container(
-              margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Constants.lightSecondary
-                    : Constants.darkSecondary,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightSecondary
-                        : Constants.darkSecondary,
-                    blurRadius: 20.0,
-                    spreadRadius: -20.0,
-                    offset: const Offset(0.0, 20.0),
-                  )
-                ],
-              ),
-              alignment: Alignment.center,
-              child: Text("Sign in with password",
-                  style: GoogleFonts.urbanist(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    fontStyle: FontStyle.normal,
-                  )),
-            ),
-          ),
+          const ScreenWidthButton(
+              text: "Sign in with password",
+              route: CascaRoutesNames.loginPage3),
           Container(
             margin:
                 const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
