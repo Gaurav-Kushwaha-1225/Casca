@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
+import 'package:casca/screens/login_page/loca_widgets/remember_me_check_box.dart';
 import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
@@ -26,7 +27,7 @@ class _LoginPage3State extends State<LoginPage3> {
       TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
-  bool passwordRememberMe = false;
+  bool loginPasswordRememberMe = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -263,58 +264,7 @@ class _LoginPage3State extends State<LoginPage3> {
                         gapPadding: 24)),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, right: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    side: MaterialStateBorderSide.resolveWith(
-                      (Set<MaterialState> states) {
-                        return BorderSide(color: Constants.lightSecondary);
-                      },
-                    ),
-                    value: passwordRememberMe,
-                    onChanged: (x) {
-                      passwordRememberMe = !passwordRememberMe;
-                      setState(() {});
-                    },
-                    focusColor: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightSecondary
-                        : Constants.darkSecondary,
-                    hoverColor: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightSecondary
-                        : Constants.darkSecondary,
-                    checkColor: Colors.white,
-                    fillColor: passwordRememberMe
-                        ? MaterialStatePropertyAll(Constants.lightSecondary)
-                        : MaterialStatePropertyAll(
-                            Theme.of(context).brightness == Brightness.light
-                                ? Constants.lightPrimary
-                                : Constants.darkPrimary),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        side: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary)),
-                  ),
-                  Text(
-                    "Remember me",
-                    style: GoogleFonts.urbanist(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightTextColor
-                            : Constants.darkTextColor,
-                        letterSpacing: 1.2,
-                        fontStyle: FontStyle.normal),
-                  )
-                ],
-              ),
-            ),
+            RememberMeCheckBox(passwordRememberMe: loginPasswordRememberMe),
             const SizedBox(
               height: 5,
             ),
@@ -347,7 +297,7 @@ class _LoginPage3State extends State<LoginPage3> {
             const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
             const ElseSigninSignupOptions(
-                text_1: "Already have an account? ",
+                text_1: "Don't have an account? ",
                 text_2: " Sign up",
                 route: CascaRoutesNames.loginPage2),
           ]),
