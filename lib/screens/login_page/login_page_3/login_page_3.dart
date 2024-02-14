@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
+import 'package:casca/screens/login_page/loca_widgets/main_text.dart';
 import 'package:casca/screens/login_page/loca_widgets/remember_me_check_box.dart';
 import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
@@ -44,22 +45,9 @@ class _LoginPage3State extends State<LoginPage3> {
             Container(
               margin: const EdgeInsets.only(
                   left: 24, right: 24, bottom: 25, top: 40),
-              child: Text(
-                "Login to your\nAccount",
-                style: GoogleFonts.urbanist(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightTextColor
-                      : Constants.darkTextColor,
-                  letterSpacing: 1.75,
-                  wordSpacing: 1.25,
-                  fontStyle: FontStyle.normal,
-                ),
-                textAlign: TextAlign.left,
-              ),
+              child: const MainText(text: "Login to your\nAccount",),
             ),
-            // const Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
               height: 53,

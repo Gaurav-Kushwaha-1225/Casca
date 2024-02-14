@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
+import 'package:casca/screens/login_page/loca_widgets/main_text.dart';
 import 'package:casca/screens/login_page/loca_widgets/remember_me_check_box.dart';
 import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
@@ -42,23 +43,9 @@ class _LoginPage2State extends State<LoginPage2> {
           children: [
             const Expanded(child: SizedBox()),
             Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, bottom: 35, top: 50),
-              child: Text(
-                "Create your\nAccount",
-                style: GoogleFonts.urbanist(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightTextColor
-                      : Constants.darkTextColor,
-                  letterSpacing: 1.75,
-                  wordSpacing: 1.25,
-                  fontStyle: FontStyle.normal,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
+                margin: const EdgeInsets.only(
+                    left: 24, right: 24, bottom: 35, top: 50),
+                child: const MainText(text: "Create your\nAccount")),
             const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
@@ -269,7 +256,8 @@ class _LoginPage2State extends State<LoginPage2> {
               height: 5,
             ),
             // TODO: random page allocation
-            const ScreenWidthButton(text: "Sign up", route: CascaRoutesNames.loginPage1),
+            const ScreenWidthButton(
+                text: "Sign up", route: CascaRoutesNames.loginPage1),
             const Expanded(
               child: SizedBox(height: 50),
             ),

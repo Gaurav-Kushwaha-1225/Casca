@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
 import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
+import 'package:casca/screens/login_page/loca_widgets/main_text.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
@@ -47,19 +48,7 @@ class _LoginPage1State extends State<LoginPage1> {
           const Expanded(
             child: SizedBox(height: 10),
           ),
-          Text(
-            "Let's you in",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.urbanist(
-                fontSize: 40,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Constants.lightTextColor
-                    : Constants.darkTextColor,
-                letterSpacing: 1.75,
-                wordSpacing: 1.25,
-                fontStyle: FontStyle.normal),
-          ),
+          const MainText(text: "Let's you in"),
           const Expanded(
             child: SizedBox(
               height: 13,
