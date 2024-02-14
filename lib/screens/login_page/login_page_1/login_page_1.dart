@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
 import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
 import 'package:casca/utils/consts.dart';
@@ -7,7 +8,6 @@ import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage1 extends StatefulWidget {
@@ -92,35 +92,13 @@ class _LoginPage1State extends State<LoginPage1> {
                 size: 32,
               ),
               text: "Continue with Apple"),
-          Container(
-            margin: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
-            child: Row(children: [
-              Expanded(
-                  child: Divider(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Constants.lightBorderColor
-                    : Constants.darkBorderColor,
-              )),
-              Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Text(
-                    "or",
-                    style: GoogleFonts.urbanist(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                        fontStyle: FontStyle.normal),
-                  )),
-              Expanded(
-                  child: Divider(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Constants.lightBorderColor
-                    : Constants.darkBorderColor,
-              )),
-            ]),
-          ),
+          const Expanded(
+              child: SizedBox(height: 24),
+            ),
+          const AuthPageDivider(text: "or"),
+          const Expanded(
+              child: SizedBox(height: 24),
+            ),
           const ScreenWidthButton(
               text: "Sign in with password",
               route: CascaRoutesNames.loginPage3),

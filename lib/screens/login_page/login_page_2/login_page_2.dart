@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
+import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage2 extends StatefulWidget {
@@ -319,117 +320,11 @@ class _LoginPage2State extends State<LoginPage2> {
             ),
             // TODO: random page allocation
             const ScreenWidthButton(text: "Sign up", route: CascaRoutesNames.loginPage1),
-            Container(
-              margin: const EdgeInsets.only(left: 24, right: 24, top: 50),
-              child: Row(children: [
-                Expanded(
-                    child: Divider(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightBorderColor
-                      : Constants.darkBorderColor,
-                )),
-                Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: Text(
-                      "or continue with",
-                      style: GoogleFonts.urbanist(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Colors.grey.shade600
-                                  : Colors.grey.shade300,
-                          fontStyle: FontStyle.normal),
-                    )),
-                Expanded(
-                    child: Divider(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightBorderColor
-                      : Constants.darkBorderColor,
-                )),
-              ]),
+            const Expanded(
+              child: SizedBox(height: 50),
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        log("Facebook Button Pressed");
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 75,
-                        decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightCardFillColor
-                                    : Constants.darkCardFillColor,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor)),
-                        child: Icon(Icons.facebook_rounded,
-                            color: Colors.blue.shade900, size: 27),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        log("Google Button Pressed");
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 75,
-                        decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightCardFillColor
-                                    : Constants.darkCardFillColor,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor)),
-                        child: Image.asset(
-                          "assets/images/google_icon.png",
-                          fit: BoxFit.scaleDown,
-                          width: 0,
-                          height: 0,
-                          scale: 1.85,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        log("Apple Button Pressed");
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 75,
-                        decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightCardFillColor
-                                    : Constants.darkCardFillColor,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor)),
-                        child: const Icon(
-                          Icons.apple_rounded,
-                          size: 27,
-                        ),
-                      ),
-                    ),
-                  ]),
-            ),
+            const AuthPageDivider(text: "or continue with"),
+            const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
             const ElseSigninSignupOptions(
                 text_1: "Already have an account? ",

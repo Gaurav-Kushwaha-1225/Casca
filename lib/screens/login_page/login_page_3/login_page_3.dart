@@ -1,12 +1,12 @@
 import 'dart:developer';
 
+import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
 import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
-import 'package:casca/screens/login_page/login_page_3/local_widgets/sign_in_options.dart';
+import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/routes_consts.dart';
@@ -343,36 +343,7 @@ class _LoginPage3State extends State<LoginPage3> {
             const Expanded(
               child: SizedBox(height: 20),
             ),
-            Container(
-              margin: const EdgeInsets.only(left: 24, right: 24),
-              child: Row(children: [
-                Expanded(
-                    child: Divider(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightBorderColor
-                      : Constants.darkBorderColor,
-                )),
-                Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: Text(
-                      "or continue with",
-                      style: GoogleFonts.urbanist(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Colors.grey.shade600
-                                  : Colors.grey.shade300,
-                          fontStyle: FontStyle.normal),
-                    )),
-                Expanded(
-                    child: Divider(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Constants.lightBorderColor
-                      : Constants.darkBorderColor,
-                )),
-              ]),
-            ),
+            const AuthPageDivider(text: "or continue with"),
             const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
             const ElseSigninSignupOptions(

@@ -4,7 +4,9 @@ import 'package:casca/utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class SignInOptionsButton extends StatefulWidget {
-  const SignInOptionsButton({super.key});
+  const SignInOptionsButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SignInOptionsButton> createState() => _SignInOptionsButtonState();
