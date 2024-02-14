@@ -317,6 +317,7 @@ class _LoginPage2State extends State<LoginPage2> {
             const SizedBox(
               height: 5,
             ),
+            // TODO: random page allocation
             const ScreenWidthButton(text: "Sign up", route: CascaRoutesNames.loginPage1),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, top: 50),
