@@ -8,10 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RememberMeCheckBox extends StatefulWidget {
   bool passwordRememberMe;
-  RememberMeCheckBox({
-    Key? key,
-    this.passwordRememberMe = false
-  }) : super(key: key);
+  RememberMeCheckBox({Key? key, this.passwordRememberMe = false})
+      : super(key: key);
 
   @override
   State<RememberMeCheckBox> createState() => _RememberMeCheckBoxState();

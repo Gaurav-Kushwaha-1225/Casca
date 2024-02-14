@@ -82,19 +82,19 @@ class _LoginPage1State extends State<LoginPage1> {
               ),
               text: "Continue with Apple"),
           const Expanded(
-              child: SizedBox(height: 24),
-            ),
+            child: SizedBox(height: 24),
+          ),
           const AuthPageDivider(text: "or"),
           const Expanded(
-              child: SizedBox(height: 24),
-            ),
+            child: SizedBox(height: 24),
+          ),
           const ScreenWidthButton(
               text: "Sign in with password",
               route: CascaRoutesNames.loginPage3),
           const ElseSigninSignupOptions(
-                text_1: "Don't have an account? ",
-                text_2: " Sign up",
-                route: CascaRoutesNames.loginPage2),
+              text_1: "Don't have an account? ",
+              text_2: " Sign up",
+              route: CascaRoutesNames.loginPage2),
         ],
       ),
     );

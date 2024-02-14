@@ -45,7 +45,9 @@ class _LoginPage3State extends State<LoginPage3> {
             Container(
               margin: const EdgeInsets.only(
                   left: 24, right: 24, bottom: 25, top: 40),
-              child: const MainText(text: "Login to your\nAccount",),
+              child: const MainText(
+                text: "Login to your\nAccount",
+              ),
             ),
             const Expanded(child: SizedBox()),
             Container(

@@ -21,13 +21,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
       margin: const EdgeInsets.only(top: 24),
       child: AppBar(
         backgroundColor: Theme.of(context).brightness == Brightness.light
-                          ? Constants.lightPrimary
-                          : Constants.darkPrimary,
+            ? Constants.lightPrimary
+            : Constants.darkPrimary,
         leading: IconButton(
           onPressed: widget.leadingFunc,
           icon: Icon(widget.leadingIcon),
           splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         ),
       ),
     );

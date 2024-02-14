@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MainText extends StatelessWidget {
   final String text;
-  const MainText({
-    Key? key,
-    required this.text
-  }) : super(key: key);
+  const MainText({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

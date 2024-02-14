@@ -17,47 +17,45 @@ class ElseSigninSignupOptions extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ElseSigninSignupOptions> createState() => _ElseSigninSignupOptionsState();
+  State<ElseSigninSignupOptions> createState() =>
+      _ElseSigninSignupOptionsState();
 }
 
 class _ElseSigninSignupOptionsState extends State<ElseSigninSignupOptions> {
   @override
   Widget build(BuildContext context) {
     return Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, top: 24, bottom: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(widget.text_1,
-                      style: GoogleFonts.urbanist(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                        fontStyle: FontStyle.normal,
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      log(widget.text_2);
-                      GoRouter.of(context)
-                          .pushReplacementNamed(widget.route);
-                    },
-                    child: Text(widget.text_2,
-                        style: GoogleFonts.urbanist(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Constants.lightSecondary
-                                  : Constants.darkSecondary,
-                          fontStyle: FontStyle.normal,
-                        )),
-                  ),
-                ],
-              ),
-            );
+      margin: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(widget.text_1,
+              style: GoogleFonts.urbanist(
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey.shade600
+                    : Colors.grey.shade300,
+                fontStyle: FontStyle.normal,
+              )),
+          GestureDetector(
+            onTap: () {
+              log(widget.text_2);
+              GoRouter.of(context).pushReplacementNamed(widget.route);
+            },
+            child: Text(widget.text_2,
+                style: GoogleFonts.urbanist(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightSecondary
+                      : Constants.darkSecondary,
+                  fontStyle: FontStyle.normal,
+                )),
+          ),
+        ],
+      ),
+    );
   }
 }
