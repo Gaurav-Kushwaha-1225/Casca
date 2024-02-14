@@ -1,9 +1,10 @@
 import 'dart:developer';
 
+import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
-import 'package:casca/widgets/screen_width_button.dart';
+import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -428,42 +429,11 @@ class _LoginPage2State extends State<LoginPage2> {
                     ),
                   ]),
             ),
-            Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, top: 50, bottom: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Already have an account? ",
-                      style: GoogleFonts.urbanist(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                        fontStyle: FontStyle.normal,
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      log('Sign in');
-                      GoRouter.of(context)
-                          .pushReplacementNamed(CascaRoutesNames.loginPage3);
-                    },
-                    child: Text(" Sign in",
-                        style: GoogleFonts.urbanist(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? Constants.lightSecondary
-                                  : Constants.darkSecondary,
-                          fontStyle: FontStyle.normal,
-                        )),
-                  ),
-                ],
-              ),
-            )
+            const Expanded(child: SizedBox()),
+            const ElseSigninSignupOptions(
+                text_1: "Already have an account? ",
+                text_2: " Sign in",
+                route: CascaRoutesNames.loginPage3),
           ]),
     );
   }

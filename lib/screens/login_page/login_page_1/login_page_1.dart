@@ -1,10 +1,11 @@
 import 'dart:developer';
 
+import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
 import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
-import 'package:casca/widgets/screen_width_button.dart';
+import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -123,40 +124,10 @@ class _LoginPage1State extends State<LoginPage1> {
           const ScreenWidthButton(
               text: "Sign in with password",
               route: CascaRoutesNames.loginPage3),
-          Container(
-            margin:
-                const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Don't have an account? ",
-                    style: GoogleFonts.urbanist(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.grey.shade600
-                          : Colors.grey.shade300,
-                      fontStyle: FontStyle.normal,
-                    )),
-                GestureDetector(
-                  onTap: () {
-                    log('Sign up');
-                    GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
-                  },
-                  child: Text(" Sign up",
-                      style: GoogleFonts.urbanist(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightSecondary
-                            : Constants.darkSecondary,
-                        fontStyle: FontStyle.normal,
-                      )),
-                ),
-              ],
-            ),
-          )
+          const ElseSigninSignupOptions(
+                text_1: "Don't have an account? ",
+                text_2: " Sign up",
+                route: CascaRoutesNames.loginPage2),
         ],
       ),
     );
