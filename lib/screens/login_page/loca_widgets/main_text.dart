@@ -10,7 +10,7 @@ class MainText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.left,
       style: GoogleFonts.urbanist(
           fontSize: 40,
           fontWeight: FontWeight.w700,

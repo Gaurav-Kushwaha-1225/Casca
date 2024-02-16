@@ -42,9 +42,10 @@ class _LoginPage3State extends State<LoginPage3> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(
-                  left: 24, right: 24, bottom: 25, top: 40),
+                  left: 24, right: 24, bottom: 25, top: 50),
               child: const MainText(
                 text: "Login to your\nAccount",
               ),
