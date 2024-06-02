@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:casca/utils/consts.dart';
+import 'package:casca/widgets/under_development_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +19,11 @@ class _LoginWithWidgetState extends State<LoginWithWidget> {
     return GestureDetector(
       onTap: () {
         log(widget.text);
+        showDialog(
+            context: context,
+            builder: (ctx) => UnderDevelopmentFeature(
+                text:
+                    "${widget.text} feature is currently under development."));
       },
       child: Container(
         height: 50,
