@@ -9,6 +9,7 @@ import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage1 extends StatefulWidget {
   const LoginPage1({Key? key}) : super(key: key);
@@ -88,9 +89,13 @@ class _LoginPage1State extends State<LoginPage1> {
           const Expanded(
             child: SizedBox(height: 24),
           ),
-          const ScreenWidthButton(
+          ScreenWidthButton(
               text: "Sign in with password",
-              route: CascaRoutesNames.loginPage3),
+              route: CascaRoutesNames.loginPage3,
+              buttonFunc: () {
+                GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage3);
+                log("Worked Fine :)");
+              }),
           const ElseSigninSignupOptions(
               text_1: "Don't have an account? ",
               text_2: " Sign up",

@@ -10,6 +10,7 @@ import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/routes_consts.dart';
@@ -261,8 +262,14 @@ class _LoginPage3State extends State<LoginPage3> {
             const SizedBox(
               height: 5,
             ),
-            const ScreenWidthButton(
-                text: "Sign up", route: CascaRoutesNames.loginPage1),
+            ScreenWidthButton(
+              text: "Sign up",
+              route: CascaRoutesNames.loginPage1,
+              buttonFunc: () {
+                GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage1);
+                log("Worked Fine :)");
+              },
+            ),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
               alignment: Alignment.center,

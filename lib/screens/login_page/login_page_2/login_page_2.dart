@@ -28,6 +28,9 @@ class _LoginPage2State extends State<LoginPage2> {
       TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
+  String? errorTextValue;
+  final GlobalKey<FormState> emailKey = GlobalKey();
+
   bool signupPasswordRememberMe = false;
   @override
   Widget build(BuildContext context) {
@@ -51,94 +54,86 @@ class _LoginPage2State extends State<LoginPage2> {
             const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
-              height: 53,
-              child: TextFormField(
-                autofocus: false,
-                focusNode: emailFocusNode,
-                controller: emailTextEditingController,
-                style: GoogleFonts.urbanist(
-                    decoration: TextDecoration.none,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightTextColor
-                        : Constants.darkTextColor,
-                    letterSpacing: 1.2,
-                    fontStyle: FontStyle.normal),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24),
-                    // TODO: prefix icon color when in focus
-                    prefixIcon: Icon(
-                      Icons.mail_rounded,
-                      color:
-                          // (emailFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (emailFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (emailFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    hintText: 'Email',
-                    hintStyle: GoogleFonts.urbanist(
-                        decoration: TextDecoration.none,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+              child: Form(
+                key: emailKey,
+                child: TextFormField(
+                  autofocus: false,
+                  focusNode: emailFocusNode,
+                  controller: emailTextEditingController,
+                  validator: (value) {
+                    final bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value!);
+                    if (!emailValid) {
+                      return "Please enter a valid email address.";
+                    } else {
+                      return null;
+                    }
+                  },
+                  style: GoogleFonts.urbanist(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.normal),
+                  decoration: InputDecoration(
+                      errorText: errorTextValue,
+                      errorStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.red.shade600
+                              : Colors.red.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightBorderColor
+                                      : Constants.darkBorderColor),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      // TODO: prefix icon color when in focus
+                      prefixIcon: Icon(
+                        Icons.mail_rounded,
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade600
                             : Colors.grey.shade300,
-                        letterSpacing: 1.2,
-                        fontStyle: FontStyle.normal),
-                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
-                    fillColor:
-                        // (emailFocusNode ==
-                        //             FocusManager.instance.primaryFocus) &&
-                        //         Theme.of(context).brightness == Brightness.light
-                        //     ? Constants.lightSecondary
-                        //     : (emailFocusNode == FocusManager.instance.primaryFocus) &&
-                        //             Theme.of(context).brightness == Brightness.dark
-                        //         ? Constants.darkSecondary
-                        //         : (emailFocusNode != FocusManager.instance.primaryFocus) &&
-                        Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightCardFillColor
-                            : Constants.darkCardFillColor,
-                    // focusColor: (emailFocusNode ==
-                    //             FocusManager.instance.primaryFocus) &&
-                    //         Theme.of(context).brightness == Brightness.light
-                    //     ? Constants.lightSecondary
-                    //     : (emailFocusNode == FocusManager.instance.primaryFocus) &&
-                    //             Theme.of(context).brightness == Brightness.dark
-                    //         ? Constants.darkSecondary
-                    //         : (emailFocusNode != FocusManager.instance.primaryFocus) &&
-                    //                 Theme.of(context).brightness == Brightness.light
-                    //             ? Constants.lightSecondary.withOpacity(0.05)
-                    //             : Constants.darkSecondary.withOpacity(0.05),
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24)),
+                        size: 18,
+                      ),
+                      hintText: 'Email',
+                      hintStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                      fillColor: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightCardFillColor
+                          : Constants.darkCardFillColor,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary),
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
+                      errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                ),
               ),
             ),
             Container(
@@ -170,44 +165,20 @@ class _LoginPage2State extends State<LoginPage2> {
                     // TODO: prefix icon color when in focus
                     prefixIcon: Icon(
                       Icons.lock_outline_rounded,
-                      color:
-                          // (passwordFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (passwordFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (passwordFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade600
+                          : Colors.grey.shade300,
                       size: 18,
                     ),
                     // TODO: Suffix icon change when pressed
                     suffixIcon: Icon(
                       Icons.remove_red_eye_rounded,
-                      color:
-                          // (passwordFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (passwordFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (passwordFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade600
+                          : Colors.grey.shade300,
                       size: 18,
                     ),
-                    hintText: 'Passowrd',
+                    hintText: 'Password',
                     hintStyle: GoogleFonts.urbanist(
                         decoration: TextDecoration.none,
                         fontSize: 15,
@@ -218,29 +189,9 @@ class _LoginPage2State extends State<LoginPage2> {
                         letterSpacing: 1.2,
                         fontStyle: FontStyle.normal),
                     // TODO: Change fill color according to UI when in focus and dark theme or light theme
-                    fillColor:
-                        // (passwordFocusNode ==
-                        //             FocusManager.instance.primaryFocus) &&
-                        //         Theme.of(context).brightness == Brightness.light
-                        //     ? Constants.lightSecondary
-                        //     : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
-                        //             Theme.of(context).brightness == Brightness.dark
-                        //         ? Constants.darkSecondary
-                        //         : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
-                        Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightCardFillColor
-                            : Constants.darkCardFillColor,
-                    // focusColor: (passwordFocusNode ==
-                    //             FocusManager.instance.primaryFocus) &&
-                    //         Theme.of(context).brightness == Brightness.light
-                    //     ? Constants.lightSecondary
-                    //     : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
-                    //             Theme.of(context).brightness == Brightness.dark
-                    //         ? Constants.darkSecondary
-                    //         : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
-                    //                 Theme.of(context).brightness == Brightness.light
-                    //             ? Constants.lightSecondary.withOpacity(0.05)
-                    //             : Constants.darkSecondary.withOpacity(0.05),
+                    fillColor: Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightCardFillColor
+                        : Constants.darkCardFillColor,
                     filled: true,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -258,8 +209,14 @@ class _LoginPage2State extends State<LoginPage2> {
               height: 5,
             ),
             // TODO: random page allocation
-            const ScreenWidthButton(
-                text: "Sign up", route: CascaRoutesNames.loginPage1),
+            ScreenWidthButton(
+                text: "Sign up",
+                route: CascaRoutesNames.loginPage1,
+                buttonFunc: () {
+                  final bool isValid = emailKey.currentState!.validate();
+                  log(emailTextEditingController.text);
+                  log(passwordTextEditingController.text);
+                }),
             const Expanded(
               child: SizedBox(height: 50),
             ),

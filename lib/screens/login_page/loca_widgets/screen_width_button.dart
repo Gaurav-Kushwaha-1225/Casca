@@ -8,10 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 class ScreenWidthButton extends StatefulWidget {
   final String text;
   final String route;
+  final Function() buttonFunc;
   const ScreenWidthButton({
     Key? key,
     required this.text,
     required this.route,
+    required this.buttonFunc
   }) : super(key: key);
 
   @override
@@ -24,8 +26,8 @@ class _ScreenWidthButtonState extends State<ScreenWidthButton> {
     return GestureDetector(
       onTap: () {
         log(widget.text);
-        GoRouter.of(context).pushReplacementNamed(widget.route);
-      },
+        widget.buttonFunc();
+        },
       child: Container(
         margin: const EdgeInsets.only(left: 24, right: 24),
         width: double.infinity,
