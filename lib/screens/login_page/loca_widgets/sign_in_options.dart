@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:casca/utils/consts.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/under_development_feature.dart';
+
 class SignInOptionsButton extends StatefulWidget {
   const SignInOptionsButton({
     Key? key,
@@ -24,6 +26,11 @@ class _SignInOptionsButtonState extends State<SignInOptionsButton> {
             GestureDetector(
               onTap: () {
                 log("Facebook Button Pressed");
+                showDialog(
+                    context: context,
+                    builder: (ctx) => const UnderDevelopmentFeature(
+                        text:
+                        "Facebook Button Pressed feature is currently under development."));
               },
               child: Container(
                 height: 50,
@@ -44,6 +51,11 @@ class _SignInOptionsButtonState extends State<SignInOptionsButton> {
             GestureDetector(
               onTap: () {
                 log("Google Button Pressed");
+                showDialog(
+                    context: context,
+                    builder: (ctx) => const UnderDevelopmentFeature(
+                        text:
+                        "Google Button Pressed feature is currently under development."));
               },
               child: Container(
                 height: 50,
@@ -69,6 +81,11 @@ class _SignInOptionsButtonState extends State<SignInOptionsButton> {
             GestureDetector(
               onTap: () {
                 log("Apple Button Pressed");
+                showDialog(
+                    context: context,
+                    builder: (ctx) => const UnderDevelopmentFeature(
+                        text:
+                        "Apple Button Pressed feature is currently under development."));
               },
               child: Container(
                 height: 50,

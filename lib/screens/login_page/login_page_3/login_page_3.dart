@@ -9,6 +9,7 @@ import 'package:casca/utils/consts.dart';
 import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/routes_consts.dart';
@@ -37,6 +38,7 @@ class _LoginPage3State extends State<LoginPage3> {
           leadingIcon: Icons.arrow_back_rounded,
           leadingFunc: () {
             log('AppBar BackButton');
+            SystemNavigator.pop();
           }),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
