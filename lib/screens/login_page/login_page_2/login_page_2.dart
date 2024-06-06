@@ -28,8 +28,18 @@ class _LoginPage2State extends State<LoginPage2> {
       TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
 
-  String? errorTextValue;
+  String? errorEmailValue;
   final GlobalKey<FormState> emailKey = GlobalKey();
+
+  String? errorPasswordValue;
+  final GlobalKey<FormState> passwordKey = GlobalKey();
+
+  bool _showPassword = false;
+  void _togglevisibility() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
 
   bool signupPasswordRememberMe = false;
   @override
@@ -80,7 +90,7 @@ class _LoginPage2State extends State<LoginPage2> {
                       letterSpacing: 1.2,
                       fontStyle: FontStyle.normal),
                   decoration: InputDecoration(
-                      errorText: errorTextValue,
+                      errorText: errorEmailValue,
                       errorStyle: GoogleFonts.urbanist(
                           decoration: TextDecoration.none,
                           fontSize: 10,
@@ -137,71 +147,99 @@ class _LoginPage2State extends State<LoginPage2> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 5),
-              height: 53,
-              child: TextFormField(
-                autofocus: false,
-                focusNode: passwordFocusNode,
-                controller: passwordTextEditingController,
-                style: GoogleFonts.urbanist(
-                    decoration: TextDecoration.none,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightTextColor
-                        : Constants.darkTextColor,
-                    letterSpacing: 1.2,
-                    fontStyle: FontStyle.normal),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24),
-                    // TODO: prefix icon color when in focus
-                    prefixIcon: Icon(
-                      Icons.lock_outline_rounded,
+              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
+              child: Form(
+                key: passwordKey,
+                child: TextFormField(
+                  autofocus: false,
+                  focusNode: passwordFocusNode,
+                  controller: passwordTextEditingController,
+                  validator: (value) {
+                    RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                    var passNonNullValue=value??"";
+                    if(passNonNullValue.isEmpty){
+                      return ("Password is required");
+                    }
+                    else if(passNonNullValue.length<6){
+                      return ("Password Must be more than 5 characters");
+                    }
+                    else if(!regex.hasMatch(passNonNullValue)){
+                      return ("Password should contain upper,lower,digit and Special character ");
+                    }
+                    return null;
+                  },
+                  style: GoogleFonts.urbanist(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
                       color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.grey.shade600
-                          : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    // TODO: Suffix icon change when pressed
-                    suffixIcon: Icon(
-                      Icons.remove_red_eye_rounded,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.grey.shade600
-                          : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    hintText: 'Password',
-                    hintStyle: GoogleFonts.urbanist(
-                        decoration: TextDecoration.none,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.normal),
+                  decoration: InputDecoration(
+                      errorText: errorPasswordValue,
+                      errorStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.red.shade600
+                              : Colors.red.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightBorderColor
+                                      : Constants.darkBorderColor),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      // TODO: prefix icon color when in focus
+                      prefixIcon: Icon(
+                        Icons.lock_outline_rounded,
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade600
                             : Colors.grey.shade300,
-                        letterSpacing: 1.2,
-                        fontStyle: FontStyle.normal),
-                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
-                    fillColor: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightCardFillColor
-                        : Constants.darkCardFillColor,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24)),
+                        size: 18,
+                      ),
+                      // TODO: Suffix icon change when pressed
+                      suffixIcon: Icon(
+                        Icons.remove_red_eye_rounded,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey.shade600
+                            : Colors.grey.shade300,
+                        size: 18,
+                      ),
+                      hintText: 'Password',
+                      hintStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                      fillColor: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightCardFillColor
+                          : Constants.darkCardFillColor,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary),
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
+                      errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                ),
               ),
             ),
             RememberMeCheckBox(passwordRememberMe: signupPasswordRememberMe),
