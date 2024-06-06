@@ -24,6 +24,7 @@ class _LoginPage1State extends State<LoginPage1> {
     return Scaffold(
       appBar: CustomAppBar(
           leadingIcon: Icons.arrow_back_rounded,
+          text: "",
           leadingFunc: () {
             log('AppBar BackButton');
             SystemNavigator.pop();

@@ -48,6 +48,7 @@ class _LoginPage2State extends State<LoginPage2> {
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
           leadingIcon: Icons.arrow_back_rounded,
+          text: "",
           leadingFunc: () {
             log('AppBar BackButton');
             SystemNavigator.pop();
@@ -154,19 +155,16 @@ class _LoginPage2State extends State<LoginPage2> {
                   autofocus: false,
                   focusNode: passwordFocusNode,
                   controller: passwordTextEditingController,
+                  obscureText: !_showPassword,
+                  cursorColor: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightTextColor
+                      : Constants.darkTextColor,
                   validator: (value) {
-                    RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                    var passNonNullValue=value??"";
-                    if(passNonNullValue.isEmpty){
-                      return ("Password is required");
+                    if (value!.isEmpty) {
+                      return "Please enter password.";
+                    } else {
+                      return null;
                     }
-                    else if(passNonNullValue.length<6){
-                      return ("Password Must be more than 5 characters");
-                    }
-                    else if(!regex.hasMatch(passNonNullValue)){
-                      return ("Password should contain upper,lower,digit and Special character ");
-                    }
-                    return null;
                   },
                   style: GoogleFonts.urbanist(
                       decoration: TextDecoration.none,
@@ -207,12 +205,17 @@ class _LoginPage2State extends State<LoginPage2> {
                         size: 18,
                       ),
                       // TODO: Suffix icon change when pressed
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye_rounded,
-                        color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                        size: 18,
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _togglevisibility();
+                        },
+                        child: Icon(
+                          _showPassword ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          size: 18,
+                        ),
                       ),
                       hintText: 'Password',
                       hintStyle: GoogleFonts.urbanist(
@@ -251,7 +254,8 @@ class _LoginPage2State extends State<LoginPage2> {
                 text: "Sign up",
                 route: CascaRoutesNames.loginPage1,
                 buttonFunc: () {
-                  final bool isValid = emailKey.currentState!.validate();
+                  final bool isValidEmail = emailKey.currentState!.validate();
+                  final bool isValidPassword = passwordKey.currentState!.validate();
                   log(emailTextEditingController.text);
                   log(passwordTextEditingController.text);
                 }),

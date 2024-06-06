@@ -37,6 +37,7 @@ class _LoginPage3State extends State<LoginPage3> {
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
           leadingIcon: Icons.arrow_back_rounded,
+          text: "",
           leadingFunc: () {
             log('AppBar BackButton');
             SystemNavigator.pop();
