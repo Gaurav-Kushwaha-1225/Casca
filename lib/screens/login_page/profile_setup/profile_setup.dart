@@ -33,6 +33,12 @@ class _ProfileSetupState extends State<ProfileSetup> {
   final FocusNode dobFocusNode = FocusNode();
   final GlobalKey<FormState> dobKey = GlobalKey();
   String? errordobValue;
+
+  final TextEditingController phoneTextEditingController =
+  TextEditingController();
+  final FocusNode phoneFocusNode = FocusNode();
+  final GlobalKey<FormState> phoneKey = GlobalKey();
+  String? errorphoneValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -371,7 +377,91 @@ class _ProfileSetupState extends State<ProfileSetup> {
                   ),
                 ),
               ),
-            )
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
+                child: Form(
+                  key: phoneKey,
+                  child: TextFormField(
+                    autofocus: false,
+                    focusNode: phoneFocusNode,
+                    controller: phoneTextEditingController,
+                    cursorColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightTextColor
+                        : Constants.darkTextColor,
+                    validator: (value) {
+                      return;
+                    },
+                    maxLength: 10,
+                    keyboardType: TextInputType.phone,
+                    style: GoogleFonts.urbanist(
+                        decoration: TextDecoration.none,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Constants.lightTextColor
+                            : Constants.darkTextColor,
+                        letterSpacing: 1.2,
+                        fontStyle: FontStyle.normal),
+                    decoration: InputDecoration(
+                        errorText: errorphoneValue,
+                        errorStyle: GoogleFonts.urbanist(
+                            decoration: TextDecoration.none,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).brightness == Brightness.light
+                                ? Colors.red.shade600
+                                : Colors.red.shade300,
+                            letterSpacing: 1.2,
+                            fontStyle: FontStyle.normal),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).brightness == Brightness.light
+                                    ? Constants.lightBorderColor
+                                    : Constants.darkBorderColor),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                            gapPadding: 24),
+                        suffixIcon: Icon(
+                          Icons.date_range_rounded,
+                          color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          size: 18,
+                        ),
+                        hintText: 'Phone Number',
+                        hintStyle: GoogleFonts.urbanist(
+                            decoration: TextDecoration.none,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).brightness == Brightness.light
+                                ? Colors.grey.shade600
+                                : Colors.grey.shade300,
+                            letterSpacing: 1.2,
+                            fontStyle: FontStyle.normal),
+                        // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                        fillColor: Theme.of(context).brightness == Brightness.light
+                            ? Constants.lightCardFillColor
+                            : Constants.darkCardFillColor,
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).brightness == Brightness.light
+                                    ? Constants.lightSecondary
+                                    : Constants.darkSecondary),
+                            borderRadius: const BorderRadius.all(Radius.circular(12)),
+                            gapPadding: 24),
+                        focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
+                        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                  ),
+                ),
+              ),
+            ),
           ],
         ));
   }
