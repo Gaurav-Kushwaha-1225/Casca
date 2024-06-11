@@ -14,34 +14,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 24),
-      child: AppBar(
-        title: Text(
-          text,
-          textAlign: TextAlign.left,
-          style: GoogleFonts.urbanist(
-              fontSize: 40,
-              fontWeight: FontWeight.w700,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightTextColor
-                  : Constants.darkTextColor,
-              letterSpacing: 1.75,
-              wordSpacing: 1.25,
-              fontStyle: FontStyle.normal),
-        ),
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? Constants.lightPrimary
-            : Constants.darkPrimary,
-        leading: leadingIcon != null
-            ? IconButton(
-                onPressed: leadingFunc,
-                icon: Icon(leadingIcon),
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              )
-            : null,
-      ),
+    return AppBar(
+      title: Text(text),
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Constants.lightPrimary
+          : Constants.darkPrimary,
+      titleTextStyle: GoogleFonts.urbanist(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Constants.lightTextColor
+              : Constants.darkTextColor,
+          letterSpacing: 1.5,
+          fontStyle: FontStyle.normal),
+      titleSpacing: 0,
+      leading: leadingIcon != null
+          ? IconButton(
+              onPressed: leadingFunc,
+              icon: Icon(leadingIcon),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            )
+          : null,
     );
   }
 
