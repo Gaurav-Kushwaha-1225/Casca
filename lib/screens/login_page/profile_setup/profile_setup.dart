@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/consts.dart';
 
 class ProfileSetup extends StatefulWidget {
-  const ProfileSetup({super.key});
+  final String? email;
+  const ProfileSetup({super.key, required this.email});
 
   @override
   State<ProfileSetup> createState() => _ProfileSetupState();
@@ -78,6 +79,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                         Theme.of(context).brightness == Brightness.light
                             ? Constants.lightTextColor
                             : Constants.darkTextColor,
+                    keyboardType: TextInputType.text,
                     style: GoogleFonts.urbanist(
                         decoration: TextDecoration.none,
                         fontSize: 15,
@@ -152,6 +154,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                         Theme.of(context).brightness == Brightness.light
                             ? Constants.lightTextColor
                             : Constants.darkTextColor,
+                    keyboardType: TextInputType.text,
                     style: GoogleFonts.urbanist(
                         decoration: TextDecoration.none,
                         fontSize: 15,
@@ -227,17 +230,19 @@ class _ProfileSetupState extends State<ProfileSetup> {
                       return;
                     },
                     onTap: () async {
-                      DateTime date = DateTime(1900);
+                      DateTime date = DateTime.now();
                       FocusScope.of(context).requestFocus(new FocusNode());
 
                       date = (await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(1900, 1, 1),
+                          firstDate: DateTime(1950, 1, 1),
                           lastDate: DateTime.now()))!;
 
-                      dobTextEditingController.text = date.toString().substring(0, 10);
+                      dobTextEditingController.text =
+                          date.toString().substring(0, 10);
                     },
+                    keyboardType: TextInputType.datetime,
                     style: GoogleFonts.urbanist(
                         decoration: TextDecoration.none,
                         fontSize: 15,
@@ -268,16 +273,13 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(12)),
                             gapPadding: 24),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                          },
-                          child: Icon(
-                            Icons.date_range_rounded,
-                            color: Theme.of(context).brightness == Brightness.light
-                                ? Colors.grey.shade600
-                                : Colors.grey.shade300,
-                            size: 18,
-                          ),
+                        suffixIcon: Icon(
+                          Icons.date_range_rounded,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                          size: 18,
                         ),
                         hintText: 'Date of Birth',
                         hintStyle: GoogleFonts.urbanist(
@@ -303,6 +305,69 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             gapPadding: 24),
                         focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
                         errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
+                child: TextFormField(
+                  autofocus: false,
+                  readOnly: true,
+                  initialValue: widget.email,
+                  style: GoogleFonts.urbanist(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.normal),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 15),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Constants.lightBorderColor
+                                    : Constants.darkBorderColor),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        gapPadding: 24),
+                    suffixIcon: Icon(
+                      Icons.email_outlined,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade600
+                          : Colors.grey.shade300,
+                      size: 18,
+                    ),
+                    hintText: 'Email',
+                    hintStyle: GoogleFonts.urbanist(
+                        decoration: TextDecoration.none,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.grey.shade600
+                            : Colors.grey.shade300,
+                        letterSpacing: 1.2,
+                        fontStyle: FontStyle.normal),
+                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                    fillColor: Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightCardFillColor
+                        : Constants.darkCardFillColor,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Constants.lightSecondary
+                                    : Constants.darkSecondary),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        gapPadding: 24),
                   ),
                 ),
               ),

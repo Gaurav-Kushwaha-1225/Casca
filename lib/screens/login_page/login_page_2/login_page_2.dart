@@ -85,6 +85,7 @@ class _LoginPage2State extends State<LoginPage2> {
                       return null;
                     }
                   },
+                  keyboardType: TextInputType.emailAddress,
                   style: GoogleFonts.urbanist(
                       decoration: TextDecoration.none,
                       fontSize: 15,
@@ -170,6 +171,7 @@ class _LoginPage2State extends State<LoginPage2> {
                       return null;
                     }
                   },
+                  keyboardType: TextInputType.text,
                   style: GoogleFonts.urbanist(
                       decoration: TextDecoration.none,
                       fontSize: 15,

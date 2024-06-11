@@ -94,7 +94,7 @@ class _LoginPage1State extends State<LoginPage1> {
               text: "Sign in with password",
               route: CascaRoutesNames.loginPage3,
               buttonFunc: () {
-                GoRouter.of(context).pushNamed(CascaRoutesNames.profileSetup);
+                GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
                 log("Worked Fine :)");
               }),
           const ElseSigninSignupOptions(

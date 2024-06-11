@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:casca/screens/login_page/login_page_1/login_page_1.dart';
 import 'package:casca/screens/login_page/login_page_2/login_page_2.dart';
 import 'package:casca/screens/login_page/login_page_3/login_page_3.dart';
@@ -33,9 +35,13 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.profileSetup,
-        path: "/profileSetup",
+        path: "/profileSetup/:email",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const ProfileSetup());
+          return MaterialPage(
+              key: state.pageKey,
+              child: ProfileSetup(
+                email: jsonDecode(state.pathParameters['email']!),
+              ));
         },
       ),
     ], // TODO: Add Error Page Builder
