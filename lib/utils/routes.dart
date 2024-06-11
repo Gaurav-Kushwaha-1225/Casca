@@ -1,6 +1,7 @@
 import 'package:casca/screens/login_page/login_page_1/login_page_1.dart';
 import 'package:casca/screens/login_page/login_page_2/login_page_2.dart';
 import 'package:casca/screens/login_page/login_page_3/login_page_3.dart';
+import 'package:casca/screens/login_page/profile_setup/profile_setup.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +29,13 @@ class CascaRouter {
         path: "/loginPage3",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(key: state.pageKey, child: const LoginPage3());
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.profileSetup,
+        path: "/profileSetup",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(key: state.pageKey, child: const ProfileSetup());
         },
       ),
     ], // TODO: Add Error Page Builder
