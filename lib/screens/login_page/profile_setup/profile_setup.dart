@@ -16,29 +16,33 @@ class ProfileSetup extends StatefulWidget {
 }
 
 class _ProfileSetupState extends State<ProfileSetup> {
-  final TextEditingController nameTextEditingController =
+   TextEditingController nameTextEditingController =
       TextEditingController();
   final FocusNode nameFocusNode = FocusNode();
   final GlobalKey<FormState> nameKey = GlobalKey();
   String? errorNameValue;
 
-  final TextEditingController nicknameTextEditingController =
+   TextEditingController nicknameTextEditingController =
       TextEditingController();
   final FocusNode nicknameFocusNode = FocusNode();
   final GlobalKey<FormState> nicknameKey = GlobalKey();
   String? errorNicknameValue;
 
-  final TextEditingController dobTextEditingController =
+   TextEditingController dobTextEditingController =
       TextEditingController();
   final FocusNode dobFocusNode = FocusNode();
   final GlobalKey<FormState> dobKey = GlobalKey();
   String? errordobValue;
 
-  final TextEditingController phoneTextEditingController =
+   TextEditingController phoneTextEditingController =
   TextEditingController();
   final FocusNode phoneFocusNode = FocusNode();
   final GlobalKey<FormState> phoneKey = GlobalKey();
   String? errorphoneValue;
+
+  final List<String> gender = ["Male", "Female", "Prefer not to say"];
+  String? _selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -426,14 +430,6 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             borderRadius:
                             const BorderRadius.all(Radius.circular(12)),
                             gapPadding: 24),
-                        suffixIcon: Icon(
-                          Icons.date_range_rounded,
-                          color:
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
-                          size: 18,
-                        ),
                         hintText: 'Phone Number',
                         hintStyle: GoogleFonts.urbanist(
                             decoration: TextDecoration.none,
@@ -462,7 +458,75 @@ class _ProfileSetupState extends State<ProfileSetup> {
                 ),
               ),
             ),
-          ],
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
+                child: FormField<String>(
+                    builder: (FormFieldState<String> state) {
+                      return InputDecorator(decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 15),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightBorderColor
+                                      : Constants.darkBorderColor),
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                              gapPadding: 24),
+                          // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                          fillColor: Theme.of(context).brightness == Brightness.light
+                              ? Constants.lightCardFillColor
+                              : Constants.darkCardFillColor,
+                          filled: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary),
+                              borderRadius: const BorderRadius.all(Radius.circular(12)),
+                              gapPadding: 24),
+                      ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                          value: _selectedGender,
+                          isDense: true,
+                          hint: Text("Gender", style: GoogleFonts.urbanist(
+                              decoration: TextDecoration.none,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).brightness == Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                              letterSpacing: 1.2,
+                              fontStyle: FontStyle.normal)),
+                          dropdownColor: Theme.of(context).brightness == Brightness.light
+                              ? Constants.lightBorderColor
+                              : Constants.darkBorderColor,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedGender = newValue;
+                            });
+                      },
+                      items: gender.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, style: GoogleFonts.urbanist(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).brightness == Brightness.light
+                                  ? Constants.lightTextColor
+                                  : Constants.darkTextColor,
+                              letterSpacing: 1.2,
+                              fontStyle: FontStyle.normal)),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                );
+              })
+              ),
+            ),],
         ));
   }
 }
