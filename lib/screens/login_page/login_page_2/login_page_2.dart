@@ -11,6 +11,7 @@ import 'package:casca/widgets/app_bar.dart';
 import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage2 extends StatefulWidget {
@@ -71,6 +72,9 @@ class _LoginPage2State extends State<LoginPage2> {
                   autofocus: false,
                   focusNode: emailFocusNode,
                   controller: emailTextEditingController,
+                  cursorColor: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightTextColor
+                      : Constants.darkTextColor,
                   validator: (value) {
                     final bool emailValid = RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -256,8 +260,11 @@ class _LoginPage2State extends State<LoginPage2> {
                 buttonFunc: () {
                   final bool isValidEmail = emailKey.currentState!.validate();
                   final bool isValidPassword = passwordKey.currentState!.validate();
-                  log(emailTextEditingController.text);
-                  log(passwordTextEditingController.text);
+                  // log(emailTextEditingController.text);
+                  // log(passwordTextEditingController.text);
+                  if(isValidEmail && isValidPassword) {
+                    GoRouter.of(context).pushNamed(CascaRoutesNames.profileSetup);
+                  }
                 }),
             const Expanded(
               child: SizedBox(height: 50),
