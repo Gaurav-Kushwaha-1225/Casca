@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
+import 'package:casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/consts.dart';
@@ -526,7 +529,22 @@ class _ProfileSetupState extends State<ProfileSetup> {
                 );
               })
               ),
-            ),],
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 35),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: ScreenWidthButton(
+                text: "Continue",
+                route: CascaRoutesNames.testingPage,
+                buttonFunc: () {
+                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                }
+              ),
+            ),
+          ],
         ));
   }
 }

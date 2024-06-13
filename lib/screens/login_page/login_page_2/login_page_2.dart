@@ -8,7 +8,7 @@ import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';
-import 'package:casca/screens/login_page/loca_widgets/screen_width_button.dart';
+import 'package:casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
