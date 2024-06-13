@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:casca/screens/login_page/loca_widgets/auth_page_divider.dart';
-import 'package:casca/screens/login_page/loca_widgets/else_signin_signup_options.dart';
-import 'package:casca/screens/login_page/loca_widgets/main_text.dart';
-import 'package:casca/screens/login_page/loca_widgets/remember_me_check_box.dart';
-import 'package:casca/screens/login_page/loca_widgets/sign_in_options.dart';
+import 'package:casca/screens/login_page/local_widgets/auth_page_divider.dart';
+import 'package:casca/screens/login_page/local_widgets/else_signin_signup_options.dart';
+import 'package:casca/screens/login_page/local_widgets/main_text.dart';
+import 'package:casca/screens/login_page/local_widgets/remember_me_check_box.dart';
+import 'package:casca/screens/login_page/local_widgets/sign_in_options.dart';
 import 'package:casca/utils/consts.dart';
 import 'package:casca/utils/routes_consts.dart';
 import 'package:casca/widgets/app_bar.dart';

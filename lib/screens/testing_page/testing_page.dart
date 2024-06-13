@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TestingPage extends StatelessWidget {
@@ -10,6 +9,7 @@ class TestingPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Testing Page"),
       ),
+      body: const Text("This is testing page created to test buttons and other features"),
     );
   }
 }
