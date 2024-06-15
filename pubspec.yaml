@@ -40,6 +40,23 @@ dependencies:
   intl: ^0.19.0
   sqflite: ^2.3.3+1
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#fda01d"
+  image: assets/icons/splash_screen.png
+  color_dark: "#fda01d"
+  image_dark: assets/icons/splash_screen.png
+
+  android_12:
+    image: assets/icons/splash_screen.png
+    icon_background_color: "#fda01d"
+    image_dark: assets/icons/splash_screen.png
+    icon_background_color_dark: "#fda01d"
+
+  android: true
+  ios: true
+  web: false
 
 dev_dependencies:
   flutter_test:
