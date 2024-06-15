@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:casca/screens/login_page/local_widgets/auth_page_divider.dart';
-import 'package:casca/screens/login_page/local_widgets/else_signin_signup_options.dart';
-import 'package:casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
-import 'package:casca/screens/login_page/local_widgets/main_text.dart';
-import 'package:casca/utils/routes_consts.dart';
-import 'package:casca/widgets/app_bar.dart';
-import 'package:casca/widgets/screen_width_button.dart';
+import 'package:Casca/screens/login_page/local_widgets/auth_page_divider.dart';
+import 'package:Casca/screens/login_page/local_widgets/else_signin_signup_options.dart';
+import 'package:Casca/screens/login_page/login_page_1/local_widgets/login_with_widget.dart';
+import 'package:Casca/screens/login_page/local_widgets/main_text.dart';
+import 'package:Casca/utils/routes_consts.dart';
+import 'package:Casca/widgets/app_bar.dart';
+import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';

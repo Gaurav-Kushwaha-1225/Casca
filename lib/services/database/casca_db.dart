@@ -1,4 +1,4 @@
-import 'package:casca/services/database/database_connection.dart';
+import 'package:Casca/services/database/database_connection.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../models/users.dart';
