@@ -40,7 +40,7 @@ class _LoginPage3State extends State<LoginPage3> {
           text: "",
           leadingFunc: () {
             log('AppBar BackButton');
-            SystemNavigator.pop();
+            Navigator.pop(context);
           }),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -265,9 +265,9 @@ class _LoginPage3State extends State<LoginPage3> {
             ),
             ScreenWidthButton(
               text: "Sign up",
-              route: CascaRoutesNames.loginPage1,
+              route: CascaRoutesNames.testingPage,
               buttonFunc: () {
-                GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage1);
+                GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
                 log("Worked Fine :)");
               },
             ),
@@ -297,10 +297,13 @@ class _LoginPage3State extends State<LoginPage3> {
             const AuthPageDivider(text: "or continue with"),
             const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
-            const ElseSigninSignupOptions(
+             ElseSigninSignupOptions(
                 text_1: "Don't have an account? ",
                 text_2: " Sign up",
-                route: CascaRoutesNames.loginPage2),
+                route: CascaRoutesNames.loginPage2,
+              buttonFunc: () {
+                GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage2);
+              },),
           ]),
     );
   }

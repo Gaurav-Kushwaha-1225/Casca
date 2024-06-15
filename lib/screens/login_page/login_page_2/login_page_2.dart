@@ -52,7 +52,7 @@ class _LoginPage2State extends State<LoginPage2> {
           text: "",
           leadingFunc: () {
             log('AppBar BackButton');
-            SystemNavigator.pop();
+            Navigator.pop(context);
           }),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -274,10 +274,14 @@ class _LoginPage2State extends State<LoginPage2> {
             const AuthPageDivider(text: "or continue with"),
             const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
-            const ElseSigninSignupOptions(
+            ElseSigninSignupOptions(
                 text_1: "Already have an account? ",
                 text_2: " Sign in",
-                route: CascaRoutesNames.loginPage3),
+                route: CascaRoutesNames.loginPage3,
+                buttonFunc: () {
+                  GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage3);
+                }
+              ),
           ]),
     );
   }

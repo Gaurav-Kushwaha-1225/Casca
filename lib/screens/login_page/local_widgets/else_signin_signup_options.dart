@@ -9,11 +9,13 @@ class ElseSigninSignupOptions extends StatefulWidget {
   final String text_1;
   final String text_2;
   final String route;
+  final Function() buttonFunc;
   const ElseSigninSignupOptions({
     Key? key,
     required this.text_1,
     required this.text_2,
     required this.route,
+    required this.buttonFunc
   }) : super(key: key);
 
   @override
@@ -40,10 +42,7 @@ class _ElseSigninSignupOptionsState extends State<ElseSigninSignupOptions> {
                 fontStyle: FontStyle.normal,
               )),
           GestureDetector(
-            onTap: () {
-              log(widget.text_2);
-              GoRouter.of(context).pushReplacementNamed(widget.route);
-            },
+            onTap: widget.buttonFunc,
             child: Text(widget.text_2,
                 style: GoogleFonts.urbanist(
                   fontSize: 13,

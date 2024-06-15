@@ -94,13 +94,17 @@ class _LoginPage1State extends State<LoginPage1> {
               text: "Sign in with password",
               route: CascaRoutesNames.loginPage3,
               buttonFunc: () {
-                GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
+                GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage3);
                 log("Worked Fine :)");
               }),
-          const ElseSigninSignupOptions(
-              text_1: "Don't have an account? ",
-              text_2: " Sign up",
-              route: CascaRoutesNames.loginPage2),
+          ElseSigninSignupOptions(
+            text_1: "Don't have an account? ",
+            text_2: " Sign up",
+            route: CascaRoutesNames.loginPage2,
+            buttonFunc: () {
+              GoRouter.of(context).pushNamed(CascaRoutesNames.loginPage2);
+            },
+          ),
         ],
       ),
     );
