@@ -14,6 +14,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/routes_consts.dart';
+import '../../../widgets/under_development_feature.dart';
 
 class LoginPage3 extends StatefulWidget {
   const LoginPage3({super.key});
@@ -29,6 +30,19 @@ class _LoginPage3State extends State<LoginPage3> {
   final TextEditingController passwordTextEditingController =
       TextEditingController();
   final FocusNode passwordFocusNode = FocusNode();
+
+  String? errorEmailValue;
+  final GlobalKey<FormState> emailKey = GlobalKey();
+
+  String? errorPasswordValue;
+  final GlobalKey<FormState> passwordKey = GlobalKey();
+
+  bool _showPassword = false;
+  void _togglevisibility() {
+    setState(() {
+      _showPassword = !_showPassword;
+    });
+  }
 
   bool loginPasswordRememberMe = false;
   @override
@@ -48,215 +62,198 @@ class _LoginPage3State extends State<LoginPage3> {
           children: [
             const Expanded(child: SizedBox()),
             Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, bottom: 25, top: 50),
-              child: const MainText(
-                text: "Login to your\nAccount",
-              ),
-            ),
+                margin: const EdgeInsets.only(
+                    left: 24, right: 24, bottom: 35, top: 50),
+                child: const MainText(text: "Login to your\nAccount")),
             const Expanded(child: SizedBox()),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
-              height: 53,
-              child: TextFormField(
-                autofocus: false,
-                focusNode: emailFocusNode,
-                controller: emailTextEditingController,
-                style: GoogleFonts.urbanist(
-                    decoration: TextDecoration.none,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightTextColor
-                        : Constants.darkTextColor,
-                    letterSpacing: 1.2,
-                    fontStyle: FontStyle.normal),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24),
-                    // TODO: prefix icon color when in focus
-                    prefixIcon: Icon(
-                      Icons.mail_rounded,
-                      color:
-                          // (emailFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (emailFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (emailFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    hintText: 'Email',
-                    hintStyle: GoogleFonts.urbanist(
-                        decoration: TextDecoration.none,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+              child: Form(
+                key: emailKey,
+                child: TextFormField(
+                  autofocus: false,
+                  focusNode: emailFocusNode,
+                  controller: emailTextEditingController,
+                  cursorColor: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightTextColor
+                      : Constants.darkTextColor,
+                  validator: (value) {
+                    final bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value!);
+                    if (!emailValid) {
+                      return "Please enter a valid email address.";
+                    } else {
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.emailAddress,
+                  style: GoogleFonts.urbanist(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.normal),
+                  decoration: InputDecoration(
+                      errorText: errorEmailValue,
+                      errorStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.red.shade600
+                              : Colors.red.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightBorderColor
+                                      : Constants.darkBorderColor),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      // TODO: prefix icon color when in focus
+                      prefixIcon: Icon(
+                        Icons.mail_rounded,
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade600
                             : Colors.grey.shade300,
-                        letterSpacing: 1.2,
-                        fontStyle: FontStyle.normal),
-                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
-                    fillColor:
-                        // (emailFocusNode ==
-                        //             FocusManager.instance.primaryFocus) &&
-                        //         Theme.of(context).brightness == Brightness.light
-                        //     ? Constants.lightSecondary
-                        //     : (emailFocusNode == FocusManager.instance.primaryFocus) &&
-                        //             Theme.of(context).brightness == Brightness.dark
-                        //         ? Constants.darkSecondary
-                        //         : (emailFocusNode != FocusManager.instance.primaryFocus) &&
-                        Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightCardFillColor
-                            : Constants.darkCardFillColor,
-                    // focusColor: (emailFocusNode ==
-                    //             FocusManager.instance.primaryFocus) &&
-                    //         Theme.of(context).brightness == Brightness.light
-                    //     ? Constants.lightSecondary
-                    //     : (emailFocusNode == FocusManager.instance.primaryFocus) &&
-                    //             Theme.of(context).brightness == Brightness.dark
-                    //         ? Constants.darkSecondary
-                    //         : (emailFocusNode != FocusManager.instance.primaryFocus) &&
-                    //                 Theme.of(context).brightness == Brightness.light
-                    //             ? Constants.lightSecondary.withOpacity(0.05)
-                    //             : Constants.darkSecondary.withOpacity(0.05),
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24)),
+                        size: 18,
+                      ),
+                      hintText: 'Email',
+                      hintStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                      fillColor: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightCardFillColor
+                          : Constants.darkCardFillColor,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary),
+                          borderRadius: const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
+                      errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                ),
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 5),
-              height: 53,
-              child: TextFormField(
-                autofocus: false,
-                focusNode: passwordFocusNode,
-                controller: passwordTextEditingController,
-                style: GoogleFonts.urbanist(
-                    decoration: TextDecoration.none,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Constants.lightTextColor
-                        : Constants.darkTextColor,
-                    letterSpacing: 1.2,
-                    fontStyle: FontStyle.normal),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightBorderColor
-                                    : Constants.darkBorderColor),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24),
-                    // TODO: prefix icon color when in focus
-                    prefixIcon: Icon(
-                      Icons.lock_outline_rounded,
-                      color:
-                          // (passwordFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (passwordFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (passwordFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    // TODO: Suffix icon change when pressed
-                    suffixIcon: Icon(
-                      Icons.remove_red_eye_rounded,
-                      color:
-                          // (passwordFocusNode ==
-                          //             FocusManager.instance.primaryFocus) &&
-                          //         Theme.of(context).brightness == Brightness.light
-                          //     ? Constants.lightSecondary
-                          //     : (passwordFocusNode ==
-                          //                 FocusManager.instance.primaryFocus) &&
-                          //             Theme.of(context).brightness ==
-                          //                 Brightness.dark
-                          //         ? Constants.darkSecondary
-                          //         : (passwordFocusNode !=
-                          //                     FocusManager.instance.primaryFocus) &&
-                          Theme.of(context).brightness == Brightness.light
-                              ? Colors.grey.shade600
-                              : Colors.grey.shade300,
-                      size: 18,
-                    ),
-                    hintText: 'Passowrd',
-                    hintStyle: GoogleFonts.urbanist(
-                        decoration: TextDecoration.none,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
+              margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
+              child: Form(
+                key: passwordKey,
+                child: TextFormField(
+                  autofocus: false,
+                  focusNode: passwordFocusNode,
+                  controller: passwordTextEditingController,
+                  obscureText: !_showPassword,
+                  cursorColor: Theme.of(context).brightness == Brightness.light
+                      ? Constants.lightTextColor
+                      : Constants.darkTextColor,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter password.";
+                    } else {
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.text,
+                  style: GoogleFonts.urbanist(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Constants.lightTextColor
+                          : Constants.darkTextColor,
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.normal),
+                  decoration: InputDecoration(
+                      errorText: errorPasswordValue,
+                      errorStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.red.shade600
+                              : Colors.red.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightBorderColor
+                                      : Constants.darkBorderColor),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                      // TODO: prefix icon color when in focus
+                      prefixIcon: Icon(
+                        Icons.lock_outline_rounded,
                         color: Theme.of(context).brightness == Brightness.light
-                            ? Colors.grey.shade600
-                            : Colors.grey.shade300,
-                        letterSpacing: 1.2,
-                        fontStyle: FontStyle.normal),
-                    // TODO: Change fill color according to UI when in focus and dark theme or light theme
-                    fillColor:
-                        // (passwordFocusNode ==
-                        //             FocusManager.instance.primaryFocus) &&
-                        //         Theme.of(context).brightness == Brightness.light
-                        //     ? Constants.lightSecondary
-                        //     : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
-                        //             Theme.of(context).brightness == Brightness.dark
-                        //         ? Constants.darkSecondary
-                        //         : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
-                        Theme.of(context).brightness == Brightness.light
-                            ? Constants.lightCardFillColor
-                            : Constants.darkCardFillColor,
-                    // focusColor: (passwordFocusNode ==
-                    //             FocusManager.instance.primaryFocus) &&
-                    //         Theme.of(context).brightness == Brightness.light
-                    //     ? Constants.lightSecondary
-                    //     : (passwordFocusNode == FocusManager.instance.primaryFocus) &&
-                    //             Theme.of(context).brightness == Brightness.dark
-                    //         ? Constants.darkSecondary
-                    //         : (passwordFocusNode != FocusManager.instance.primaryFocus) &&
-                    //                 Theme.of(context).brightness == Brightness.light
-                    //             ? Constants.lightSecondary.withOpacity(0.05)
-                    //             : Constants.darkSecondary.withOpacity(0.05),
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        gapPadding: 24)),
+                                ? Colors.grey.shade600
+                                : Colors.grey.shade300,
+                        size: 18,
+                      ),
+                      // TODO: Suffix icon change when pressed
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _togglevisibility();
+                        },
+                        child: Icon(
+                          _showPassword ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.grey.shade600
+                                  : Colors.grey.shade300,
+                          size: 18,
+                        ),
+                      ),
+                      hintText: 'Password',
+                      hintStyle: GoogleFonts.urbanist(
+                          decoration: TextDecoration.none,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.grey.shade600
+                              : Colors.grey.shade300,
+                          letterSpacing: 1.2,
+                          fontStyle: FontStyle.normal),
+                      // TODO: Change fill color according to UI when in focus and dark theme or light theme
+                      fillColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Constants.lightCardFillColor
+                              : Constants.darkCardFillColor,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color:
+                                  Theme.of(context).brightness == Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          gapPadding: 24),
+                          focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade600 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24),
+                          errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light ? Colors.red.shade200 : Colors.red.shade300), borderRadius: const BorderRadius.all(Radius.circular(12)), gapPadding: 24)),
+                ),
               ),
             ),
             RememberMeCheckBox(passwordRememberMe: loginPasswordRememberMe),
@@ -264,21 +261,28 @@ class _LoginPage3State extends State<LoginPage3> {
               height: 5,
             ),
             ScreenWidthButton(
-              text: "Sign up",
+              text: "Sign in",
               route: CascaRoutesNames.testingPage,
               buttonFunc: () {
-                GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
-                log("Worked Fine :)");
-              },
-            ),
+                final bool isValidEmail = emailKey.currentState!.validate();
+                final bool isValidPassword = passwordKey.currentState!.validate();
+                // log(emailTextEditingController.text);
+                // log(passwordTextEditingController.text);
+                if(isValidEmail && isValidPassword) {
+                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                }
+              }),
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
                   log('Forgot Password');
-                  // GoRouter.of(context)
-                  //     .pushNamed(CascaRoutesNames.loginPage2);
+                  showDialog(
+                      context: context,
+                      builder: (ctx) => const UnderDevelopmentFeature(
+                          text:
+                              "Forgot Button Pressed feature is currently under development."));
                 },
                 child: Text("Forgot the Password?",
                     style: GoogleFonts.urbanist(
@@ -297,13 +301,15 @@ class _LoginPage3State extends State<LoginPage3> {
             const AuthPageDivider(text: "or continue with"),
             const SignInOptionsButton(),
             const Expanded(child: SizedBox()),
-             ElseSigninSignupOptions(
-                text_1: "Don't have an account? ",
-                text_2: " Sign up",
-                route: CascaRoutesNames.loginPage2,
+            ElseSigninSignupOptions(
+              text_1: "Don't have an account? ",
+              text_2: " Sign up",
+              route: CascaRoutesNames.loginPage2,
               buttonFunc: () {
-                GoRouter.of(context).pushReplacementNamed(CascaRoutesNames.loginPage2);
-              },),
+                GoRouter.of(context)
+                    .pushReplacementNamed(CascaRoutesNames.loginPage2);
+              },
+            ),
           ]),
     );
   }

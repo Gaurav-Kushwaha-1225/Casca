@@ -16,7 +16,7 @@ class _UnderDevelopmentFeatureState extends State<UnderDevelopmentFeature> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Under Construction 🚧",
+      title: Text("Under Construction",
           style: GoogleFonts.urbanist(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -28,14 +28,13 @@ class _UnderDevelopmentFeatureState extends State<UnderDevelopmentFeature> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
-      elevation: 5.0,
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Constants.lightCardFillColor
           : Constants.darkCardFillColor,
       content: Text(
           "${widget.text} This feature is like Schrödinger’s cat – it’s both there and not there.",
           style: GoogleFonts.urbanist(
-              fontSize: 17,
+              fontSize: 16,
               color: Theme.of(context).brightness == Brightness.light
                   ? Constants.lightTextColor
                   : Constants.darkTextColor,
@@ -43,7 +42,7 @@ class _UnderDevelopmentFeatureState extends State<UnderDevelopmentFeature> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: Text('Close the wormhole',
+          child: Text('Close Box',
               style: GoogleFonts.urbanist(
                   fontSize: 16,
                   color: Theme.of(context).brightness == Brightness.light
