@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/local_widgets/auth_page_divider.dart';
@@ -265,7 +266,7 @@ class _LoginPage2State extends State<LoginPage2> {
                   // log(emailTextEditingController.text);
                   // log(passwordTextEditingController.text);
                   if(isValidEmail && isValidPassword) {
-                    GoRouter.of(context).pushNamed(CascaRoutesNames.profileSetup);
+                    GoRouter.of(context).pushNamed(CascaRoutesNames.profileSetup, pathParameters: {"email" : jsonEncode(emailTextEditingController.text)});
                   }
                 }),
             const Expanded(
