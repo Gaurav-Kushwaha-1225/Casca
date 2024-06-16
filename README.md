@@ -1,8 +1,5 @@
 <div align="center">
-   <video autoplay muted loop>
-        <source src="readme_assets/banner.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-    </video>
+   <img src="readme_assets/banner.gif"/>
    <h1>Casca - Your Barber, Your Doorstep</h1>
 </div>
 <div align="center">
