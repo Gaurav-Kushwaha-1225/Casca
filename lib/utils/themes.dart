@@ -11,10 +11,15 @@ class CascaTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: Constants.darkSecondary,
       brightness: Brightness.dark,
-      primary: Constants.darkPrimary,
+      primary: Constants.lightPrimary,
       secondary: Constants.darkSecondary,
     ),
     scaffoldBackgroundColor: Constants.darkPrimary,
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: Constants.lightPrimary
+      )
+    )
   );
 
   static final ThemeData lightTheme = ThemeData(
@@ -22,9 +27,14 @@ class CascaTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: Constants.lightSecondary,
       brightness: Brightness.light,
-      primary: Constants.lightPrimary,
+      primary: Constants.darkPrimary,
       secondary: Constants.lightSecondary,
     ),
     scaffoldBackgroundColor: Constants.lightPrimary,
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              foregroundColor: Constants.darkPrimary
+          )
+      )
   );
 }

@@ -86,7 +86,10 @@ class _ProfileSetupState extends State<ProfileSetup> {
                     focusNode: nameFocusNode,
                     controller: nameTextEditingController,
                     validator: (value) {
-                      return;
+                      if (value!.isEmpty || !RegExp(r'^[A-Za-z]+$').hasMatch(value)) {
+                      return 'Enter a valid name.';
+                    }
+                      return null;
                     },
                     cursorColor:
                         Theme.of(context).brightness == Brightness.light
@@ -161,7 +164,10 @@ class _ProfileSetupState extends State<ProfileSetup> {
                     focusNode: nicknameFocusNode,
                     controller: nicknameTextEditingController,
                     validator: (value) {
-                      return;
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Username is required.';
+                      }
+                      return null;
                     },
                     cursorColor:
                         Theme.of(context).brightness == Brightness.light
@@ -240,7 +246,10 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             ? Constants.lightTextColor
                             : Constants.darkTextColor,
                     validator: (value) {
-                      return;
+                      if(value!.isEmpty) {
+                        return "Date of Birth is required";
+                      }
+                      return null;
                     },
                     onTap: () async {
                       DateTime date = DateTime.now();
@@ -250,7 +259,8 @@ class _ProfileSetupState extends State<ProfileSetup> {
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1950, 1, 1),
-                          lastDate: DateTime.now()))!;
+                          lastDate: DateTime.now(),
+                          ))!;
 
                       dobTextEditingController.text =
                           date.toString().substring(0, 10);
@@ -399,7 +409,10 @@ class _ProfileSetupState extends State<ProfileSetup> {
                         ? Constants.lightTextColor
                         : Constants.darkTextColor,
                     validator: (value) {
-                      return;
+                      if(value!.length != 10) {
+                        return "Enter a valid Phone Number.";
+                      }
+                      return null;
                     },
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
@@ -540,7 +553,15 @@ class _ProfileSetupState extends State<ProfileSetup> {
                 text: "Continue",
                 route: CascaRoutesNames.testingPage,
                 buttonFunc: () {
-                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                  final bool isValidName = nameKey.currentState!.validate();
+                  final bool isValidUsername = nicknameKey.currentState!.validate();
+                  final bool isValidDOB = dobKey.currentState!.validate();
+                  final bool isValidPhone = phoneKey.currentState!.validate();
+
+                  if(isValidName && isValidUsername && isValidDOB && isValidPhone && _selectedGender != null) {
+                    GoRouter.of(context).pushNamed(
+                        CascaRoutesNames.testingPage);
+                  }
                 }
               ),
             ),
