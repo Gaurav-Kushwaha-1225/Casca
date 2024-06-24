@@ -51,7 +51,7 @@ class _TestingPageState extends State<TestingPage> {
                           title: Text(
                               "${user.name} \n ${user.userName} \n ${user.dOB}"),
                           subtitle: Text(
-                              "${user.email} \n ${user.gender} \n ${user.mobNo}"),
+                              "${user.email} \n ${user.gender} \n ${user.password}"),
                         );
                       },
                       itemCount: users.length),

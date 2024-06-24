@@ -11,6 +11,7 @@ class CascaUsersDB {
     "name" TEXT NOT NULL,
     "dOB" TEXT NOT NULL,
     "email" TEXT UNIQUE NOT NULL,
+    "password" TEXT NOT NULL,
     "mobNo" INTEGER UNIQUE NOT NULL,
     "gender" TEXT NOT NULL,
     "image" TEXT
@@ -28,7 +29,7 @@ class CascaUsersDB {
   }
 
   static Future<int> createUser(String userName, String name, String dOB,
-      String email, int mobNo, String gender,
+      String email, String password, int mobNo, String gender,
       {String? image}) async {
     final db = await CascaUsersDB.db();
 
@@ -37,6 +38,7 @@ class CascaUsersDB {
       'name': name,
       'dOB': dOB,
       'email': email,
+      'password': password,
       'mobNo': mobNo,
       'gender': gender,
       'image': image,

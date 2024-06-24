@@ -6,6 +6,7 @@ class User {
   final String email;
   final int mobNo;
   final String gender;
+  final String password;
   final String? image;
 
   User(
@@ -16,6 +17,7 @@ class User {
       required this.email,
       required this.mobNo,
       required this.gender,
+      required this.password,
       this.image});
 
   factory User.fromSqfliteDatabase(Map<String, dynamic> map) {
@@ -28,6 +30,7 @@ class User {
       email: map['email'],
       mobNo: map['mobNo'],
       gender: map['gender'],
+      password: map['password']
     );
   }
 }

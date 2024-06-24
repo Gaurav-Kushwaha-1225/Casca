@@ -266,7 +266,12 @@ class _LoginPage2State extends State<LoginPage2> {
                   // log(emailTextEditingController.text);
                   // log(passwordTextEditingController.text);
                   if(isValidEmail && isValidPassword) {
-                    GoRouter.of(context).pushNamed(CascaRoutesNames.profileSetup, pathParameters: {"email" : jsonEncode(emailTextEditingController.text)});
+                    GoRouter.of(context).pushNamed(
+                        CascaRoutesNames.profileSetup,
+                        pathParameters: {
+                          "email" : jsonEncode(emailTextEditingController.text),
+                          "password": jsonEncode(passwordTextEditingController.text)
+                        });
                   }
                 }),
             const Expanded(

@@ -36,12 +36,13 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.profileSetup,
-        path: "/profileSetup/:email",
+        path: "/profileSetup/:email/:password",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(
               key: state.pageKey,
               child: ProfileSetup(
                 email: jsonDecode(state.pathParameters['email']!),
+                password: jsonDecode(state.pathParameters['password']!),
               ));
         },
       ),

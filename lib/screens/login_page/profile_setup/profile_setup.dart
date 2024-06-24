@@ -12,8 +12,9 @@ import '../../../services/database/casca_db.dart';
 import '../../../utils/consts.dart';
 
 class ProfileSetup extends StatefulWidget {
-  final String? email;
-  const ProfileSetup({super.key, required this.email});
+  final String email;
+  final String password;
+  const ProfileSetup({super.key, required this.email, required this.password});
 
   @override
   State<ProfileSetup> createState() => _ProfileSetupState();
@@ -574,7 +575,8 @@ class _ProfileSetupState extends State<ProfileSetup> {
                         userNameTextEditingController.text,
                         nameTextEditingController.text,
                         dobTextEditingController.text,
-                        widget.email!,
+                        widget.email,
+                        widget.password,
                         int.parse(phoneTextEditingController.text),
                         _selectedGender!
                         );
