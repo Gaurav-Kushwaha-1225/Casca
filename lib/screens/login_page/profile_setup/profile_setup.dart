@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../services/database/casca_db.dart';
 import '../../../utils/consts.dart';
 
 class ProfileSetup extends StatefulWidget {
@@ -25,11 +26,11 @@ class _ProfileSetupState extends State<ProfileSetup> {
   final GlobalKey<FormState> nameKey = GlobalKey();
   String? errorNameValue;
 
-   TextEditingController nicknameTextEditingController =
+   TextEditingController userNameTextEditingController =
       TextEditingController();
-  final FocusNode nicknameFocusNode = FocusNode();
-  final GlobalKey<FormState> nicknameKey = GlobalKey();
-  String? errorNicknameValue;
+  final FocusNode userNameFocusNode = FocusNode();
+  final GlobalKey<FormState> userNameKey = GlobalKey();
+  String? erroruserNameValue;
 
    TextEditingController dobTextEditingController =
       TextEditingController();
@@ -158,11 +159,11 @@ class _ProfileSetupState extends State<ProfileSetup> {
               child: Container(
                 margin: const EdgeInsets.only(left: 24, right: 24, bottom: 13),
                 child: Form(
-                  key: nicknameKey,
+                  key: userNameKey,
                   child: TextFormField(
                     autofocus: false,
-                    focusNode: nicknameFocusNode,
-                    controller: nicknameTextEditingController,
+                    focusNode: userNameFocusNode,
+                    controller: userNameTextEditingController,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
                         return 'Username is required.';
@@ -184,7 +185,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                         letterSpacing: 1.2,
                         fontStyle: FontStyle.normal),
                     decoration: InputDecoration(
-                        errorText: errorNicknameValue,
+                        errorText: erroruserNameValue,
                         errorStyle: GoogleFonts.urbanist(
                             decoration: TextDecoration.none,
                             fontSize: 10,
@@ -204,7 +205,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(12)),
                             gapPadding: 24),
-                        hintText: 'Nickname',
+                        hintText: 'Username',
                         hintStyle: GoogleFonts.urbanist(
                             decoration: TextDecoration.none,
                             fontSize: 15,
@@ -552,9 +553,9 @@ class _ProfileSetupState extends State<ProfileSetup> {
               child: ScreenWidthButton(
                 text: "Continue",
                 route: CascaRoutesNames.testingPage,
-                buttonFunc: () {
+                buttonFunc: () async {
                   final bool isValidName = nameKey.currentState!.validate();
-                  final bool isValidUsername = nicknameKey.currentState!.validate();
+                  final bool isValidUsername = userNameKey.currentState!.validate();
                   final bool isValidDOB = dobKey.currentState!.validate();
                   final bool isValidPhone = phoneKey.currentState!.validate();
 
@@ -569,6 +570,15 @@ class _ProfileSetupState extends State<ProfileSetup> {
                   }
 
                   if(isValidName && isValidUsername && isValidDOB && isValidPhone && _selectedGender != null) {
+                    await CascaUsersDB.createUser(
+                        userNameTextEditingController.text,
+                        nameTextEditingController.text,
+                        dobTextEditingController.text,
+                        widget.email!,
+                        int.parse(phoneTextEditingController.text),
+                        _selectedGender!
+                        );
+                    if(!mounted) return;
                     GoRouter.of(context).pushNamed(
                         CascaRoutesNames.testingPage);
                   }

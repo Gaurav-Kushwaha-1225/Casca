@@ -1,22 +1,22 @@
 class User {
-  final int? id;
-  final String? userName;
-  final String? name;
+  final int id;
+  final String userName;
+  final String name;
+  final String dOB;
+  final String email;
+  final int mobNo;
+  final String gender;
   final String? image;
-  final String? dOB;
-  final String? email;
-  final String? mobNo;
-  final String? gender;
 
   User(
       {required this.id,
       required this.userName,
       required this.name,
-      this.image,
       required this.dOB,
       required this.email,
-      this.mobNo,
-      required this.gender});
+      required this.mobNo,
+      required this.gender,
+      this.image});
 
   factory User.fromSqfliteDatabase(Map<String, dynamic> map) {
     return User(
@@ -24,7 +24,7 @@ class User {
       userName: map['userName'],
       name: map['name'],
       image: map['image'],
-      dOB: map['DOB'],
+      dOB: map['dOB'],
       email: map['email'],
       mobNo: map['mobNo'],
       gender: map['gender'],
