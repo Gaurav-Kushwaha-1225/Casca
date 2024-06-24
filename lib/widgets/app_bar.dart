@@ -27,6 +27,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               : Constants.darkTextColor,
           letterSpacing: 1.5,
           fontStyle: FontStyle.normal),
+      surfaceTintColor: Theme.of(context).brightness == Brightness.light
+          ? Constants.darkBorderColor
+          : Constants.lightBorderColor,
       titleSpacing: 0,
       leading: leadingIcon != null
           ? IconButton(

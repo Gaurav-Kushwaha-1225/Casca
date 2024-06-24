@@ -558,6 +558,16 @@ class _ProfileSetupState extends State<ProfileSetup> {
                   final bool isValidDOB = dobKey.currentState!.validate();
                   final bool isValidPhone = phoneKey.currentState!.validate();
 
+                  if(_selectedGender == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Please Select Gender"),
+                          backgroundColor: Theme.of(context).brightness == Brightness.light
+                              ? Constants.darkBorderColor : Constants.lightBorderColor
+                        )
+                    );
+                  }
+
                   if(isValidName && isValidUsername && isValidDOB && isValidPhone && _selectedGender != null) {
                     GoRouter.of(context).pushNamed(
                         CascaRoutesNames.testingPage);
@@ -565,6 +575,11 @@ class _ProfileSetupState extends State<ProfileSetup> {
                 }
               ),
             ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 25,
+              ),
+            )
           ],
         ));
   }
