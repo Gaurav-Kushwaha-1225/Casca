@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/local_widgets/auth_page_divider.dart';
@@ -5,14 +6,15 @@ import 'package:Casca/screens/login_page/local_widgets/else_signin_signup_option
 import 'package:Casca/screens/login_page/local_widgets/main_text.dart';
 import 'package:Casca/screens/login_page/local_widgets/remember_me_check_box.dart';
 import 'package:Casca/screens/login_page/local_widgets/sign_in_options.dart';
+import 'package:Casca/services/database/casca_db.dart';
 import 'package:Casca/utils/consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../models/users.dart';
 import '../../../utils/routes_consts.dart';
 import '../../../widgets/under_development_feature.dart';
 
@@ -38,6 +40,7 @@ class _LoginPage3State extends State<LoginPage3> {
   final GlobalKey<FormState> passwordKey = GlobalKey();
 
   bool _showPassword = false;
+  bool _isPasswordValid = false;
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -169,8 +172,17 @@ class _LoginPage3State extends State<LoginPage3> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Please enter password.";
-                    } else {
-                      return null;
+                    } else if (!_isPasswordValid) {
+                      return "Password or Email is incorrect.";
+                    }
+                    return null;
+                  },
+                  onChanged: (String? value) async {
+                    final List<User> users = await CascaUsersDB.getUserByEmail(emailTextEditingController.text);
+                    if(users.length == 1) {
+                      if(users.first.password == value) {
+                        _isPasswordValid = true;
+                      }
                     }
                   },
                   keyboardType: TextInputType.text,
@@ -269,7 +281,9 @@ class _LoginPage3State extends State<LoginPage3> {
                 // log(emailTextEditingController.text);
                 // log(passwordTextEditingController.text);
                 if(isValidEmail && isValidPassword) {
-                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                  if(!mounted) return;
+                  GoRouter.of(context).pushNamed(
+                      CascaRoutesNames.testingPage);
                 }
               }),
             Container(

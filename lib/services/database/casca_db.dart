@@ -62,6 +62,13 @@ class CascaUsersDB {
     return users.map((user) => User.fromSqfliteDatabase(user)).toList();
   }
 
+  static Future<List<User>> getUserByEmail(String email) async {
+    final db = await CascaUsersDB.db();
+    final users = await db.query(tableName,
+        where: "email = ?", whereArgs: [email]);
+    return users.map((user) => User.fromSqfliteDatabase(user)).toList();
+  }
+
   // TODO: Update Query SQL Table Function has to be Created.
   // TODO: Delete Query SQL Table Function has to be Created.
   // Read a single item by id
