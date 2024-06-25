@@ -132,10 +132,10 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
               )),
               ScreenWidthButton(
                   text: "Continue",
-                  route: CascaRoutesNames.testingPage,
+                  route: CascaRoutesNames.forgotPassword2,
                   buttonFunc: () {
                     GoRouter.of(context)
-                        .pushNamed(CascaRoutesNames.testingPage);
+                        .pushNamed(CascaRoutesNames.forgotPassword2);
                     log("Worked Fine :)");
                   }),
               Expanded(

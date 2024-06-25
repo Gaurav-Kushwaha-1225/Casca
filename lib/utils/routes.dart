@@ -10,6 +10,8 @@ import 'package:Casca/utils/routes_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/login_page/forgot_password_2/forgot_password_2.dart';
+
 class CascaRouter {
   GoRouter router = GoRouter(
     initialLocation: '/',
@@ -49,9 +51,16 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.forgotPassword1,
-        path: "/forgotPassword",
+        path: "/forgotPassword1",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(key: state.pageKey, child: ForgotPassword1());
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.forgotPassword2,
+        path: "/forgotPassword2",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(key: state.pageKey, child: ForgotPassword2());
         },
       ),
       GoRoute(
