@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Casca/screens/login_page/forgot_password_1/forgot_password_1.dart';
 import 'package:Casca/screens/login_page/login_page_1/login_page_1.dart';
 import 'package:Casca/screens/login_page/login_page_2/login_page_2.dart';
 import 'package:Casca/screens/login_page/login_page_3/login_page_3.dart';
@@ -44,6 +45,13 @@ class CascaRouter {
                 email: jsonDecode(state.pathParameters['email']!),
                 password: jsonDecode(state.pathParameters['password']!),
               ));
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.forgotPassword1,
+        path: "/forgotPassword",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(key: state.pageKey, child: ForgotPassword1());
         },
       ),
       GoRoute(

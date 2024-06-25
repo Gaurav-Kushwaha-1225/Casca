@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/local_widgets/auth_page_divider.dart';
@@ -16,7 +15,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../models/users.dart';
 import '../../../utils/routes_consts.dart';
-import '../../../widgets/under_development_feature.dart';
 
 class LoginPage3 extends StatefulWidget {
   const LoginPage3({super.key});
@@ -292,11 +290,7 @@ class _LoginPage3State extends State<LoginPage3> {
               child: GestureDetector(
                 onTap: () {
                   log('Forgot Password');
-                  showDialog(
-                      context: context,
-                      builder: (ctx) => const UnderDevelopmentFeature(
-                          text:
-                              "Forgot Button Pressed feature is currently under development."));
+                  GoRouter.of(context).pushNamed(CascaRoutesNames.forgotPassword1);
                 },
                 child: Text("Forgot the Password?",
                     style: GoogleFonts.urbanist(

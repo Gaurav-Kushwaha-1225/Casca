@@ -41,8 +41,8 @@ class _LoginPage1State extends State<LoginPage1> {
             alignment: Alignment.center,
             child: Image.asset(
               Theme.of(context).brightness == Brightness.light
-                  ? "assets/images/1-Light.png"
-                  : "assets/images/1-Dark.png",
+                  ? "assets/images/LogLight.png"
+                  : "assets/images/LogDark.png",
               fit: BoxFit.contain,
               width: (MediaQuery.of(context).size.width - 170),
             ),
