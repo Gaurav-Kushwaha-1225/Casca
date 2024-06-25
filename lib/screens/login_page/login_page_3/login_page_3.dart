@@ -26,10 +26,10 @@ class LoginPage3 extends StatefulWidget {
 class _LoginPage3State extends State<LoginPage3> {
   final TextEditingController emailTextEditingController =
       TextEditingController();
-  final FocusNode emailFocusNode = FocusNode();
+  // final FocusNode emailFocusNode = FocusNode();
   final TextEditingController passwordTextEditingController =
       TextEditingController();
-  final FocusNode passwordFocusNode = FocusNode();
+  // final FocusNode passwordFocusNode = FocusNode();
 
   String? errorEmailValue;
   final GlobalKey<FormState> emailKey = GlobalKey();
@@ -39,6 +39,7 @@ class _LoginPage3State extends State<LoginPage3> {
 
   bool _showPassword = false;
   bool _isPasswordValid = false;
+  bool _isEmailValid = false;
   void _togglevisibility() {
     setState(() {
       _showPassword = !_showPassword;
@@ -46,6 +47,7 @@ class _LoginPage3State extends State<LoginPage3> {
   }
 
   bool loginPasswordRememberMe = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,20 +74,27 @@ class _LoginPage3State extends State<LoginPage3> {
               child: Form(
                 key: emailKey,
                 child: TextFormField(
-                  autofocus: false,
-                  focusNode: emailFocusNode,
+                  // autofocus: false,
+                  // focusNode: emailFocusNode,
                   controller: emailTextEditingController,
                   cursorColor: Theme.of(context).brightness == Brightness.light
                       ? Constants.lightTextColor
                       : Constants.darkTextColor,
                   validator: (value) {
-                    final bool emailValid = RegExp(
+                    final bool emailPatternValid = RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value!);
-                    if (!emailValid) {
+                    if (!emailPatternValid) {
                       return "Please enter a valid email address.";
-                    } else {
-                      return null;
+                    } else if (!_isEmailValid) {
+                      return "Invalid email address.";
+                    }
+                    return null;
+                  },
+                  onChanged: (String? value) async {
+                    final List<User> users = await CascaUsersDB.getUserByEmail(emailTextEditingController.text);
+                    if(users.length == 1) {
+                      _isEmailValid = true;
                     }
                   },
                   keyboardType: TextInputType.emailAddress,
@@ -160,8 +169,8 @@ class _LoginPage3State extends State<LoginPage3> {
               child: Form(
                 key: passwordKey,
                 child: TextFormField(
-                  autofocus: false,
-                  focusNode: passwordFocusNode,
+                  // autofocus: false,
+                  // focusNode: passwordFocusNode,
                   controller: passwordTextEditingController,
                   obscureText: !_showPassword,
                   cursorColor: Theme.of(context).brightness == Brightness.light
@@ -222,7 +231,6 @@ class _LoginPage3State extends State<LoginPage3> {
                                 : Colors.grey.shade300,
                         size: 18,
                       ),
-                      // TODO: Suffix icon change when pressed
                       suffixIcon: GestureDetector(
                         onTap: () {
                           _togglevisibility();
@@ -290,7 +298,12 @@ class _LoginPage3State extends State<LoginPage3> {
               child: GestureDetector(
                 onTap: () {
                   log('Forgot Password');
-                  GoRouter.of(context).pushNamed(CascaRoutesNames.forgotPassword1);
+                  final bool isValidEmail = emailKey.currentState!.validate();
+                  if(isValidEmail) {
+                    if(!mounted) return;
+                    GoRouter.of(context).pushNamed(
+                        CascaRoutesNames.forgotPassword1);
+                  }
                 },
                 child: Text("Forgot the Password?",
                     style: GoogleFonts.urbanist(

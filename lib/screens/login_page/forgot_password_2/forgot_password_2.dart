@@ -1,5 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:async';
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:Casca/utils/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
@@ -21,14 +23,14 @@ class ForgotPassword2 extends StatefulWidget {
 }
 
 class _ForgotPassword2State extends State<ForgotPassword2> {
+  Random randomCode = Random();
+  int? codeVerify;
+
   TextEditingController codeVerifyTextEditingController =
       TextEditingController();
   final codeVerifyKey = GlobalKey<FormState>();
 
   StreamController<ErrorAnimationType>? errorController;
-
-  bool codehasError = false;
-  String currentCodeText = "";
 
   int secondsRemaining = 60;
   bool isResendCodeEnabled = false;
@@ -48,6 +50,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
         });
       }
     });
+    codeVerify = randomCode.nextInt(1000) + 9000;
     super.initState();
   }
 
@@ -65,7 +68,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
         text: "Forgot Password",
         leadingIcon: null,
         leadingFunc: () {
-          log('AppBar BackButton');
+          debugPrint('AppBar BackButton');
           SystemNavigator.pop();
         },
       ),
@@ -77,7 +80,9 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
-              widget.isEmail ? "Forgot Password Code has been send to abc@xyz.com" : "Forgot Password Code has been send to +1 111 ******99",
+              widget.isEmail
+                  ? "Forgot Password Code has been send to abc@xyz.com"
+                  : "Forgot Password Code has been send to +1 111 ******99",
               textAlign: TextAlign.center,
               style: GoogleFonts.urbanist(
                   fontSize: 15,
@@ -105,9 +110,15 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
                 validator: (v) {
                   if (v!.length != 4) {
                     return "Code is of 4 digits.";
+                  } else if (v != codeVerify.toString()) {
+                    return "Invalid Code.";
                   }
                   return null;
                 },
+                errorTextSpace: 30,
+                errorTextDirection: TextDirection.ltr,
+                enablePinAutofill: true,
+                enabled: true,
                 textStyle: GoogleFonts.urbanist(
                     decoration: TextDecoration.none,
                     fontSize: 20,
@@ -165,8 +176,8 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
                   ),
                 ],
                 onChanged: (value) {
-                  currentCodeText = value!;
-                  debugPrint(currentCodeText);
+                  debugPrint(value);
+                  debugPrint(codeVerify.toString());
                 },
                 beforeTextPaste: (value) {
                   return false;
@@ -240,7 +251,11 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
               text: "Verify",
               route: CascaRoutesNames.testingPage,
               buttonFunc: () {
-                GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                bool isValidCode = codeVerifyKey.currentState!.validate();
+
+                if (isValidCode) {
+                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                }
               }),
           SizedBox(
             height: 40,
