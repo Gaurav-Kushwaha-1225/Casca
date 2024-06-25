@@ -58,9 +58,13 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.forgotPassword2,
-        path: "/forgotPassword2",
+        path: "/forgotPassword2/:isEmail",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: ForgotPassword2());
+          return MaterialPage(
+              key: state.pageKey,
+              child: ForgotPassword2(
+                isEmail: jsonDecode(state.pathParameters['isEmail']!),
+              ));
         },
       ),
       GoRoute(

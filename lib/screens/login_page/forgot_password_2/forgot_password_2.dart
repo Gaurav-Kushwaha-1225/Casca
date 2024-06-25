@@ -13,6 +13,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../utils/consts.dart';
 
 class ForgotPassword2 extends StatefulWidget {
+  bool isEmail;
+  ForgotPassword2({super.key, required this.isEmail});
+
   @override
   State<ForgotPassword2> createState() => _ForgotPassword2State();
 }
@@ -74,7 +77,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
-              "Forgot Password Code has been send to +1 111 ******99",
+              widget.isEmail ? "Forgot Password Code has been send to abc@xyz.com" : "Forgot Password Code has been send to +1 111 ******99",
               textAlign: TextAlign.center,
               style: GoogleFonts.urbanist(
                   fontSize: 15,

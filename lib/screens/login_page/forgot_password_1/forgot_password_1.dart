@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/forgot_password_1/local_widgets/forgot_password_card.dart';
@@ -135,7 +136,7 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
                   route: CascaRoutesNames.forgotPassword2,
                   buttonFunc: () {
                     GoRouter.of(context)
-                        .pushNamed(CascaRoutesNames.forgotPassword2);
+                        .pushNamed(CascaRoutesNames.forgotPassword2, pathParameters: {'isEmail': jsonEncode(_isEmail)});
                     log("Worked Fine :)");
                   }),
               Expanded(
