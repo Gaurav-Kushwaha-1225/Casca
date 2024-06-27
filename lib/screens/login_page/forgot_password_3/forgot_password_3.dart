@@ -1,9 +1,9 @@
+import 'package:Casca/screens/login_page/forgot_password_3/local_widgets/password_updated_card.dart';
 import 'package:Casca/utils/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/consts.dart';
@@ -317,7 +317,11 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
                   bool? isConfirmPasswordValid = confirmPasswordKey.currentState?.validate();
 
                   if(isConfirmPasswordValid! && isPasswordValid!) {
-                    GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                    showDialog(
+                        context: context,
+                        builder: (_) => PasswordUpdatedCard()
+                    );
+                    // GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
                   }
                 }),
             SizedBox(
