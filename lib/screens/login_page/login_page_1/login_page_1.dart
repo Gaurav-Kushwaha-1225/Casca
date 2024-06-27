@@ -22,6 +22,7 @@ class _LoginPage1State extends State<LoginPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
           leadingIcon: Icons.arrow_back_rounded,
           text: "",

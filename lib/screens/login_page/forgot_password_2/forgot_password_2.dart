@@ -64,6 +64,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         text: "Forgot Password",
         leadingIcon: null,
@@ -249,12 +250,12 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
           ),
           ScreenWidthButton(
               text: "Verify",
-              route: CascaRoutesNames.testingPage,
+              route: CascaRoutesNames.forgotPassword3,
               buttonFunc: () {
                 bool isValidCode = codeVerifyKey.currentState!.validate();
 
                 if (isValidCode) {
-                  GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                  GoRouter.of(context).pushNamed(CascaRoutesNames.forgotPassword3);
                 }
               }),
           SizedBox(
