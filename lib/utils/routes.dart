@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/login_page/forgot_password_2/forgot_password_2.dart';
+import '../screens/login_page/forgot_password_3/forgot_password_3.dart';
 
 class CascaRouter {
   GoRouter router = GoRouter(
@@ -65,6 +66,13 @@ class CascaRouter {
               child: ForgotPassword2(
                 isEmail: jsonDecode(state.pathParameters['isEmail']!),
               ));
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.forgotPassword3,
+        path: "/forgotPassword3",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(key: state.pageKey, child: ForgotPassword3());
         },
       ),
       GoRoute(
