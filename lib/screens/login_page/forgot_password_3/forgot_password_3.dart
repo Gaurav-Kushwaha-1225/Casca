@@ -1,16 +1,19 @@
 import 'package:Casca/screens/login_page/forgot_password_3/local_widgets/password_updated_card.dart';
+import 'package:Casca/services/database/casca_db.dart';
 import 'package:Casca/utils/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/consts.dart';
 import '../local_widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
-  ForgotPassword3({super.key});
+  int id;
+  ForgotPassword3({super.key, required this.id});
 
   @override
   State<ForgotPassword3> createState() => _ForgotPassword3State();
@@ -53,6 +56,10 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> _updatePassword(int id) async {
+    await CascaUsersDB.updatePassword(id, passwordTextEditingController.text);
   }
 
   @override
@@ -312,16 +319,21 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
             ScreenWidthButton(
                 text: "Continue",
                 route: CascaRoutesNames.testingPage,
-                buttonFunc: () {
+                buttonFunc: () async {
                   bool? isPasswordValid = passwordKey.currentState?.validate();
                   bool? isConfirmPasswordValid = confirmPasswordKey.currentState?.validate();
 
                   if(isConfirmPasswordValid! && isPasswordValid!) {
+                    _updatePassword(widget.id);
+
                     showDialog(
-                        context: context,
-                        builder: (_) => PasswordUpdatedCard()
+                      context: context,
+                      builder: (_) => PasswordUpdatedCard(),
                     );
-                    // GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+
+                    await Future.delayed(const Duration(seconds: 5));
+                    Navigator.pop(context);
+                    GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
                   }
                 }),
             SizedBox(

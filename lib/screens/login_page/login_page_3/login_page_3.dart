@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/local_widgets/auth_page_divider.dart';
@@ -302,7 +303,8 @@ class _LoginPage3State extends State<LoginPage3> {
                   if(isValidEmail) {
                     if(!mounted) return;
                     GoRouter.of(context).pushNamed(
-                        CascaRoutesNames.forgotPassword1);
+                        CascaRoutesNames.forgotPassword1,
+                    pathParameters: {'email' : jsonEncode(emailTextEditingController.text)});
                   }
                 },
                 child: Text("Forgot the Password?",

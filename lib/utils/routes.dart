@@ -52,27 +52,37 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.forgotPassword1,
-        path: "/forgotPassword1",
+        path: "/forgotPassword1/:email",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: ForgotPassword1());
+          return MaterialPage(
+              key: state.pageKey,
+              child: ForgotPassword1(
+                email: jsonDecode(state.pathParameters['email']!),
+              ));
         },
       ),
       GoRoute(
         name: CascaRoutesNames.forgotPassword2,
-        path: "/forgotPassword2/:isEmail",
+        path: "/forgotPassword2/:isEmail/:codeLink/:id",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(
               key: state.pageKey,
               child: ForgotPassword2(
                 isEmail: jsonDecode(state.pathParameters['isEmail']!),
+                codeLink: jsonDecode(state.pathParameters['codeLink']!),
+                id: jsonDecode(state.pathParameters['id']!),
               ));
         },
       ),
       GoRoute(
         name: CascaRoutesNames.forgotPassword3,
-        path: "/forgotPassword3",
+        path: "/forgotPassword3/:id",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: ForgotPassword3());
+          return MaterialPage(
+              key: state.pageKey,
+              child: ForgotPassword3(
+                id: jsonDecode(state.pathParameters['id']!),
+              ));
         },
       ),
       GoRoute(

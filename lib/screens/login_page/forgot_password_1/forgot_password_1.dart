@@ -10,10 +10,13 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../models/users.dart';
+import '../../../services/database/casca_db.dart';
 import '../../../utils/consts.dart';
 
 class ForgotPassword1 extends StatefulWidget {
-  const ForgotPassword1({super.key});
+  String email;
+  ForgotPassword1({super.key, required this.email});
 
   @override
   State<ForgotPassword1> createState() => _ForgotPassword1State();
@@ -22,6 +25,18 @@ class ForgotPassword1 extends StatefulWidget {
 class _ForgotPassword1State extends State<ForgotPassword1> {
   bool _isSMS = true;
   bool _isEmail = false;
+  late User user;
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  void getUser() async {
+    user = (await CascaUsersDB.getUserByEmail(widget.email))[0];
+    setState(() {});;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +102,12 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                             color: _isSMS
-                                ? Theme.of(context).brightness == Brightness.light
+                                ? Theme.of(context).brightness ==
+                                        Brightness.light
                                     ? Constants.lightSecondary
                                     : Constants.darkSecondary
-                                : Theme.of(context).brightness == Brightness.light
+                                : Theme.of(context).brightness ==
+                                        Brightness.light
                                     ? Constants.lightBorderColor
                                     : Constants.darkBorderColor)),
                     child: ForgotPasswordCard(
@@ -116,15 +133,19 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                             color: _isEmail
-                                ? Theme.of(context).brightness == Brightness.light
+                                ? Theme.of(context).brightness ==
+                                        Brightness.light
                                     ? Constants.lightSecondary
                                     : Constants.darkSecondary
-                                : Theme.of(context).brightness == Brightness.light
+                                : Theme.of(context).brightness ==
+                                        Brightness.light
                                     ? Constants.lightBorderColor
                                     : Constants.darkBorderColor)),
                     child: ForgotPasswordCard(
                       via: "via Email:",
-                      via_content: "abc***@xyz.com",
+                      via_content: widget.email.substring(0, 4) +
+                          "****" +
+                          widget.email.substring(widget.email.length - 9),
                     )),
               ),
               Expanded(
@@ -135,8 +156,13 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
                   text: "Continue",
                   route: CascaRoutesNames.forgotPassword2,
                   buttonFunc: () {
-                    GoRouter.of(context)
-                        .pushNamed(CascaRoutesNames.forgotPassword2, pathParameters: {'isEmail': jsonEncode(_isEmail)});
+                    GoRouter.of(context).pushNamed(
+                        CascaRoutesNames.forgotPassword2,
+                        pathParameters: {
+                          'isEmail': jsonEncode(_isEmail),
+                          'codeLink': jsonEncode(_isEmail ? widget.email : user.mobNo.toString()),
+                          'id': jsonEncode(user.id)
+                        });
                     log("Worked Fine :)");
                   }),
               Expanded(

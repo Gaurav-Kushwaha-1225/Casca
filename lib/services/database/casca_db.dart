@@ -28,6 +28,8 @@ class CascaUsersDB {
     );
   }
 
+  // Create Users Method
+
   static Future<int> createUser(String userName, String name, String dOB,
       String email, String password, int mobNo, String gender,
       {String? image}) async {
@@ -49,11 +51,15 @@ class CascaUsersDB {
     return id;
   }
 
+  // Get All Users Method
+
   static Future<List<User>> getUsers() async {
     final db = await CascaUsersDB.db();
     final users = await db.query(tableName, orderBy: "id");
     return users.map((user) => User.fromSqfliteDatabase(user)).toList();
   }
+
+  // Get By XYZ Methods
 
   static Future<List<User>> getUserByUserName(String userName) async {
     final db = await CascaUsersDB.db();
@@ -64,12 +70,42 @@ class CascaUsersDB {
 
   static Future<List<User>> getUserByEmail(String email) async {
     final db = await CascaUsersDB.db();
-    final users = await db.query(tableName,
-        where: "email = ?", whereArgs: [email]);
+    final users =
+        await db.query(tableName, where: "email = ?", whereArgs: [email]);
     return users.map((user) => User.fromSqfliteDatabase(user)).toList();
   }
 
-  // TODO: Update Query SQL Table Function has to be Created.
+  static Future<List<User>> getUserById(int id) async {
+    final db = await CascaUsersDB.db();
+    final users = await db.query(tableName, where: "id = ?", whereArgs: [id]);
+    return users.map((user) => User.fromSqfliteDatabase(user)).toList();
+  }
+
+  // Update Methods
+
+  static Future<int> updatePassword(int id, String password) async {
+    final db = await CascaUsersDB.db();
+
+    List<User> users = await getUserById(id);
+    User user = users[0];
+
+    final new_values = {
+      'id': id,
+      'userName': user.userName,
+      'name': user.name,
+      'dOB': user.dOB,
+      'email': user.email,
+      'password': password,
+      'mobNo': user.mobNo,
+      'gender': user.gender,
+      'image': user.image,
+    };
+
+    final result = await db
+        .update(tableName, new_values, where: "id = ?", whereArgs: [id]);
+    return result;
+  }
+
   // TODO: Delete Query SQL Table Function has to be Created.
   // Read a single item by id
   // The app doesn't use this method but I put here in case you want to see it

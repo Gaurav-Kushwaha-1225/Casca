@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:Casca/services/database/casca_db.dart';
 import 'package:Casca/utils/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
@@ -12,11 +14,18 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../models/users.dart';
 import '../../../utils/consts.dart';
 
 class ForgotPassword2 extends StatefulWidget {
   bool isEmail;
-  ForgotPassword2({super.key, required this.isEmail});
+  String codeLink;
+  int id;
+  ForgotPassword2(
+      {super.key,
+      required this.isEmail,
+      required this.codeLink,
+      required this.id});
 
   @override
   State<ForgotPassword2> createState() => _ForgotPassword2State();
@@ -81,9 +90,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
-              widget.isEmail
-                  ? "Forgot Password Code has been send to abc@xyz.com"
-                  : "Forgot Password Code has been send to +1 111 ******99",
+              "Forgot Password Code has been send to ${widget.codeLink}",
               textAlign: TextAlign.center,
               style: GoogleFonts.urbanist(
                   fontSize: 15,
@@ -255,7 +262,11 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
                 bool isValidCode = codeVerifyKey.currentState!.validate();
 
                 if (isValidCode) {
-                  GoRouter.of(context).pushNamed(CascaRoutesNames.forgotPassword3);
+                  GoRouter.of(context)
+                      .pushNamed(CascaRoutesNames.forgotPassword3,
+                  pathParameters: {
+                        'id': jsonEncode(widget.id)
+                  });
                 }
               }),
           SizedBox(
