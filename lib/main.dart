@@ -1,7 +1,8 @@
-import 'package:Casca/utils/routes.dart';
 import 'package:Casca/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'config/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());

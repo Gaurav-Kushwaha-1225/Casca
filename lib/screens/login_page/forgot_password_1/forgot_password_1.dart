@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/screens/login_page/forgot_password_1/local_widgets/forgot_password_card.dart';
-import 'package:Casca/utils/routes_consts.dart';
+import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../models/users.dart';
+import '../../../features/authentication/data/models/users.dart';
 import '../../../services/database/casca_db.dart';
 import '../../../utils/consts.dart';
 

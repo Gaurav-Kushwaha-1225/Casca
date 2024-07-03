@@ -1,6 +1,6 @@
 import 'package:Casca/screens/login_page/forgot_password_3/local_widgets/password_updated_card.dart';
 import 'package:Casca/services/database/casca_db.dart';
-import 'package:Casca/utils/routes_consts.dart';
+import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';

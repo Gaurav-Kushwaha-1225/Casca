@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/users.dart';
+import '../../features/authentication/data/models/users.dart';
 import '../../services/database/casca_db.dart';
 
 class TestingPage extends StatefulWidget {

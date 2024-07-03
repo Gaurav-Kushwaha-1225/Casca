@@ -6,12 +6,12 @@ import 'package:Casca/screens/login_page/login_page_2/login_page_2.dart';
 import 'package:Casca/screens/login_page/login_page_3/login_page_3.dart';
 import 'package:Casca/screens/login_page/profile_setup/profile_setup.dart';
 import 'package:Casca/screens/testing_page/testing_page.dart';
-import 'package:Casca/utils/routes_consts.dart';
+import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../screens/login_page/forgot_password_2/forgot_password_2.dart';
-import '../screens/login_page/forgot_password_3/forgot_password_3.dart';
+import '../../screens/login_page/forgot_password_2/forgot_password_2.dart';
+import '../../screens/login_page/forgot_password_3/forgot_password_3.dart';
 
 class CascaRouter {
   GoRouter router = GoRouter(

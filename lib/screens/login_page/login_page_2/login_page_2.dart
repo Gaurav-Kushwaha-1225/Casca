@@ -7,7 +7,7 @@ import 'package:Casca/screens/login_page/local_widgets/main_text.dart';
 import 'package:Casca/screens/login_page/local_widgets/remember_me_check_box.dart';
 import 'package:Casca/screens/login_page/local_widgets/sign_in_options.dart';
 import 'package:Casca/utils/consts.dart';
-import 'package:Casca/utils/routes_consts.dart';
+import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';

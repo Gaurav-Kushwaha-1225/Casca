@@ -1,4 +1,4 @@
-import 'package:Casca/models/users.dart';
+import 'package:Casca/features/authentication/data/models/users.dart';
 import 'package:sqflite/sqflite.dart';
 
 final tableName = "casca_users";
