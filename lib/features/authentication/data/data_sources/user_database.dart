@@ -1,9 +1,23 @@
-import 'package:Casca/features/authentication/data/models/users.dart';
+import 'package:Casca/features/authentication/data/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-final tableName = "casca_users";
+final tableName = "casca_users_db";
 
 class CascaUsersDB {
+  // Initialize Database Method
+
+  static Future<Database> db() async {
+    return openDatabase(
+      '$tableName.db',
+      version: 1,
+      onCreate: (Database database, int version) async {
+        await createTable(database);
+      },
+    );
+  }
+
+  // Create Table Method
+
   static Future<void> createTable(Database database) async {
     await database.execute("""CREATE TABLE IF NOT EXISTS $tableName (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -16,16 +30,6 @@ class CascaUsersDB {
     "gender" TEXT NOT NULL,
     "image" TEXT
     );""");
-  }
-
-  static Future<Database> db() async {
-    return openDatabase(
-      '$tableName.db',
-      version: 1,
-      onCreate: (Database database, int version) async {
-        await createTable(database);
-      },
-    );
   }
 
   // Create Users Method
@@ -68,11 +72,16 @@ class CascaUsersDB {
     return users.map((user) => User.fromSqfliteDatabase(user)).toList();
   }
 
-  static Future<List<User>> getUserByEmail(String email) async {
+  static Future<User?> getUserByEmail_Password(
+      String email, String password) async {
     final db = await CascaUsersDB.db();
-    final users =
-        await db.query(tableName, where: "email = ?", whereArgs: [email]);
-    return users.map((user) => User.fromSqfliteDatabase(user)).toList();
+    final users = await db.query(tableName,
+        where: "email = ? , password = ?", whereArgs: [email, password]);
+    if (users.length != 1) {
+      return null;
+    } else {
+      return users.map((user) => User.fromSqfliteDatabase(user)).toList().first;
+    }
   }
 
   static Future<List<User>> getUserById(int id) async {
@@ -106,37 +115,37 @@ class CascaUsersDB {
     return result;
   }
 
-  // TODO: Delete Query SQL Table Function has to be Created.
-  // Read a single item by id
-  // The app doesn't use this method but I put here in case you want to see it
-  // static Future<List<Map<String, dynamic>>> getItem(int id) async {
-  //   final db = await SQLHelper.db();
-  //   return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
-  // }
-  //
-  // // Update an item by id
-  // static Future<int> updateItem(
-  //     int id, String title, String? description) async {
-  //   final db = await SQLHelper.db();
-  //
-  //   final data = {
-  //     'title': title,
-  //     'description': description,
-  //     'createdAt': DateTime.now().toString()
-  //   };
-  //
-  //   final result =
-  //   await db.update('items', data, where: "id = ?", whereArgs: [id]);
-  //   return result;
-  // }
-  //
-  // // Delete
-  // static Future<void> deleteItem(int id) async {
-  //   final db = await SQLHelper.db();
-  //   try {
-  //     await db.delete("items", where: "id = ?", whereArgs: [id]);
-  //   } catch (err) {
-  //     debugPrint("Something went wrong when deleting an item: $err");
-  //   }
-  // }
+// TODO: Delete Query SQL Table Function has to be Created.
+// Read a single item by id
+// The app doesn't use this method but I put here in case you want to see it
+// static Future<List<Map<String, dynamic>>> getItem(int id) async {
+//   final db = await SQLHelper.db();
+//   return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
+// }
+//
+// // Update an item by id
+// static Future<int> updateItem(
+//     int id, String title, String? description) async {
+//   final db = await SQLHelper.db();
+//
+//   final data = {
+//     'title': title,
+//     'description': description,
+//     'createdAt': DateTime.now().toString()
+//   };
+//
+//   final result =
+//   await db.update('items', data, where: "id = ?", whereArgs: [id]);
+//   return result;
+// }
+//
+// // Delete
+// static Future<void> deleteItem(int id) async {
+//   final db = await SQLHelper.db();
+//   try {
+//     await db.delete("items", where: "id = ?", whereArgs: [id]);
+//   } catch (err) {
+//     debugPrint("Something went wrong when deleting an item: $err");
+//   }
+// }
 }
