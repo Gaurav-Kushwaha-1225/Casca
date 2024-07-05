@@ -7,7 +7,7 @@ class LoginUser {
 
   LoginUser(this.repository);
 
-  Future<User?> login(String email, String password) {
+  Future<User?> execute(String email, String password) {
     return repository.loginUser(email, password);
   }
 }
