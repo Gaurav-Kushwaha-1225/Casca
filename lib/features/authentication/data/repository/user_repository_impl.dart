@@ -4,7 +4,8 @@ import 'package:Casca/features/authentication/domain/repository/user_repository.
 import '../../domain/entities/user.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl();
+  final CascaUsersDB cascaUsersDB;
+  UserRepositoryImpl(this.cascaUsersDB);
 
   @override
   Future<void> signupUser(User user) async {

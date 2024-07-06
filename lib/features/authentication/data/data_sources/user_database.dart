@@ -84,6 +84,14 @@ class CascaUsersDB {
     }
   }
 
+  static Future<List<User>> getUserByEmail(
+      String email) async {
+    final db = await CascaUsersDB.db();
+    final users = await db.query(tableName,
+        where: "email = ?", whereArgs: [email]);
+      return users.map((user) => User.fromSqfliteDatabase(user)).toList();
+    }
+
   static Future<List<User>> getUserById(int id) async {
     final db = await CascaUsersDB.db();
     final users = await db.query(tableName, where: "id = ?", whereArgs: [id]);
