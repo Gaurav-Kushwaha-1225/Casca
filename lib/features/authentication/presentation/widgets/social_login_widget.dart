@@ -4,16 +4,16 @@ import 'package:Casca/widgets/under_development_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginWithWidget extends StatefulWidget {
+class SocialLoginWidget extends StatefulWidget {
   final Widget icon;
   final String text;
-  const LoginWithWidget({super.key, required this.icon, required this.text});
+  const SocialLoginWidget({super.key, required this.icon, required this.text});
 
   @override
-  State<LoginWithWidget> createState() => _LoginWithWidgetState();
+  State<SocialLoginWidget> createState() => _SocialLoginWidgetState();
 }
 
-class _LoginWithWidgetState extends State<LoginWithWidget> {
+class _SocialLoginWidgetState extends State<SocialLoginWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

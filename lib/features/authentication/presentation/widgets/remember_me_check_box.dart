@@ -25,8 +25,9 @@ class _RememberMeCheckBoxState extends State<RememberMeCheckBox> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Checkbox(
-            side: MaterialStateBorderSide.resolveWith(
-              (Set<MaterialState> states) {
+            side: WidgetStateBorderSide.resolveWith(
+              // ignore: deprecated_member_use
+              (Set<WidgetState> states) {
                 return BorderSide(color: Constants.lightSecondary);
               },
             ),
@@ -45,8 +46,8 @@ class _RememberMeCheckBoxState extends State<RememberMeCheckBox> {
                 : Constants.darkSecondary,
             checkColor: Colors.white,
             fillColor: widget.passwordRememberMe
-                ? MaterialStatePropertyAll(Constants.lightSecondary)
-                : MaterialStatePropertyAll(
+                ? WidgetStatePropertyAll(Constants.lightSecondary)
+                : WidgetStatePropertyAll(
                     Theme.of(context).brightness == Brightness.light
                         ? Constants.lightPrimary
                         : Constants.darkPrimary),
