@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:Casca/features/authentication/presentation/pages/authentication_login_page.dart';
+import 'package:Casca/features/authentication/presentation/pages/authentication_onboarding_page.dart';
+import 'package:Casca/features/authentication/presentation/pages/authentication_signup_page.dart';
 import 'package:Casca/screens/login_page/forgot_password_1/forgot_password_1.dart';
-import 'package:Casca/screens/login_page/login_page_1/login_page_1.dart';
-import 'package:Casca/screens/login_page/login_page_2/login_page_2.dart';
-import 'package:Casca/screens/login_page/login_page_3/login_page_3.dart';
 import 'package:Casca/screens/login_page/profile_setup/profile_setup.dart';
 import 'package:Casca/screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
@@ -18,24 +18,24 @@ class CascaRouter {
     initialLocation: '/',
     routes: [
       GoRoute(
-        name: CascaRoutesNames.loginPage1,
+        name: CascaRoutesNames.authOnboardingPage,
         path: "/",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const LoginPage1());
+          return MaterialPage(key: state.pageKey, child: const AuthenticationOnboardingPage());
         },
       ),
       GoRoute(
-        name: CascaRoutesNames.loginPage2,
-        path: "/loginPage2",
+        name: CascaRoutesNames.authSignupPage,
+        path: "/authSignupPage",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const LoginPage2());
+          return MaterialPage(key: state.pageKey, child: const AuthenticationSignupPage());
         },
       ),
       GoRoute(
-        name: CascaRoutesNames.loginPage3,
-        path: "/loginPage3",
+        name: CascaRoutesNames.authLoginPage,
+        path: "/authLoginPage",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const LoginPage3());
+          return MaterialPage(key: state.pageKey, child: const AuthenticationLoginPage());
         },
       ),
       GoRoute(
