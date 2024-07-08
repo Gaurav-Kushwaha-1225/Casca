@@ -2,6 +2,7 @@ import 'package:Casca/features/authentication/data/data_sources/user_database.da
 import 'package:Casca/features/authentication/data/repository/user_repository_impl.dart';
 import 'package:Casca/features/authentication/domain/usecases/login_user.dart';
 import 'package:Casca/features/authentication/domain/usecases/signup_user.dart';
+import 'package:Casca/features/authentication/presentation/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:Casca/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,12 +29,20 @@ class Casca extends StatelessWidget {
         RepositoryProvider<SignupUser>(
             create: (_) => SignupUser(UserRepositoryImpl(CascaUsersDB()))),
       ],
-      child: MaterialApp.router(
-        title: 'Casca',
-        themeMode: ThemeMode.system,
-        theme: CascaTheme.lightTheme,
-        darkTheme: CascaTheme.darkTheme,
-        routerConfig: CascaRouter().router,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => AuthenticationBloc(
+                  loginUser: LoginUser(UserRepositoryImpl(CascaUsersDB())),
+                  signupUser: SignupUser(UserRepositoryImpl(CascaUsersDB()))))
+        ],
+        child: MaterialApp.router(
+          title: 'Casca',
+          themeMode: ThemeMode.system,
+          theme: CascaTheme.lightTheme,
+          darkTheme: CascaTheme.darkTheme,
+          routerConfig: CascaRouter().router,
+        ),
       ),
     );
   }
