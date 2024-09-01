@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Casca/features/authentication/data/data_sources/user_database.dart';
 import 'package:Casca/features/authentication/domain/repository/user_repository.dart';
 
@@ -15,6 +17,11 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<User?> loginUser(String email, String password) async {
-    await CascaUsersDB.getUserByEmail_Password(email, password);
+    final user = await CascaUsersDB.getUserByEmailAndPassword(email, password);
+    if (user != null) {
+      return User.fromModelUser(user);
+    } else {
+      return null;
+    }
   }
 }

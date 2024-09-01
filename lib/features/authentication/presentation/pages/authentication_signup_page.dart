@@ -87,10 +87,6 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                   prefixIcon: Icons.mail_rounded,
                   showSuffixIcon: false,
                   hintText: "Email"),
-              RememberMeCheckBox(passwordRememberMe: signupPasswordRememberMe),
-              const SizedBox(
-                height: 5,
-              ),
               FormFieldWidget(
                   fieldKey: passwordKey,
                   controller: passwordTextEditingController,
@@ -108,6 +104,10 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                   prefixIcon: Icons.lock_outline_rounded,
                   showSuffixIcon: true,
                   hintText: "Password"),
+              RememberMeCheckBox(passwordRememberMe: signupPasswordRememberMe),
+              const SizedBox(
+                height: 5,
+              ),
               ScreenWidthButton(
                   text: "Sign up",
                   route: CascaRoutesNames.profileSetup,

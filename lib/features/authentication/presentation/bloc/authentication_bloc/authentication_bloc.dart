@@ -15,7 +15,25 @@ class AuthenticationBloc
   final SignupUser signupUser;
 
   AuthenticationBloc({required this.loginUser, required this.signupUser})
-      : super(AuthenticationInitial());
+      : super(AuthenticationInitial()) {
+    on<LoginEvent>(onLoginEvent);
+    on<SignupEvent>(onSignupEvent);
+  }
+
+  void onLoginEvent(LoginEvent event, Emitter<AuthenticationState> emit) async {
+    emit(UserLoading());
+    final user = await loginUser.execute(event.email, event.password);
+    if (user != null) {
+      emit(UserLoaded(user: user));
+    } else {
+      emit(UserError(message: "Login failed"));
+    }
+  }
+
+  void onSignupEvent(SignupEvent event, Emitter<AuthenticationState> emit) {
+    emit(UserLoading());
+    // final user = User(id: event., );
+  }
 
   @override
   Stream<AuthenticationState> mapEventToState(

@@ -72,15 +72,15 @@ class CascaUsersDB {
     return users.map((user) => User.fromSqfliteDatabase(user)).toList();
   }
 
-  static Future<User?> getUserByEmail_Password(
+  static Future<User?> getUserByEmailAndPassword(
       String email, String password) async {
     final db = await CascaUsersDB.db();
     final users = await db.query(tableName,
-        where: "email = ? , password = ?", whereArgs: [email, password]);
+        where: "email = ? AND password = ?", whereArgs: [email, password]);
     if (users.length != 1) {
       return null;
     } else {
-      return users.map((user) => User.fromSqfliteDatabase(user)).toList().first;
+      return User.fromSqfliteDatabase(users.first);
     }
   }
 

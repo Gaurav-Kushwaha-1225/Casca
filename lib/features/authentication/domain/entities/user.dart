@@ -1,3 +1,5 @@
+import 'package:Casca/features/authentication/data/models/user_model.dart' as UserDataModel;
+
 class User {
   final int id;
   final String userName;
@@ -19,4 +21,18 @@ class User {
       required this.gender,
       required this.password,
       this.image});
+
+  factory User.fromModelUser(UserDataModel.User user) {
+    return User(
+      id: user.id,
+      userName: user.userName,
+      name: user.name,
+      dOB: user.dOB,
+      email: user.email,
+      mobNo: user.mobNo,
+      gender: user.gender,
+      password: user.password,
+      image: user.image
+    );
+  }
 }

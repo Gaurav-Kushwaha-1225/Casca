@@ -49,13 +49,24 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
 
   bool loginPasswordRememberMe = false;
 
+  bool userLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AuthenticationBloc(
-        loginUser: RepositoryProvider.of<LoginUser>(context),
-        signupUser: RepositoryProvider.of<SignupUser>(context),
-      ),
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state is UserLoading) {
+          userLoading = true;
+        } else if (state is UserLoaded) {
+          userLoading = false;
+          GoRouter.of(context)
+              .pushNamed(CascaRoutesNames.testingPage);
+        } else if (state is UserError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        }
+      },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
@@ -142,11 +153,14 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
                     // log(emailTextEditingController.text);
                     // log(passwordTextEditingController.text);
                     if (isValidEmail && isValidPassword) {
-                      if (!mounted) return;
-                      GoRouter.of(context)
-                          .pushNamed(CascaRoutesNames.testingPage);
+                      BlocProvider.of<AuthenticationBloc>(context).add(
+                          LoginEvent(
+                              email: emailTextEditingController.text,
+                              password: passwordTextEditingController.text));
                     }
-                  }),
+                  },
+                  isLoading: userLoading,
+              ),
               Container(
                 margin: const EdgeInsets.only(left: 24, right: 24, top: 24),
                 alignment: Alignment.center,
