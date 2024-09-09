@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:Casca/features/authentication/presentation/pages/authentication_login_page.dart';
 import 'package:Casca/features/authentication/presentation/pages/authentication_onboarding_page.dart';
 import 'package:Casca/features/authentication/presentation/pages/authentication_signup_page.dart';
-import 'package:Casca/screens/login_page/forgot_password_1/forgot_password_1.dart';
-import 'package:Casca/screens/login_page/profile_setup/profile_setup.dart';
-import 'package:Casca/screens/testing_page/testing_page.dart';
+import 'package:Casca/features/authentication/presentation/pages/forgot_password_1.dart';
+import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
+import '../../screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../screens/login_page/forgot_password_2/forgot_password_2.dart';
-import '../../screens/login_page/forgot_password_3/forgot_password_3.dart';
+import '../../features/authentication/presentation/pages/forgot_password_2.dart';
+import '../../features/authentication/presentation/pages/forgot_password_3.dart';
 
 class CascaRouter {
   GoRouter router = GoRouter(

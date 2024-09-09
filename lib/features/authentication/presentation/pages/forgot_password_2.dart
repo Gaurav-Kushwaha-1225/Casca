@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:Casca/services/database/casca_db.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
@@ -14,8 +13,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../features/authentication/data/models/users.dart';
-import '../../../utils/consts.dart';
+import '../../../../utils/consts.dart';
 
 class ForgotPassword2 extends StatefulWidget {
   bool isEmail;
@@ -260,7 +258,7 @@ class _ForgotPassword2State extends State<ForgotPassword2> {
               route: CascaRoutesNames.forgotPassword3,
               buttonFunc: () {
                 bool isValidCode = codeVerifyKey.currentState!.validate();
-
+// !isValidCode is for developing so that entering wrong code only allows to to proceed further
                 if (isValidCode) {
                   GoRouter.of(context)
                       .pushNamed(CascaRoutesNames.forgotPassword3,

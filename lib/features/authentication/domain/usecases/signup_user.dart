@@ -6,7 +6,7 @@ class SignupUser {
 
   SignupUser(this.repository);
 
-  Future<void> execute(User user) {
+  Future<int> execute(User user) {
     return repository.signupUser(user);
   }
 }

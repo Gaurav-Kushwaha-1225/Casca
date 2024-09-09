@@ -17,7 +17,11 @@ class UserLoaded extends AuthenticationState {
   UserLoaded({required this.user});
 }
 
-class UserRegistered extends AuthenticationState {}
+class UserRegistered extends AuthenticationState {
+  final User user;
+
+  UserRegistered({required this.user});
+}
 
 class UserError extends AuthenticationState {
   final String message;

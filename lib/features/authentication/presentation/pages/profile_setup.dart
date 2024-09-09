@@ -5,11 +5,13 @@ import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../services/database/casca_db.dart';
-import '../../../utils/consts.dart';
+import '../../data/data_sources/user_database.dart';
+import '../../../../utils/consts.dart';
+import '../bloc/authentication_bloc/authentication_bloc.dart';
 
 class ProfileSetup extends StatefulWidget {
   final String email;
@@ -48,9 +50,27 @@ class _ProfileSetupState extends State<ProfileSetup> {
   final List<String> gender = ["Male", "Female", "Prefer not to say"];
   String? _selectedGender;
 
+   bool userLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+  listener: (context, state) {
+    if(state is UserLoading) {
+      userLoading = true;
+    }
+    else if (state is UserRegistered) {
+      userLoading = false;
+      // log(state.user.password);
+      GoRouter.of(context)
+          .goNamed(CascaRoutesNames.testingPage);
+    } else if (state is UserError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.message)),
+      );
+    }
+  },
+  child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(
             leadingIcon: null,
@@ -571,18 +591,16 @@ class _ProfileSetupState extends State<ProfileSetup> {
                   }
 
                   if(isValidName && isValidUsername && isValidDOB && isValidPhone && _selectedGender != null) {
-                    await CascaUsersDB.createUser(
-                        userNameTextEditingController.text,
-                        nameTextEditingController.text,
-                        dobTextEditingController.text,
-                        widget.email,
-                        widget.password,
-                        int.parse(phoneTextEditingController.text),
-                        _selectedGender!
-                        );
-                    if(!mounted) return;
-                    GoRouter.of(context).pushNamed(
-                        CascaRoutesNames.testingPage);
+                    BlocProvider.of<AuthenticationBloc>(context).add(
+                        SignupEvent(
+                            username: userNameTextEditingController.text,
+                            name: nameTextEditingController.text,
+                            dOB: dobTextEditingController.text,
+                            email: widget.email,
+                            password: widget.password,
+                            mobNo: int.parse(phoneTextEditingController.text),
+                            gender: _selectedGender!
+                        ));
                   }
                 }
               ),
@@ -593,6 +611,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
               ),
             )
           ],
-        ));
+        )),
+);
   }
 }

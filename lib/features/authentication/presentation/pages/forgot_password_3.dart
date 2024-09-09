@@ -1,5 +1,7 @@
-import 'package:Casca/screens/login_page/forgot_password_3/local_widgets/password_updated_card.dart';
-import 'package:Casca/services/database/casca_db.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:Casca/features/authentication/presentation/widgets/password_updated_card.dart';
+import '../../data/data_sources/user_database.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
@@ -8,8 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utils/consts.dart';
-import '../local_widgets/remember_me_check_box.dart';
+import '../../../../utils/consts.dart';
+import '../widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
   int id;
@@ -333,7 +335,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
 
                     await Future.delayed(const Duration(seconds: 5));
                     Navigator.pop(context);
-                    GoRouter.of(context).pushNamed(CascaRoutesNames.testingPage);
+                    GoRouter.of(context).goNamed(CascaRoutesNames.testingPage);
                   }
                 }),
             SizedBox(

@@ -18,8 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../data/data_sources/user_database.dart';
 import '../../data/models/user_model.dart';
-import '../../domain/usecases/login_user.dart';
-import '../../domain/usecases/signup_user.dart';
 import '../bloc/authentication_bloc/authentication_bloc.dart';
 
 class AuthenticationLoginPage extends StatefulWidget {
@@ -60,7 +58,7 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
         } else if (state is UserLoaded) {
           userLoading = false;
           GoRouter.of(context)
-              .pushNamed(CascaRoutesNames.testingPage);
+              .goNamed(CascaRoutesNames.testingPage);
         } else if (state is UserError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
