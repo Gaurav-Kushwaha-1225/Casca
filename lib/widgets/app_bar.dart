@@ -6,21 +6,63 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final String text;
   final Function() leadingFunc;
+  final List<Widget>? actions;
   const CustomAppBar(
       {super.key,
-      required this.leadingIcon,
+      this.leadingIcon,
       required this.text,
-      required this.leadingFunc});
+      required this.leadingFunc,
+      this.actions});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(text),
+      toolbarHeight: 75,
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          leadingIcon != null
+              ? IconButton(
+                  onPressed: leadingFunc,
+                  icon: Icon(
+                    leadingIcon,
+                    size: 28,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Constants.lightTextColor
+                        : Constants.darkTextColor,
+                  ),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                )
+              : GestureDetector(
+                  onTap: leadingFunc,
+                  child: Container(
+                      margin: EdgeInsets.all(10),
+                      height: 30,
+                      width: 30,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(11),
+                          child: Image.asset(
+                            "assets/icons/icon.png",
+                          ))),
+                ),
+          SizedBox(
+            width: 5,
+          ),
+          Text(text),
+          Expanded(child: SizedBox()),
+        ],
+      ),
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Constants.lightPrimary
           : Constants.darkPrimary,
       titleTextStyle: GoogleFonts.urbanist(
-          fontSize: 20,
+          fontSize: 21,
           fontWeight: FontWeight.w700,
           color: Theme.of(context).brightness == Brightness.light
               ? Constants.lightTextColor
@@ -30,18 +72,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: Theme.of(context).brightness == Brightness.light
           ? Constants.darkBorderColor
           : Constants.lightBorderColor,
-      titleSpacing: 0,
-      leading: leadingIcon != null
-          ? IconButton(
-              onPressed: leadingFunc,
-              icon: Icon(leadingIcon),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-            )
-          : null,
+      titleSpacing: 14,
+      actions: actions,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

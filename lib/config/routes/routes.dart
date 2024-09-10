@@ -5,6 +5,7 @@ import 'package:Casca/features/authentication/presentation/pages/authentication_
 import 'package:Casca/features/authentication/presentation/pages/authentication_signup_page.dart';
 import 'package:Casca/features/authentication/presentation/pages/forgot_password_1.dart';
 import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
+import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
 import '../../screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ import '../../features/authentication/presentation/pages/forgot_password_3.dart'
 
 class CascaRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/dashboard',
     routes: [
       GoRoute(
         name: CascaRoutesNames.authOnboardingPage,
@@ -83,6 +84,15 @@ class CascaRouter {
               child: ForgotPassword3(
                 id: jsonDecode(state.pathParameters['id']!),
               ));
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.dashboard,
+        path: "/dashboard",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(
+              key: state.pageKey,
+              child: DashboardPage());
         },
       ),
       GoRoute(

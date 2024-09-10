@@ -7,5 +7,7 @@ class CascaRoutesNames {
   static const String forgotPassword2 = "forgotPassword_2";
   static const String forgotPassword3 = "forgotPassword_3";
 
+  static const String dashboard = "dashboard";
+
   static const String testingPage = "testingPage";
 }
