@@ -15,6 +15,8 @@ class CascaTheme {
       secondary: Constants.darkSecondary,
     ),
     scaffoldBackgroundColor: Constants.darkPrimary,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: Constants.lightPrimary
@@ -31,6 +33,8 @@ class CascaTheme {
       secondary: Constants.lightSecondary,
     ),
     scaffoldBackgroundColor: Constants.lightPrimary,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
               foregroundColor: Constants.darkPrimary
