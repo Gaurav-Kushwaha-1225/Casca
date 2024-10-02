@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class Constants {
-  static Color lightPrimary = const Color.fromARGB(255, 255, 255, 255);
+  static Color lightPrimary = const Color.fromARGB(255, 250, 250, 250);
   static Color lightSecondary = const Color.fromARGB(255, 251, 148, 0);
   static Color lightTextColor = const Color.fromARGB(255, 17, 17, 17);
   static Color lightCardFillColor = const Color.fromARGB(255, 255, 255, 255);

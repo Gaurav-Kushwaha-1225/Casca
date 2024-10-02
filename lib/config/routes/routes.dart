@@ -16,7 +16,7 @@ import '../../features/authentication/presentation/pages/forgot_password_3.dart'
 
 class CascaRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/dashboard',
+    initialLocation: '/',
     routes: [
       GoRoute(
         name: CascaRoutesNames.authOnboardingPage,

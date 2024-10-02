@@ -320,7 +320,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
             )),
             ScreenWidthButton(
                 text: "Continue",
-                route: CascaRoutesNames.testingPage,
+                route: CascaRoutesNames.dashboard,
                 buttonFunc: () async {
                   bool? isPasswordValid = passwordKey.currentState?.validate();
                   bool? isConfirmPasswordValid = confirmPasswordKey.currentState?.validate();
@@ -335,7 +335,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
 
                     await Future.delayed(const Duration(seconds: 5));
                     Navigator.pop(context);
-                    GoRouter.of(context).goNamed(CascaRoutesNames.testingPage);
+                    GoRouter.of(context).goNamed(CascaRoutesNames.dashboard);
                   }
                 }),
             SizedBox(

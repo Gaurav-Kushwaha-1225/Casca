@@ -63,7 +63,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
       userLoading = false;
       // log(state.user.password);
       GoRouter.of(context)
-          .goNamed(CascaRoutesNames.testingPage);
+          .goNamed(CascaRoutesNames.dashboard);
     } else if (state is UserError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(state.message)),
@@ -573,7 +573,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
             SliverToBoxAdapter(
               child: ScreenWidthButton(
                 text: "Continue",
-                route: CascaRoutesNames.testingPage,
+                route: CascaRoutesNames.dashboard,
                 buttonFunc: () async {
                   final bool isValidName = nameKey.currentState!.validate();
                   final bool isValidUsername = userNameKey.currentState!.validate();

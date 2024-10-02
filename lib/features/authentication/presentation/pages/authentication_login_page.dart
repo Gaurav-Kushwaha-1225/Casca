@@ -58,7 +58,7 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
         } else if (state is UserLoaded) {
           userLoading = false;
           GoRouter.of(context)
-              .goNamed(CascaRoutesNames.testingPage);
+              .goNamed(CascaRoutesNames.dashboard);
         } else if (state is UserError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -143,7 +143,7 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
               ),
               ScreenWidthButton(
                   text: "Sign in",
-                  route: CascaRoutesNames.testingPage,
+                  route: CascaRoutesNames.dashboard,
                   buttonFunc: () {
                     final bool isValidEmail = emailKey.currentState!.validate();
                     final bool isValidPassword =

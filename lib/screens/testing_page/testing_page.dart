@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../features/authentication/data/models/users.dart';
-import '../../services/database/casca_db.dart';
+import '../../features/authentication/data/data_sources/user_database.dart';
+import '../../features/authentication/data/models/user_model.dart';
 
 class TestingPage extends StatefulWidget {
   const TestingPage({super.key});
