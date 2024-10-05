@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'config/routes/routes.dart';
+import 'features/dashboard/presentation/bloc/explore/explore_bloc.dart';
 import 'features/dashboard/presentation/bloc/home/home_bloc.dart';
 
 void main() async {
@@ -44,6 +45,9 @@ class Casca extends StatelessWidget {
                   signupUser: SignupUser(UserRepositoryImpl(CascaUsersDB())))),
           BlocProvider<HomeBloc>(
               create: (context) => HomeBloc(
+                  getData: GetData(BarberRepositoryImpl(CascaBarberDB())))),
+          BlocProvider<ExploreBloc>(
+              create: (context) => ExploreBloc(
                   getData: GetData(BarberRepositoryImpl(CascaBarberDB())))),
         ],
         child: MaterialApp.router(

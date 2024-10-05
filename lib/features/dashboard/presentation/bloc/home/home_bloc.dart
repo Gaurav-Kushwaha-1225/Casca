@@ -27,8 +27,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Stream<HomeState> mapEventToState(HomeEvent authEvent) async* {
-    if (authEvent is GetBarbersEvent) {
+  Stream<HomeState> mapEventToState(HomeEvent event) async* {
+    if (event is GetBarbersEvent) {
       yield BarbersLoading();
       try {
         CascaBarberDB.connect();

@@ -44,18 +44,18 @@ class _TestingPageState extends State<TestingPage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : Expanded(
-                  child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        final user = users[index];
-                        return ListTile(
-                          title: Text(
-                              "${user.name} \n ${user.userName} \n ${user.dOB}"),
-                          subtitle: Text(
-                              "${user.email} \n ${user.gender} \n ${user.password}"),
-                        );
-                      },
-                      itemCount: users.length),
-                )
+                    child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          final user = users[index];
+                          return ListTile(
+                            title: Text(
+                                "${user.name} \n ${user.userName} \n ${user.dOB}"),
+                            subtitle: Text(
+                                "${user.email} \n ${user.gender} \n ${user.password}"),
+                          );
+                        },
+                        itemCount: users.length),
+                  )
           ],
         ),
       ),

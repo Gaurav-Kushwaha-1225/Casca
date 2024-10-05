@@ -148,8 +148,6 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
                     final bool isValidEmail = emailKey.currentState!.validate();
                     final bool isValidPassword =
                         passwordKey.currentState!.validate();
-                    // log(emailTextEditingController.text);
-                    // log(passwordTextEditingController.text);
                     if (isValidEmail && isValidPassword) {
                       BlocProvider.of<AuthenticationBloc>(context).add(
                           LoginEvent(
