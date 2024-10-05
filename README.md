@@ -12,6 +12,9 @@
     <a href='https://github.com/Gaurav-Kushwaha-1225/Casca/stargazers'><img alt='Stars' src='https://img.shields.io/github/stars/Gaurav-Kushwaha-1225/Casca?color=abc0d3'/></a>
     <a href='https://github.com/Gaurav-Kushwaha-1225/Casca/forks'><img alt='Forks' src='https://img.shields.io/github/forks/Gaurav-Kushwaha-1225/Casca?color=abc0d3'/></a>
     <a href='https://github.com/Gaurav-Kushwaha-1225/Casca/blob/master/LICENSE'><img alt='License' src='https://img.shields.io/github/license/Gaurav-Kushwaha-1225/Casca?color=abc0d3'/></a>
+
+   <h3>Using BLoC State Management and Clean Architecture</h3>
+    
  </p>
 </p>
 </div>
