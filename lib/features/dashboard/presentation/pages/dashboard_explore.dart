@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:Casca/widgets/screen_width_button.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/barber_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -312,8 +310,11 @@ class _DashboardExplorePageState extends State<DashboardExplorePage> {
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
                   setState(() {
-                    BlocProvider.of<ExploreBloc>(context)
-                        .add(GetBarbersSearchEvent(searchValue: value));
+                    BlocProvider.of<ExploreBloc>(context).add(
+                        GetBarbersSearchEvent(
+                            searchValue: value,
+                            rating: ratingSelected,
+                            category: categorySelected));
                   });
                 },
                 style: GoogleFonts.urbanist(
@@ -439,200 +440,12 @@ class _DashboardExplorePageState extends State<DashboardExplorePage> {
                                   );
                                 },
                                 itemBuilder: (context, index) {
-                                  log(state.barbers.length.toString());
-                                  return GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width -
-                                          40,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              6.5,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.light
-                                            ? Constants.lightCardFillColor
-                                            : Constants.darkCardFillColor,
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 15, horizontal: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          AspectRatio(
-                                              aspectRatio: 1 / 1,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(23),
-                                                child: Image.network(
-                                                  fit: BoxFit.cover,
-                                                  alignment: FractionalOffset
-                                                      .topCenter,
-                                                  state
-                                                      .barbers[index].imageLink,
-                                                  errorBuilder: (BuildContext
-                                                          context,
-                                                      Object error,
-                                                      StackTrace? stackTrace) {
-                                                    return Image.network(
-                                                      fit: BoxFit.cover,
-                                                      alignment:
-                                                          FractionalOffset
-                                                              .topCenter,
-                                                      'https://jakijellz.com/wp-content/uploads/2018/02/Professional-Barber-1.png',
-                                                    );
-                                                  },
-                                                ),
-                                              )),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 2),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                SizedBox(
-                                                  width: (MediaQuery.of(context)
-                                                          .size
-                                                          .width) /
-                                                      2.8,
-                                                  child: Text(
-                                                    state.barbers[index].name,
-                                                    overflow: TextOverflow.fade,
-                                                    maxLines: 2,
-                                                    style: GoogleFonts.urbanist(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.light
-                                                            ? Constants
-                                                                .lightTextColor
-                                                            : Constants
-                                                                .darkTextColor,
-                                                        fontStyle:
-                                                            FontStyle.normal),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  state.barbers[index].address,
-                                                  overflow: TextOverflow.clip,
-                                                  maxLines: 1,
-                                                  style: GoogleFonts.urbanist(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.grey,
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                                SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      4,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.location_on,
-                                                        size: 15,
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.light
-                                                            ? Constants
-                                                                .lightSecondary
-                                                            : Constants
-                                                                .darkSecondary,
-                                                      ),
-                                                      Text(
-                                                        '1.5 km',
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        maxLines: 1,
-                                                        style: GoogleFonts
-                                                            .urbanist(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontStyle:
-                                                                    FontStyle
-                                                                        .normal),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Icon(
-                                                        Icons.star_half_rounded,
-                                                        size: 15,
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.light
-                                                            ? Constants
-                                                                .lightSecondary
-                                                            : Constants
-                                                                .darkSecondary,
-                                                      ),
-                                                      Text(
-                                                        state.barbers[index]
-                                                            .stars
-                                                            .toString(),
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        maxLines: 1,
-                                                        style: GoogleFonts
-                                                            .urbanist(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontStyle:
-                                                                    FontStyle
-                                                                        .normal),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.bookmark_border_rounded,
-                                              size: 23,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.light
-                                                  ? Constants.lightSecondary
-                                                  : Constants.darkSecondary,
-                                            ),
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return BarberCard(
+                                      func: () {},
+                                      imageLink: state.barbers[index].imageLink,
+                                      name: state.barbers[index].name,
+                                      stars: state.barbers[index].stars,
+                                      address: state.barbers[index].address);
                                 },
                               ),
                             );

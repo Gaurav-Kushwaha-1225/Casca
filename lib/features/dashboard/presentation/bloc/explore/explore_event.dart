@@ -9,5 +9,7 @@ abstract class ExploreEvent extends Equatable {
 
 class GetBarbersSearchEvent extends ExploreEvent {
   final String searchValue;
-  GetBarbersSearchEvent({required this.searchValue});
+  String rating = "All";
+  String category = "All";
+  GetBarbersSearchEvent({required this.searchValue, required this.rating, required this.category});
 }
