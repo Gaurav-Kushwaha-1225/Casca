@@ -10,4 +10,6 @@ class CascaRoutesNames {
   static const String dashboard = "dashboard";
 
   static const String testingPage = "testingPage";
+
+  static const String servicesPage = "servicesPage";
 }

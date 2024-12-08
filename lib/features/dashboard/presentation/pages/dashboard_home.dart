@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/consts.dart';
@@ -19,7 +22,7 @@ class DashboardHomePage extends StatefulWidget {
 
 class _DashboardHomePageState extends State<DashboardHomePage> {
   List productsAvailable = [
-    {"product": "Haircuts", "icon": CupertinoIcons.scissors},
+    {"product": "Haircut", "icon": CupertinoIcons.scissors},
     {"product": "Make Up", "icon": Icons.brush_rounded},
     {"product": "Manicure", "icon": CupertinoIcons.paintbrush},
     {"product": "Massage", "icon": CupertinoIcons.color_filter},
@@ -56,6 +59,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 3));
     BlocProvider.of<HomeBloc>(context).add(GetBarbersEvent());
   }
 
@@ -99,51 +103,56 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   for (int i = 0; i < productsAvailable.length; i++)
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 55,
-                          width: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(27.5),
-                            color: Theme.of(context).brightness ==
-                                    Brightness.light
-                                ? Constants.lightSecondary.withOpacity(0.2)
-                                : Constants.darkSecondary.withOpacity(0.2),
-                          ),
-                          child: Center(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                productsAvailable[i]["icon"],
-                                size: 25,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Constants.lightSecondary
-                                    : Constants.darkSecondary,
-                              ),
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          productsAvailable[i]["product"],
-                          style: GoogleFonts.urbanist(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
+                    GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).pushNamed(
+                            CascaRoutesNames.servicesPage,
+                            pathParameters: {
+                              'service':
+                                  jsonEncode(productsAvailable[i]["product"])
+                            });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 55,
+                            width: 55,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(27.5),
                               color: Theme.of(context).brightness ==
                                       Brightness.light
-                                  ? Constants.lightTextColor
-                                  : Constants.darkTextColor,
-                              fontStyle: FontStyle.normal),
-                        )
-                      ],
+                                  ? Constants.lightSecondary.withOpacity(0.2)
+                                  : Constants.darkSecondary.withOpacity(0.2),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                  productsAvailable[i]["icon"],
+                                  size: 25,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Constants.lightSecondary
+                                      : Constants.darkSecondary,
+                                ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            productsAvailable[i]["product"],
+                            style: GoogleFonts.urbanist(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Constants.lightTextColor
+                                    : Constants.darkTextColor,
+                                fontStyle: FontStyle.normal),
+                          )
+                        ],
+                      ),
                     ),
                 ],
               ),
@@ -179,10 +188,9 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                     style: GoogleFonts.urbanist(
                         fontSize: 17.5,
                         fontWeight: FontWeight.w700,
-                        color:
-                            Theme.of(context).brightness == Brightness.light
-                                ? Constants.lightTextColor
-                                : Constants.darkTextColor,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Constants.lightTextColor
+                            : Constants.darkTextColor,
                         fontStyle: FontStyle.normal),
                   ),
                   GestureDetector(
@@ -252,18 +260,16 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                                     nearbyLocationProducts[index]
                                 ? (Theme.of(context).brightness ==
                                         Brightness.light
-                                    ? Constants.lightSecondary
-                                        .withOpacity(0.1)
-                                    : Constants.darkSecondary
-                                        .withOpacity(0.1))
+                                    ? Constants.lightSecondary.withOpacity(0.1)
+                                    : Constants.darkSecondary.withOpacity(0.1))
                                 : (Theme.of(context).brightness ==
                                         Brightness.light
                                     ? Constants.lightSecondary
                                     : Constants.darkSecondary),
-                            foregroundColor: Theme.of(context).brightness ==
-                                    Brightness.light
-                                ? Constants.lightTextColor
-                                : Constants.darkTextColor,
+                            foregroundColor:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Constants.lightTextColor
+                                    : Constants.darkTextColor,
                             side: BorderSide(
                               width: 2,
                               color: Theme.of(context).brightness ==

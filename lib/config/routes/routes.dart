@@ -6,6 +6,7 @@ import 'package:Casca/features/authentication/presentation/pages/authentication_
 import 'package:Casca/features/authentication/presentation/pages/forgot_password_1.dart';
 import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
 import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/home_service_page.dart';
 import '../../screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
@@ -22,21 +23,24 @@ class CascaRouter {
         name: CascaRoutesNames.authOnboardingPage,
         path: "/",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const AuthenticationOnboardingPage());
+          return MaterialPage(
+              key: state.pageKey, child: const AuthenticationOnboardingPage());
         },
       ),
       GoRoute(
         name: CascaRoutesNames.authSignupPage,
         path: "/authSignupPage",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const AuthenticationSignupPage());
+          return MaterialPage(
+              key: state.pageKey, child: const AuthenticationSignupPage());
         },
       ),
       GoRoute(
         name: CascaRoutesNames.authLoginPage,
         path: "/authLoginPage",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: const AuthenticationLoginPage());
+          return MaterialPage(
+              key: state.pageKey, child: const AuthenticationLoginPage());
         },
       ),
       GoRoute(
@@ -90,9 +94,7 @@ class CascaRouter {
         name: CascaRoutesNames.dashboard,
         path: "/dashboard",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(
-              key: state.pageKey,
-              child: DashboardPage());
+          return MaterialPage(key: state.pageKey, child: DashboardPage());
         },
       ),
       GoRoute(
@@ -102,6 +104,15 @@ class CascaRouter {
           return MaterialPage(key: state.pageKey, child: const TestingPage());
         },
       ),
+      GoRoute(
+        name: CascaRoutesNames.servicesPage,
+          path: "/service_page/:service",
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return MaterialPage(
+                key: state.pageKey,
+                child: HomeServicePage(
+                    service: jsonDecode(state.pathParameters['service']!)));
+          })
     ], // TODO: Add Error Page Builder
   );
 }
