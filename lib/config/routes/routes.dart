@@ -7,6 +7,7 @@ import 'package:Casca/features/authentication/presentation/pages/forgot_password
 import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
 import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/home_service_page.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/notification_bookmark_page.dart';
 import '../../screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
@@ -105,14 +106,23 @@ class CascaRouter {
         },
       ),
       GoRoute(
-        name: CascaRoutesNames.servicesPage,
+          name: CascaRoutesNames.servicesPage,
           path: "/service_page/:service",
           pageBuilder: (BuildContext context, GoRouterState state) {
             return MaterialPage(
                 key: state.pageKey,
                 child: HomeServicePage(
                     service: jsonDecode(state.pathParameters['service']!)));
-          })
+          }),
+      GoRoute(
+          name: CascaRoutesNames.notificationBookmarkPage,
+          path: "/notification_bookmark_page/:service",
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return MaterialPage(
+                key: state.pageKey,
+                child: NotificationBookmarkPage(
+                    service: jsonDecode(state.pathParameters['service']!)));
+          }),
     ], // TODO: Add Error Page Builder
   );
 }

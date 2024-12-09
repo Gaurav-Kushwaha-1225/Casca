@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/features/dashboard/presentation/pages/dashboard_explore.dart';
@@ -6,8 +7,10 @@ import 'package:Casca/features/dashboard/presentation/pages/dashboard_inbox.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../config/routes/routes_consts.dart';
 import '../../../../utils/consts.dart';
 import '../../../../widgets/app_bar.dart';
 import 'dashboard_mybookings.dart';
@@ -44,7 +47,9 @@ class _DashboardPageState extends State<DashboardPage> {
           actions: [
             IconButton(
               onPressed: () {
-                log("Notification Button Pressed");
+                GoRouter.of(context).pushNamed(
+                    CascaRoutesNames.notificationBookmarkPage,
+                    pathParameters: {'service': jsonEncode("Notification")});
               },
               icon: Icon(
                 Icons.notifications_none_rounded,
@@ -58,7 +63,9 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             IconButton(
               onPressed: () {
-                log("Notification Button Pressed");
+                GoRouter.of(context).pushNamed(
+                    CascaRoutesNames.notificationBookmarkPage,
+                    pathParameters: {'service': jsonEncode("Bookmark")});
               },
               icon: Icon(
                 Icons.bookmark_border_rounded,
