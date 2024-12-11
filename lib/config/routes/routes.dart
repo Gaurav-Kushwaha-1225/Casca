@@ -6,6 +6,7 @@ import 'package:Casca/features/authentication/presentation/pages/authentication_
 import 'package:Casca/features/authentication/presentation/pages/forgot_password_1.dart';
 import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
 import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/barber_details/details_page_1.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/home_service_page.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/notification_bookmark_page.dart';
 import '../../screens/testing_page/testing_page.dart';
@@ -122,6 +123,15 @@ class CascaRouter {
                 key: state.pageKey,
                 child: NotificationBookmarkPage(
                     service: jsonDecode(state.pathParameters['service']!)));
+          }),
+      GoRoute(
+          name: CascaRoutesNames.barberDetailsPage1,
+          path: "/barber_details_page_1/:barberJson",
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return MaterialPage(
+                key: state.pageKey,
+                child: BarberDetailsPage1(
+                    barberJson: jsonDecode(state.pathParameters['barberJson']!)));
           }),
     ], // TODO: Add Error Page Builder
   );

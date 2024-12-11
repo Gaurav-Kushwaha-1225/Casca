@@ -58,9 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Expanded(child: SizedBox()),
         ],
       ),
-      backgroundColor: Theme.of(context).brightness == Brightness.light
-          ? Constants.lightPrimary
-          : Constants.darkPrimary,
+      backgroundColor: Colors.transparent,
       titleTextStyle: GoogleFonts.urbanist(
           fontSize: 21,
           fontWeight: FontWeight.w700,
@@ -69,9 +67,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               : Constants.darkTextColor,
           letterSpacing: 1.5,
           fontStyle: FontStyle.normal),
-      surfaceTintColor: Theme.of(context).brightness == Brightness.light
-          ? Constants.darkBorderColor
-          : Constants.lightBorderColor,
+      surfaceTintColor: Colors.transparent,
       titleSpacing: 14,
       actions: actions,
     );

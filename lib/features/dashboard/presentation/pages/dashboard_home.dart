@@ -128,13 +128,13 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                             ),
                             child: Center(
                               child: Icon(
-                                  productsAvailable[i]["icon"],
-                                  size: 25,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? Constants.lightSecondary
-                                      : Constants.darkSecondary,
-                                ),
+                                productsAvailable[i]["icon"],
+                                size: 25,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Constants.lightSecondary
+                                    : Constants.darkSecondary,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -316,7 +316,14 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                               .contains(nearbyLocationProductSelected) ||
                           nearbyLocationProductSelected == 'All') {
                         return BarberCard(
-                            func: () {},
+                            func: () {
+                              String barberJson = jsonEncode(state.barbers[index].toMap());
+                              GoRouter.of(context).pushNamed(
+                                  CascaRoutesNames.barberDetailsPage1,
+                                  pathParameters: {
+                                    'barberJson': barberJson
+                                  });
+                            },
                             imageLink: state.barbers[index].imageLink,
                             name: state.barbers[index].name,
                             stars: state.barbers[index].stars,
