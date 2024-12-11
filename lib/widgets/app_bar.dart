@@ -1,5 +1,6 @@
 import 'package:Casca/utils/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -70,6 +71,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: Colors.transparent,
       titleSpacing: 14,
       actions: actions,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Theme.of(context).brightness == Brightness.light
+            ? Brightness.light
+            : Brightness.dark,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light
+            ? Brightness.light
+            : Brightness.dark,
+      ),
     );
   }
 }
