@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +25,10 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
       "Website",
       Icons.directions_rounded,
       (String link, String useless) async {
-        final Uri url = Uri.https(link.toString().replaceAll("https://", "").replaceFirst("wwww", "www"));
+        final Uri url = Uri.https(link
+            .toString()
+            .replaceAll("https://", "")
+            .replaceFirst("wwww", "www"));
         if (await canLaunchUrl(url)) {
           await launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
@@ -310,19 +314,27 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
                         alignment: Alignment.center,
                         height: 35,
                         decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).brightness == Brightness.light
+                            color: isShopOpen({
+                              'monToFri': barber.monToFri,
+                              'satSun': barber.satSun
+                            })
+                                ? Theme.of(context).brightness ==
+                                        Brightness.light
                                     ? Constants.lightSecondary
-                                    : Constants.darkSecondary,
+                                    : Constants.darkSecondary
+                                : Colors.red,
                             borderRadius: BorderRadius.circular(30)),
-                        child: Text("Open",
+                        child: Text(
+                            isShopOpen({
+                              'monToFri': barber.monToFri,
+                              'satSun': barber.satSun
+                            })
+                                ? "Open"
+                                : "Closed",
                             style: GoogleFonts.urbanist(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? Constants.lightTextColor
-                                    : Constants.darkTextColor,
+                                color: Colors.white,
                                 fontStyle: FontStyle.normal)))
                   ],
                 ),
@@ -405,7 +417,8 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
                           onTap: () {
                             switch (i) {
                               case 0:
-                                final func = features[0][2] as Function(String, String);
+                                final func =
+                                    features[0][2] as Function(String, String);
                                 func(barber.website, "Nothing");
                               case 1:
                                 final func =
@@ -554,4 +567,30 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
           ]),
     );
   }
+}
+
+bool isShopOpen(Map<String, List<dynamic>> schedule) {
+  // Get the current date and time
+  DateTime now = DateTime.now();
+  String currentDay = DateFormat('EEEE').format(now).toLowerCase();
+
+  // Determine the key for the schedule map based on the day
+  String scheduleKey = (currentDay == 'saturday' || currentDay == 'sunday')
+      ? 'satSun'
+      : 'monToFri';
+
+  // Get the opening and closing times from the schedule
+  List<dynamic>? timings = schedule[scheduleKey];
+  if (timings == null || timings.length != 2) {
+    throw ArgumentError('Invalid schedule data');
+  }
+
+  // Parse the opening and closing times
+  DateTime openingTime = DateTime(now.year, now.month, now.day,
+      int.parse(timings[0].split(":")[0]), int.parse(timings[0].split(":")[1]));
+  DateTime closingTime = DateTime(now.year, now.month, now.day,
+      int.parse(timings[1].split(":")[0]), int.parse(timings[1].split(":")[1]));
+
+  // Check if the current time is within the opening hours
+  return now.isAfter(openingTime) && now.isBefore(closingTime);
 }
