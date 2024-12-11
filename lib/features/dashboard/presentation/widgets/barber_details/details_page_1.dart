@@ -24,7 +24,7 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
       "Website",
       Icons.directions_rounded,
       (String link, String useless) async {
-        final Uri url = Uri.https(link.toString().replaceAll("https://", ""));
+        final Uri url = Uri.https(link.toString().replaceAll("https://", "").replaceFirst("wwww", "www"));
         if (await canLaunchUrl(url)) {
           await launchUrl(url, mode: LaunchMode.externalApplication);
         } else {
@@ -69,7 +69,7 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
       "Share",
       Icons.share_rounded,
       (String link) {
-        Share.share(link);
+        Share.share(link.replaceFirst("wwww", "www"));
       }
     ],
   ];
@@ -405,8 +405,8 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
                           onTap: () {
                             switch (i) {
                               case 0:
-                                final func = features[0][2] as Function(String);
-                                func(barber.website);
+                                final func = features[0][2] as Function(String, String);
+                                func(barber.website, "Nothing");
                               case 1:
                                 final func =
                                     features[1][2] as Function(String, String);
