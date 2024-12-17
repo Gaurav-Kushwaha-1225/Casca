@@ -53,6 +53,7 @@ dependencies:
   mongo_dart:
   url_launcher: ^6.1.8
   share_plus: ^10.1.2
+  flutter_secure_storage: ^9.2.2
 
 flutter_native_splash:
   color: "#fda01d"

@@ -1,4 +1,6 @@
 class CascaRoutesNames {
+  static const String splashScreen = 'splash_screen';
+
   static const String authOnboardingPage = "auth_Onboarding_Page";
   static const String authSignupPage = "auth_Signup_Page";
   static const String authLoginPage = "auth_Login_Page";

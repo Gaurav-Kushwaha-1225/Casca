@@ -6,18 +6,19 @@ import 'package:Casca/features/dashboard/presentation/pages/dashboard_home.dart'
 import 'package:Casca/features/dashboard/presentation/pages/dashboard_inbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/routes/routes_consts.dart';
 import '../../../../utils/consts.dart';
 import '../../../../widgets/app_bar.dart';
+import '../../../authentication/domain/entities/user.dart';
 import 'dashboard_mybookings.dart';
 import 'dashboard_profile.dart';
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  Map<String, dynamic> user;
+  DashboardPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -35,6 +36,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    log("message");
+    User currentUser = User.fromJson(widget.user);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(

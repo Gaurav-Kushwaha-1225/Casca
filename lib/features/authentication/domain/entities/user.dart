@@ -35,4 +35,31 @@ class User {
       image: user.image
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userName': userName,
+      'name': name,
+      'image': image,
+      'dOB': dOB,
+      'email': email,
+      'mobNo': mobNo,
+      'gender': gender,
+      'password': password
+    };
+  }
+
+  factory User.fromJson(Map<String, dynamic> map) {
+    return User(
+        id: map['id'],
+        userName: map['userName'],
+        name: map['name'],
+        image: map['image'],
+        dOB: map['dOB'],
+        email: map['email'],
+        mobNo: map['mobNo'].toInt(),
+        gender: map['gender'],
+        password: map['password']);
+  }
 }

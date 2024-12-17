@@ -27,7 +27,7 @@ Future<void> main() async {
 //
 //   CascaBarberDB();
 //
-//   // Function to connect to the MongoDB database
+//   // Function to connect to the MongoDB local_storage
 //   Future<void> connect() async {
 //     await Db.create(connectionURL);
 //     await db!.open();

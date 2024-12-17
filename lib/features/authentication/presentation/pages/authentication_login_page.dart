@@ -46,6 +46,11 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
   bool _isEmailValid = false;
 
   bool loginPasswordRememberMe = false;
+  void handleRememberMeChange (bool value) {
+    setState(() {
+      loginPasswordRememberMe = value;
+    });
+  }
 
   bool userLoading = false;
 
@@ -58,7 +63,7 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
         } else if (state is UserLoaded) {
           userLoading = false;
           GoRouter.of(context)
-              .goNamed(CascaRoutesNames.dashboard);
+              .goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(state.user.toJson())});
         } else if (state is UserError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -137,7 +142,7 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
                   prefixIcon: Icons.lock_outline_rounded,
                   showSuffixIcon: true,
                   hintText: "Password"),
-              RememberMeCheckBox(passwordRememberMe: loginPasswordRememberMe),
+              RememberMeCheckBox(passwordRememberMe: loginPasswordRememberMe, onChanged: handleRememberMeChange),
               const SizedBox(
                 height: 5,
               ),
@@ -152,7 +157,8 @@ class _AuthenticationLoginPageState extends State<AuthenticationLoginPage> {
                       BlocProvider.of<AuthenticationBloc>(context).add(
                           LoginEvent(
                               email: emailTextEditingController.text,
-                              password: passwordTextEditingController.text));
+                              password: passwordTextEditingController.text,
+                              rememberMeCheckbox: loginPasswordRememberMe));
                     }
                   },
                   isLoading: userLoading,

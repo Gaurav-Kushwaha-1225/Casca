@@ -41,6 +41,12 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
   final GlobalKey<FormState> passwordKey = GlobalKey();
 
   bool signupPasswordRememberMe = false;
+  void handleRememberMeChange (bool value) {
+    setState(() {
+      signupPasswordRememberMe = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -104,7 +110,7 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                   prefixIcon: Icons.lock_outline_rounded,
                   showSuffixIcon: true,
                   hintText: "Password"),
-              RememberMeCheckBox(passwordRememberMe: signupPasswordRememberMe),
+              RememberMeCheckBox(passwordRememberMe: signupPasswordRememberMe, onChanged: handleRememberMeChange),
               const SizedBox(
                 height: 5,
               ),
@@ -122,7 +128,9 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                             "email":
                                 jsonEncode(emailTextEditingController.text),
                             "password":
-                                jsonEncode(passwordTextEditingController.text)
+                                jsonEncode(passwordTextEditingController.text),
+                            "rememberMeCheckbox":
+                                jsonEncode(signupPasswordRememberMe)
                           });
                     }
                   }),

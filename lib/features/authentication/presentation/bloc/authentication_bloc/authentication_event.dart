@@ -10,8 +10,9 @@ abstract class AuthenticationEvent extends Equatable {
 class LoginEvent extends AuthenticationEvent {
   final String email;
   final String password;
+  final bool rememberMeCheckbox;
 
-  LoginEvent({required this.email, required this.password});
+  LoginEvent({required this.email, required this.password, required this.rememberMeCheckbox});
 }
 
 class SignupEvent extends AuthenticationEvent {
@@ -23,6 +24,7 @@ class SignupEvent extends AuthenticationEvent {
   final int mobNo;
   final String gender;
   final String? image;
+  final bool rememberMeCheckbox;
 
   SignupEvent({
     required this.username,
@@ -33,5 +35,6 @@ class SignupEvent extends AuthenticationEvent {
     required this.mobNo,
     required this.gender,
     this.image,
+    required this.rememberMeCheckbox
   });
 }

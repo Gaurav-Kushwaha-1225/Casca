@@ -9,6 +9,7 @@ import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/barber_details/details_page_1.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/home_service_page.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/notification_bookmark_page.dart';
+import 'package:Casca/screens/splash_screen.dart';
 import '../../screens/testing_page/testing_page.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,15 @@ class CascaRouter {
     initialLocation: '/',
     routes: [
       GoRoute(
-        name: CascaRoutesNames.authOnboardingPage,
+        name: CascaRoutesNames.splashScreen,
         path: "/",
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return MaterialPage(key: state.pageKey, child: const SplashScreen());
+        },
+      ),
+      GoRoute(
+        name: CascaRoutesNames.authOnboardingPage,
+        path: "/authOnboardingPage",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(
               key: state.pageKey, child: const AuthenticationOnboardingPage());
@@ -47,13 +55,14 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.profileSetup,
-        path: "/profileSetup/:email/:password",
+        path: "/profileSetup/:email/:password/:rememberMeCheckbox",
         pageBuilder: (BuildContext context, GoRouterState state) {
           return MaterialPage(
               key: state.pageKey,
               child: ProfileSetup(
                 email: jsonDecode(state.pathParameters['email']!),
                 password: jsonDecode(state.pathParameters['password']!),
+                rememberMeCheckbox: jsonDecode(state.pathParameters['rememberMeCheckbox']!),
               ));
         },
       ),
@@ -94,9 +103,12 @@ class CascaRouter {
       ),
       GoRoute(
         name: CascaRoutesNames.dashboard,
-        path: "/dashboard",
+        path: "/dashboard/:user",
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return MaterialPage(key: state.pageKey, child: DashboardPage());
+          return MaterialPage(
+              key: state.pageKey,
+              child: DashboardPage(
+                  user: jsonDecode(state.pathParameters['user']!)));
         },
       ),
       GoRoute(
@@ -131,7 +143,8 @@ class CascaRouter {
             return MaterialPage(
                 key: state.pageKey,
                 child: BarberDetailsPage1(
-                    barberJson: jsonDecode(state.pathParameters['barberJson']!)));
+                    barberJson:
+                        jsonDecode(state.pathParameters['barberJson']!)));
           }),
     ], // TODO: Add Error Page Builder
   );

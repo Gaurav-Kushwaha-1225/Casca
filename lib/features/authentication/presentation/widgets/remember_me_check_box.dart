@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RememberMeCheckBox extends StatefulWidget {
   bool passwordRememberMe;
-  RememberMeCheckBox({Key? key, this.passwordRememberMe = false})
+  final ValueChanged<bool>? onChanged;
+  RememberMeCheckBox({Key? key, required this.passwordRememberMe, this.onChanged})
       : super(key: key);
 
   @override
@@ -33,10 +34,13 @@ class _RememberMeCheckBoxState extends State<RememberMeCheckBox> {
             ),
             value: widget.passwordRememberMe,
             onChanged: (x) {
-              widget.passwordRememberMe = !widget.passwordRememberMe;
               setState(() {
-                log(widget.passwordRememberMe.toString());
+                widget.passwordRememberMe = !widget.passwordRememberMe;
               });
+
+              if (widget.onChanged != null) {
+                widget.onChanged!(widget.passwordRememberMe);
+              }
             },
             focusColor: Theme.of(context).brightness == Brightness.light
                 ? Constants.lightSecondary

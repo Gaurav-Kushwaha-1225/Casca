@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:Casca/config/routes/routes_consts.dart';
@@ -9,14 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../data/data_sources/user_database.dart';
 import '../../../../utils/consts.dart';
 import '../bloc/authentication_bloc/authentication_bloc.dart';
 
 class ProfileSetup extends StatefulWidget {
   final String email;
   final String password;
-  const ProfileSetup({super.key, required this.email, required this.password});
+  final bool rememberMeCheckbox;
+  const ProfileSetup({super.key, required this.email, required this.password, required this.rememberMeCheckbox});
 
   @override
   State<ProfileSetup> createState() => _ProfileSetupState();
@@ -63,7 +64,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
       userLoading = false;
       // log(state.user.password);
       GoRouter.of(context)
-          .goNamed(CascaRoutesNames.dashboard);
+          .goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(state.user)});
     } else if (state is UserError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(state.message)),
@@ -599,7 +600,8 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             email: widget.email,
                             password: widget.password,
                             mobNo: int.parse(phoneTextEditingController.text),
-                            gender: _selectedGender!
+                            gender: _selectedGender!,
+                            rememberMeCheckbox: widget.rememberMeCheckbox
                         ));
                   }
                 }

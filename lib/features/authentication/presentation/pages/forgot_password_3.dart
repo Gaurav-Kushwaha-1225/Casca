@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
 import 'package:Casca/features/authentication/presentation/widgets/password_updated_card.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../data/data_sources/user_database.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
@@ -11,6 +14,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/consts.dart';
+import '../../data/models/user_model.dart';
 import '../widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
@@ -49,6 +53,11 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
   }
 
   bool createNewPasswordRememberMe = false;
+  void handleRememberMeChange (bool value) {
+    setState(() {
+      createNewPasswordRememberMe = value;
+    });
+  }
 
   @override
   void initState() {
@@ -60,8 +69,14 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
     super.dispose();
   }
 
-  Future<void> _updatePassword(String id) async {
-    await CascaUsersDB.updatePassword(id, passwordTextEditingController.text);
+  Future<User?> _updatePassword(String id) async {
+    bool isSuccess = await CascaUsersDB.updatePassword(id, passwordTextEditingController.text);
+    if (isSuccess) {
+      List<User> user = await CascaUsersDB.getUserById(id);
+      return user[0];
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -314,7 +329,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
                 ),
               ),
             ),
-            RememberMeCheckBox(passwordRememberMe: createNewPasswordRememberMe),
+            RememberMeCheckBox(passwordRememberMe: createNewPasswordRememberMe, onChanged: handleRememberMeChange),
             Expanded(child: SizedBox(
               height: 0,
             )),
@@ -326,7 +341,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
                   bool? isConfirmPasswordValid = confirmPasswordKey.currentState?.validate();
 
                   if(isConfirmPasswordValid! && isPasswordValid!) {
-                    _updatePassword(widget.id);
+                    User? user = await _updatePassword(widget.id);
 
                     showDialog(
                       context: context,
@@ -335,7 +350,15 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
 
                     await Future.delayed(const Duration(seconds: 5));
                     Navigator.pop(context);
-                    GoRouter.of(context).goNamed(CascaRoutesNames.dashboard);
+                    if (user != null) {
+                      if (createNewPasswordRememberMe) {
+                        final flutterSecureStorage = FlutterSecureStorage();
+                        flutterSecureStorage.write(key: 'user', value: jsonEncode(user.toMap()));
+                      }
+                      GoRouter.of(context).goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(user.toMap())});
+                    } else {
+                      GoRouter.of(context).goNamed(CascaRoutesNames.authOnboardingPage);
+                    }
                   }
                 }),
             SizedBox(
