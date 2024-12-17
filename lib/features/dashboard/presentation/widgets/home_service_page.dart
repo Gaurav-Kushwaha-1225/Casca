@@ -1,11 +1,8 @@
-import 'dart:math';
 
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../utils/consts.dart';
 import '../../data/models/barber_model.dart';
 import '../bloc/home/home_bloc.dart';
 import 'barber_card.dart';

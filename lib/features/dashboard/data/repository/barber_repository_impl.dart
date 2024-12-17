@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:Casca/features/dashboard/data/data_sources/barber_database.dart';
 
-import '../../../authentication/data/models/user_model.dart';
 import '../../domain/repository/barber_repository.dart';
 
 class BarberRepositoryImpl implements BarberRepository {

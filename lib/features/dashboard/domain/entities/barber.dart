@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import '../../data/models/barber_model.dart' as BarberDataModel;
 
