@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -41,11 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Theme.of(context).brightness == Brightness.light
           ? Constants.lightPrimary
           : Constants.darkPrimary,
-      body: Center(
-        child: CircularProgressIndicator(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Constants.lightSecondary
-                : Constants.darkSecondary),
+      body: Container(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Constants.darkPrimary.withOpacity(0.8)
+            : Constants.lightPrimary.withOpacity(0.2),
+        child: Center(
+          child: CircularProgressIndicator(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Constants.lightSecondary
+                  : Constants.darkSecondary),
+        ),
       ),
     );
   }
