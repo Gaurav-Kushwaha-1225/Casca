@@ -1,10 +1,7 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:convert';
 
 import 'package:Casca/features/authentication/presentation/widgets/password_updated_card.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../../data/data_sources/user_database.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
@@ -14,7 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/consts.dart';
-import '../../data/models/user_model.dart';
+import '../bloc/authentication_bloc/authentication_bloc.dart';
 import '../widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
@@ -69,19 +66,34 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
     super.dispose();
   }
 
-  Future<User?> _updatePassword(String id) async {
-    bool isSuccess = await CascaUsersDB.updatePassword(id, passwordTextEditingController.text);
-    if (isSuccess) {
-      List<User> user = await CascaUsersDB.getUserById(id);
-      return user[0];
-    } else {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+  listener: (context, state) async {
+    if (state is PasswordUpdating) {
+      showDialog(
+        context: context,
+        builder: (_) => PasswordUpdatedCard(),
+      );
+    } else if (state is PasswordUpdatedSuccessfully) {
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.pop(context);
+      GoRouter.of(context).goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(state.user.toJson())});
+    } else if (state is PasswordNotUpdated) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.message)),
+      );
+      GoRouter.of(context).goNamed(CascaRoutesNames.authOnboardingPage);
+    } else if (state is PasswordUpdateError) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.message)),
+      );
+      GoRouter.of(context).goNamed(CascaRoutesNames.authOnboardingPage);
+    }
+  },
+  child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         text: "Create New Password",
@@ -341,30 +353,14 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
                   bool? isConfirmPasswordValid = confirmPasswordKey.currentState?.validate();
 
                   if(isConfirmPasswordValid! && isPasswordValid!) {
-                    User? user = await _updatePassword(widget.id);
+                    BlocProvider.of<AuthenticationBloc>(context).add(PasswordUpdateEvent(id: widget.id, rememberMeCheckbox: createNewPasswordRememberMe, newPassword: passwordTextEditingController.text));
 
-                    showDialog(
-                      context: context,
-                      builder: (_) => PasswordUpdatedCard(),
-                    );
-
-                    await Future.delayed(const Duration(seconds: 5));
-                    Navigator.pop(context);
-                    if (user != null) {
-                      if (createNewPasswordRememberMe) {
-                        final flutterSecureStorage = FlutterSecureStorage();
-                        flutterSecureStorage.write(key: 'user', value: jsonEncode(user.toMap()));
-                      }
-                      GoRouter.of(context).goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(user.toMap())});
-                    } else {
-                      GoRouter.of(context).goNamed(CascaRoutesNames.authOnboardingPage);
-                    }
-                  }
-                }),
+                }}),
             SizedBox(
               height: 40,
             )
           ]),
-    );
+    ),
+);
   }
 }

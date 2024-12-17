@@ -64,7 +64,7 @@ class _ProfileSetupState extends State<ProfileSetup> {
       userLoading = false;
       // log(state.user.password);
       GoRouter.of(context)
-          .goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(state.user)});
+          .goNamed(CascaRoutesNames.dashboard, pathParameters: {'user': jsonEncode(state.user.toJson())});
     } else if (state is UserError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(state.message)),

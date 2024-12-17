@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../../data/data_sources/user_database.dart';
 import '../../../domain/entities/user.dart';
+import '../../../data/models/user_model.dart' as UserModel;
 import '../../../domain/usecases/login_user.dart';
 import '../../../domain/usecases/signup_user.dart';
 
@@ -21,6 +23,7 @@ class AuthenticationBloc
       : super(AuthenticationInitial()) {
     on<LoginEvent>(onLoginEvent);
     on<SignupEvent>(onSignupEvent);
+    on<PasswordUpdateEvent>(onPasswordUpdateEvent);
   }
 
   void onLoginEvent(LoginEvent event, Emitter<AuthenticationState> emit) async {
@@ -61,7 +64,8 @@ class AuthenticationBloc
       if (isSuccess == true) {
         if (event.rememberMeCheckbox) {
           final flutterSecureStorage = FlutterSecureStorage();
-          flutterSecureStorage.write(key: 'user', value: jsonEncode(user.toJson()));
+          flutterSecureStorage.write(
+              key: 'user', value: jsonEncode(user.toJson()));
           emit(UserRegistered(user: user));
         } else {
           emit(UserRegistered(user: user));
@@ -71,6 +75,36 @@ class AuthenticationBloc
       }
     } catch (e) {
       emit(UserError(message: "Error during signup : $e"));
+    }
+  }
+
+  Future<UserModel.User?> _updatePassword(String id, String newPassword) async {
+    bool isSuccess = await CascaUsersDB.updatePassword(id, newPassword);
+    if (isSuccess) {
+      List<UserModel.User> user = await CascaUsersDB.getUserById(id);
+      return user[0];
+    } else {
+      return null;
+    }
+  }
+
+  void onPasswordUpdateEvent(
+      PasswordUpdateEvent event, Emitter<AuthenticationState> emit) async {
+    emit(PasswordUpdating());
+    try {
+      UserModel.User? user = await _updatePassword(event.id, event.newPassword);
+      if (user != null) {
+        if (event.rememberMeCheckbox) {
+          final flutterSecureStorage = FlutterSecureStorage();
+          flutterSecureStorage.write(
+              key: 'user', value: jsonEncode(user.toMap()));
+        }
+        emit(PasswordUpdatedSuccessfully(user: User.fromModelUser(user)));
+      } else {
+        emit(PasswordNotUpdated(message: "Password is not updated. Please try again."));
+      }
+    } catch (e) {
+      emit(PasswordUpdateError(message: "Error during password updating : $e"));
     }
   }
 

@@ -165,7 +165,6 @@ class _ForgotPassword1State extends State<ForgotPassword1> {
                           'codeLink': jsonEncode(_isEmail ? widget.email : user.mobNo.toString()),
                           'id': jsonEncode(user.id)
                         });
-                    log("Worked Fine :)");
                   }),
               Expanded(
                   child: SizedBox(

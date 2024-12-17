@@ -28,3 +28,23 @@ class UserError extends AuthenticationState {
 
   UserError({required this.message});
 }
+
+class PasswordUpdating extends AuthenticationState {}
+
+class PasswordUpdatedSuccessfully extends AuthenticationState {
+  final User user;
+
+  PasswordUpdatedSuccessfully({required this.user});
+}
+
+class PasswordNotUpdated extends AuthenticationState {
+  final String message;
+
+  PasswordNotUpdated({required this.message});
+}
+
+class PasswordUpdateError extends AuthenticationState {
+  final String message;
+
+  PasswordUpdateError({required this.message});
+}
