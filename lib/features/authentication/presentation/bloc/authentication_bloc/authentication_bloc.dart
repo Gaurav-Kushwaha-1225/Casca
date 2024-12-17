@@ -29,10 +29,10 @@ class AuthenticationBloc
     }
   }
 
-  void onSignupEvent(SignupEvent event, Emitter<AuthenticationState> emit) async {
+  void onSignupEvent(
+      SignupEvent event, Emitter<AuthenticationState> emit) async {
     emit(UserLoading());
     User user = User(
-        id: 0,
         userName: event.username,
         name: event.name,
         dOB: event.dOB,
@@ -41,8 +41,12 @@ class AuthenticationBloc
         mobNo: event.mobNo,
         gender: event.gender,
         image: event.image);
-    int id = await signupUser.execute(user);
-    emit(UserRegistered(user: user));
+    bool? isSuccess = await signupUser.execute(user);
+    if (isSuccess == true) {
+      emit(UserRegistered(user: user));
+    } else {
+      emit(UserError(message: "Signup Failed"));
+    }
   }
 
   Stream<AuthenticationState> mapEventToState(
@@ -64,7 +68,6 @@ class AuthenticationBloc
       yield UserLoading();
       try {
         User user = User(
-            id: 0,
             userName: authEvent.username,
             name: authEvent.name,
             dOB: authEvent.dOB,
@@ -73,8 +76,12 @@ class AuthenticationBloc
             mobNo: authEvent.mobNo,
             gender: authEvent.gender,
             image: authEvent.image);
-        int id = await signupUser.execute(user);
-        yield UserRegistered(user: user);
+        bool? isSuccess = await signupUser.execute(user);
+        if (isSuccess == true) {
+          yield UserRegistered(user: user);
+        } else {
+          yield UserError(message: "Signup Failed");
+        }
       } catch (e) {
         yield UserError(message: "Error during signup : $e");
       }

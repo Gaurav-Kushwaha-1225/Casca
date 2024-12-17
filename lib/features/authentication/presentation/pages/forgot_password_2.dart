@@ -18,7 +18,7 @@ import '../../../../utils/consts.dart';
 class ForgotPassword2 extends StatefulWidget {
   bool isEmail;
   String codeLink;
-  int id;
+  String id;
   ForgotPassword2(
       {super.key,
       required this.isEmail,

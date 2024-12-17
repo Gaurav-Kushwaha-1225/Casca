@@ -6,7 +6,7 @@ class SignupUser {
 
   SignupUser(this.repository);
 
-  Future<int> execute(User user) {
+  Future<bool?> execute(User user) {
     return repository.signupUser(user);
   }
 }

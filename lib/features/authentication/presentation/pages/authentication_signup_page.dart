@@ -127,7 +127,7 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                     }
                   }),
               const Expanded(
-                child: SizedBox(height: 50),
+                child: SizedBox(height: 900),
               ),
               const AuthPageDivider(text: "or continue with"),
               const SignInOptionsButton(),

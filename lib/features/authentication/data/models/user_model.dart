@@ -1,5 +1,7 @@
+import 'package:mongo_dart/mongo_dart.dart';
+
 class User {
-  final int id;
+  final String id;
   final String userName;
   final String name;
   final String dOB;
@@ -36,26 +38,13 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-        id: map['id'],
+        id: (map['_id'] as ObjectId).oid,
         userName: map['userName'],
         name: map['name'],
         image: map['image'],
         dOB: map['dOB'],
         email: map['email'],
-        mobNo: map['mobNo'],
-        gender: map['gender'],
-        password: map['password']);
-  }
-
-  factory User.fromSqfliteDatabase(Map<String, dynamic> map) {
-    return User(
-        id: map['id'],
-        userName: map['userName'],
-        name: map['name'],
-        image: map['image'],
-        dOB: map['dOB'],
-        email: map['email'],
-        mobNo: map['mobNo'],
+        mobNo: map['mobNo'].toInt(),
         gender: map['gender'],
         password: map['password']);
   }

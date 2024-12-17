@@ -14,7 +14,7 @@ import '../../../../utils/consts.dart';
 import '../widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
-  int id;
+  String id;
   ForgotPassword3({super.key, required this.id});
 
   @override
@@ -60,7 +60,7 @@ class _ForgotPassword3State extends State<ForgotPassword3> {
     super.dispose();
   }
 
-  Future<void> _updatePassword(int id) async {
+  Future<void> _updatePassword(String id) async {
     await CascaUsersDB.updatePassword(id, passwordTextEditingController.text);
   }
 

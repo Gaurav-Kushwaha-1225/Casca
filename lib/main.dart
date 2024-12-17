@@ -17,7 +17,7 @@ import 'features/dashboard/presentation/bloc/home/home_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CascaUsersDB.db();
+  await CascaUsersDB.connect();
   await CascaBarberDB.connect();
   runApp(const Casca());
 }

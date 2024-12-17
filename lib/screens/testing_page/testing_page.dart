@@ -23,7 +23,7 @@ class _TestingPageState extends State<TestingPage> {
   void fetchUsers() async {
     final data = await CascaUsersDB.getUsers();
     setState(() {
-      users = data;
+      users = data ?? [];
       _isLoading = false;
     });
   }
