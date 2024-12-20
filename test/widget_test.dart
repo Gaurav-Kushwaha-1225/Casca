@@ -5,15 +5,18 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:Casca/config/routes/routes.dart';
 import 'package:Casca/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    final GoRouter router = CascaRouter().router;
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const Casca());
+    await tester.pumpWidget(Casca(router: router));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

@@ -8,11 +8,12 @@ import 'package:Casca/features/authentication/presentation/pages/authentication_
 import 'package:Casca/features/dashboard/data/data_sources/barber_database.dart';
 import 'package:Casca/features/dashboard/data/repository/barber_repository_impl.dart';
 import 'package:Casca/features/dashboard/domain/usecases/get_data.dart';
-import 'package:Casca/features/dashboard/presentation/widgets/edit_profile_page.dart';
 import 'package:Casca/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 import 'config/routes/routes.dart';
 import 'features/dashboard/presentation/bloc/explore/explore_bloc.dart';
@@ -22,11 +23,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CascaUsersDB.connect();
   await CascaBarberDB.connect();
-  runApp(const Casca());
+  final storage = FlutterSecureStorage();
+  final GoRouter router = CascaRouter().router;
+  runApp(BlocProvider<ThemeBloc>(
+    create: (context) => ThemeBloc(storage: storage)..loadSavedTheme(),
+    child: Casca(router: router),
+  ));
 }
 
 class Casca extends StatelessWidget {
-  const Casca({super.key});
+  final GoRouter router;
+  const Casca({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +63,16 @@ class Casca extends StatelessWidget {
               create: (context) => ExploreBloc(
                   getData: GetData(BarberRepositoryImpl(CascaBarberDB())))),
         ],
-        child: MaterialApp.router(
-          title: 'Casca',
-          themeMode: ThemeMode.system,
-          theme: CascaTheme.lightTheme,
-          darkTheme: CascaTheme.darkTheme,
-          routerConfig: CascaRouter().router,
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp.router(
+              title: 'Casca',
+              themeMode: state.isDark ? ThemeMode.dark : ThemeMode.light,
+              theme: CascaTheme.lightTheme,
+              darkTheme: CascaTheme.darkTheme,
+              routerConfig: router,
+            );
+          },
         ),
       ),
     );
