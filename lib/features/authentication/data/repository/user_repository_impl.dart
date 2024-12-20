@@ -12,7 +12,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<bool?> signupUser(User user) async {
     return await CascaUsersDB.createUser(user.userName, user.name, user.dOB,
-        user.email, user.password, user.mobNo, user.gender);
+        user.email, user.password, user.mobNo, user.gender, image: user.image);
   }
 
   @override

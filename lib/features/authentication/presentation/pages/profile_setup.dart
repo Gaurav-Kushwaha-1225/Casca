@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../utils/consts.dart';
 import '../bloc/authentication_bloc/authentication_bloc.dart';
@@ -24,7 +26,98 @@ class ProfileSetup extends StatefulWidget {
 }
 
 class _ProfileSetupState extends State<ProfileSetup> {
-   TextEditingController nameTextEditingController =
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  /*Future<void> _loadSavedImage() async {
+    setState(() => _isLoading = true);
+    try {
+      var db = await Db.create(MONGO_URL);
+      await db.open();
+      var collection = db.collection(COLLECTION_NAME);
+
+      // Find the most recent image document
+      var imageDoc = await collection.findOne(
+          where.sortBy('timestamp', descending: true)
+      );
+
+      if (imageDoc != null && imageDoc['imageData'] != null) {
+        final directory = await getApplicationDocumentsDirectory();
+        final imagePath = join(directory.path, 'downloaded_image.jpg');
+
+        File file = File(imagePath);
+        await file.writeAsBytes(imageDoc['imageData'].byteList);
+
+        setState(() {
+          _downloadedImagePath = imagePath;
+        });
+      }
+    } catch (e) {
+      print('Error loading image: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }*/
+
+  Future<void> pickImage() async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1000,
+        maxHeight: 1000,
+        imageQuality: 85,
+      );
+
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error uploading image.")));
+    }
+  }
+
+
+/*  Future<void> _uploadImage() async {
+    if (_image == null) return;
+
+    setState(() => _isLoading = true);
+    try {
+      var db = await Db.create(MONGO_URL);
+      await db.open();
+      var collection = db.collection(COLLECTION_NAME);
+
+      // Read image file as bytes
+      List<int> imageBytes = await _image!.readAsBytes();
+
+      // Create document with image data and metadata
+      var imageDoc = {
+        'imageData': BsonBinary.from(imageBytes),
+        'timestamp': DateTime.now(),
+        'filename': basename(_image!.path),
+      };
+
+      // Insert the document
+      await collection.insert(imageDoc);
+
+      // Update the displayed image
+      await _loadSavedImage();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Image uploaded successfully!'))
+      );
+    } catch (e) {
+      print('Error uploading image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error uploading image'))
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }*/
+
+  TextEditingController nameTextEditingController =
       TextEditingController();
   final FocusNode nameFocusNode = FocusNode();
   final GlobalKey<FormState> nameKey = GlobalKey();
@@ -90,13 +183,30 @@ class _ProfileSetupState extends State<ProfileSetup> {
               child: Container(
                   margin: const EdgeInsets.only(
                       left: 24, right: 24, top: 24, bottom: 30),
-                  child: Image.asset(
-                    Theme.of(context).brightness == Brightness.light
-                        ? "assets/images/profile_light.png"
-                        : "assets/images/profile_dark.png",
-                    fit: BoxFit.contain,
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.width * 0.3,
+                  clipBehavior: Clip.antiAlias,
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  height: MediaQuery.of(context).size.width * 0.35,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: GestureDetector(
+                    onTap: () async {
+                      await pickImage();
+                    },
+                    child: _image != null ? Image.file(_image!,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
+                    ) :
+                    Image.asset(
+                      Theme.of(context).brightness == Brightness.light
+                          ? "assets/images/profile_light.png"
+                          : "assets/images/profile_dark.png",
+                      fit: BoxFit.contain,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
+                    )
                   )),
             ),
             SliverToBoxAdapter(
@@ -592,6 +702,9 @@ class _ProfileSetupState extends State<ProfileSetup> {
                   }
 
                   if(isValidName && isValidUsername && isValidDOB && isValidPhone && _selectedGender != null) {
+                    if (_image != null) {
+                      List<int> imageBytes = await _image!.readAsBytes();
+                      String base64Image = base64Encode(imageBytes);
                     BlocProvider.of<AuthenticationBloc>(context).add(
                         SignupEvent(
                             username: userNameTextEditingController.text,
@@ -601,8 +714,22 @@ class _ProfileSetupState extends State<ProfileSetup> {
                             password: widget.password,
                             mobNo: int.parse(phoneTextEditingController.text),
                             gender: _selectedGender!,
-                            rememberMeCheckbox: widget.rememberMeCheckbox
+                            rememberMeCheckbox: widget.rememberMeCheckbox,
+                            image: base64Image
                         ));
+                    } else {
+                      BlocProvider.of<AuthenticationBloc>(context).add(
+                          SignupEvent(
+                              username: userNameTextEditingController.text,
+                              name: nameTextEditingController.text,
+                              dOB: dobTextEditingController.text,
+                              email: widget.email,
+                              password: widget.password,
+                              mobNo: int.parse(phoneTextEditingController.text),
+                              gender: _selectedGender!,
+                              rememberMeCheckbox: widget.rememberMeCheckbox,
+                          ));
+                    }
                   }
                 }
               ),
