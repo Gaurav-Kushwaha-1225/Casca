@@ -4,6 +4,7 @@ import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/features/authentication/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -88,23 +89,23 @@ class _DashboardProfilePageState extends State<DashboardProfilePage> {
         Icons.remove_red_eye_rounded,
         "Dark Mode",
         Switch(
-              value: context.watch<ThemeBloc>().state.isDark ,
-              onChanged: (value) {
-                context.read<ThemeBloc>().add(ToggleTheme());
-              },
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightSecondary
-                  : Constants.darkSecondary,
-              activeTrackColor: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightSecondary.withOpacity(0.3)
-                  : Constants.darkSecondary.withOpacity(0.3),
-              inactiveThumbColor: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightTextColor
-                  : Constants.darkTextColor,
-              inactiveTrackColor: Theme.of(context).brightness == Brightness.light
-                  ? Constants.lightTextColor.withOpacity(0.3)
-                  : Constants.darkTextColor.withOpacity(0.3),
-            ),
+          value: context.watch<ThemeBloc>().state.isDark,
+          onChanged: (value) {
+            context.read<ThemeBloc>().add(ToggleTheme());
+          },
+          activeColor: Theme.of(context).brightness == Brightness.light
+              ? Constants.lightSecondary
+              : Constants.darkSecondary,
+          activeTrackColor: Theme.of(context).brightness == Brightness.light
+              ? Constants.lightSecondary.withOpacity(0.3)
+              : Constants.darkSecondary.withOpacity(0.3),
+          inactiveThumbColor: Theme.of(context).brightness == Brightness.light
+              ? Constants.lightTextColor
+              : Constants.darkTextColor,
+          inactiveTrackColor: Theme.of(context).brightness == Brightness.light
+              ? Constants.lightTextColor.withOpacity(0.3)
+              : Constants.darkTextColor.withOpacity(0.3),
+        ),
         () {}
       ],
       [
@@ -269,7 +270,12 @@ class _DashboardProfilePageState extends State<DashboardProfilePage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 13),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      final storage = FlutterSecureStorage();
+                      storage.delete(key: 'user');
+                      GoRouter.of(context)
+                          .goNamed(CascaRoutesNames.authOnboardingPage);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
