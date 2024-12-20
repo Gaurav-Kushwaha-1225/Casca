@@ -26,24 +26,25 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   int currentBottomNavigationPage = 0;
-  final List<Widget> dashboard_pages = [
-    DashboardHomePage(),
-    DashboardExplorePage(),
-    DashboardBookingPage(),
-    DashboardInboxPage(),
-    DashboardProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    log("message");
     User currentUser = User.fromJson(widget.user);
+    final List<Widget> dashboard_pages = [
+      DashboardHomePage(),
+      DashboardExplorePage(),
+      DashboardBookingPage(),
+      DashboardInboxPage(),
+      DashboardProfilePage(user: widget.user),
+    ];
+    final appBarHeading = ["Casca", "Explore", "Bookings", "Inbox", "Profile"];
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75),
         child: CustomAppBar(
-          text: "Casca",
+          text: appBarHeading[currentBottomNavigationPage],
           leadingFunc: () {
             log("Leading Function Called");
           },

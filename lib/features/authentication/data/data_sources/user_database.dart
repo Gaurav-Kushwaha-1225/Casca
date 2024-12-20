@@ -47,7 +47,7 @@ Future<void> main() async {
     await CascaUsersDB.connect();
     // data = await CascaUsersDB.getUserByEmail("gk.kush2005@gmail.com");
     data = await CascaUsersDB.getData();
-int a = data[1]['mobNo'].toInt();
+    int a = data[1]['mobNo'].toInt();
     print(a);
     // if (data != null && data.isNotEmpty) {
     //   var firstUser = data[0]['_id'] as ObjectId;
@@ -97,7 +97,7 @@ class CascaUsersDB {
   }
 
   // Create a User
-  static Future<bool?> createUser(String userName, String name, String dOB,
+  static Future<User?> createUser(String userName, String name, String dOB,
       String email, String password, int mobNo, String gender,
       {String? image}) async {
     final values = {
@@ -112,7 +112,42 @@ class CascaUsersDB {
     };
     try {
       final id = await collection?.insertOne(values);
-      return id?.isSuccess;
+      if (id != null && id.document != null) {
+        return User.fromMap(id.document!);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  // Update User
+  static Future<bool?> updateUser(
+      String id,
+      String userName,
+      String name,
+      String dOB,
+      String email,
+      String password,
+      int mobNo,
+      String gender,
+      String? image) async {
+    try {
+      print(id);
+      ObjectId objId = ObjectId.fromHexString(id);
+      final success = await collection?.updateMany(
+          where.eq('_id', objId),
+          ModifierBuilder()
+            ..set('name', name)
+            ..set('userName', userName)
+            ..set('dOB', dOB)
+            ..set('email', email)
+            ..set('mobNo', mobNo)
+            ..set('gender', gender)
+            ..set('image', image));
+      return success?.isSuccess;
     } catch (e) {
       print(e.toString());
       return false;

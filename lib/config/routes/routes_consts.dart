@@ -16,4 +16,5 @@ class CascaRoutesNames {
   static const String servicesPage = "servicesPage";
   static const String notificationBookmarkPage = "notificationBookmarkPage";
   static const String barberDetailsPage1 = "barberDetailsPage1";
+  static const String updateUserPage = "updateUserProfile";
 }

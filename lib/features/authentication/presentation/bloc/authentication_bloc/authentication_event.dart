@@ -48,3 +48,26 @@ class PasswordUpdateEvent extends AuthenticationEvent {
 
   PasswordUpdateEvent({required this.id, required this.rememberMeCheckbox, required this.newPassword});
 }
+
+class UserProfileUpdateEvent extends AuthenticationEvent {
+  final String id;
+  final String username;
+  final String name;
+  final String dOB;
+  final String email;
+  final String password;
+  final int mobNo;
+  final String gender;
+  final String? image;
+
+  UserProfileUpdateEvent(
+      {required this.id,
+        required this.username,
+        required this.name,
+        required this.dOB,
+        required this.email,
+        required this.password,
+        required this.mobNo,
+        required this.gender,
+        required this.image});
+}

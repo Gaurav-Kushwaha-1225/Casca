@@ -21,6 +21,9 @@ class CascaTheme {
       style: TextButton.styleFrom(
         foregroundColor: Constants.lightPrimary
       )
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: Constants.darkPrimary
     )
   );
 
@@ -39,6 +42,9 @@ class CascaTheme {
           style: TextButton.styleFrom(
               foregroundColor: Constants.darkPrimary
           )
+      ),
+      snackBarTheme: SnackBarThemeData(
+          backgroundColor: Constants.lightPrimary
       )
   );
 }

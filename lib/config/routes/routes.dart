@@ -7,6 +7,7 @@ import 'package:Casca/features/authentication/presentation/pages/forgot_password
 import 'package:Casca/features/authentication/presentation/pages/profile_setup.dart';
 import 'package:Casca/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/barber_details/details_page_1.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/edit_profile_page.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/home_service_page.dart';
 import 'package:Casca/features/dashboard/presentation/widgets/notification_bookmark_page.dart';
 import 'package:Casca/screens/splash_screen.dart';
@@ -62,7 +63,8 @@ class CascaRouter {
               child: ProfileSetup(
                 email: jsonDecode(state.pathParameters['email']!),
                 password: jsonDecode(state.pathParameters['password']!),
-                rememberMeCheckbox: jsonDecode(state.pathParameters['rememberMeCheckbox']!),
+                rememberMeCheckbox:
+                    jsonDecode(state.pathParameters['rememberMeCheckbox']!),
               ));
         },
       ),
@@ -145,6 +147,15 @@ class CascaRouter {
                 child: BarberDetailsPage1(
                     barberJson:
                         jsonDecode(state.pathParameters['barberJson']!)));
+          }),
+      GoRoute(
+          name: CascaRoutesNames.updateUserPage,
+          path: "/update_user_page/:user",
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return MaterialPage(
+                key: state.pageKey,
+                child: EditProfilePage(
+                    user: jsonDecode(state.pathParameters['user']!)));
           }),
     ], // TODO: Add Error Page Builder
   );

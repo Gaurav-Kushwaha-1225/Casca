@@ -10,9 +10,15 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this.cascaUsersDB);
 
   @override
-  Future<bool?> signupUser(User user) async {
-    return await CascaUsersDB.createUser(user.userName, user.name, user.dOB,
+  Future<User?> signupUser(User user) async {
+    final profile = await CascaUsersDB.createUser(user.userName, user.name, user.dOB,
         user.email, user.password, user.mobNo, user.gender, image: user.image);
+    if (profile != null) {
+      return User.fromModelUser(profile);
+    } else {
+      return null;
+    }
+
   }
 
   @override
@@ -23,5 +29,11 @@ class UserRepositoryImpl implements UserRepository {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<bool?> updateUser(User user) async {
+    return await CascaUsersDB.updateUser(user.id ?? "", user.userName, user.name, user.dOB,
+        user.email, user.password, user.mobNo, user.gender, user.image ?? null);
   }
 }

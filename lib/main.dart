@@ -2,10 +2,13 @@ import 'package:Casca/features/authentication/data/data_sources/user_database.da
 import 'package:Casca/features/authentication/data/repository/user_repository_impl.dart';
 import 'package:Casca/features/authentication/domain/usecases/login_user.dart';
 import 'package:Casca/features/authentication/domain/usecases/signup_user.dart';
+import 'package:Casca/features/authentication/domain/usecases/update_user.dart';
 import 'package:Casca/features/authentication/presentation/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:Casca/features/authentication/presentation/pages/authentication_signup_page.dart';
 import 'package:Casca/features/dashboard/data/data_sources/barber_database.dart';
 import 'package:Casca/features/dashboard/data/repository/barber_repository_impl.dart';
 import 'package:Casca/features/dashboard/domain/usecases/get_data.dart';
+import 'package:Casca/features/dashboard/presentation/widgets/edit_profile_page.dart';
 import 'package:Casca/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +37,8 @@ class Casca extends StatelessWidget {
             create: (_) => LoginUser(UserRepositoryImpl(CascaUsersDB()))),
         RepositoryProvider<SignupUser>(
             create: (_) => SignupUser(UserRepositoryImpl(CascaUsersDB()))),
+        RepositoryProvider<UpdateUser>(
+            create: (_) => UpdateUser(UserRepositoryImpl(CascaUsersDB()))),
         RepositoryProvider<GetData>(
             create: (_) => GetData(BarberRepositoryImpl(CascaBarberDB()))),
       ],
@@ -42,7 +47,8 @@ class Casca extends StatelessWidget {
           BlocProvider<AuthenticationBloc>(
               create: (context) => AuthenticationBloc(
                   loginUser: LoginUser(UserRepositoryImpl(CascaUsersDB())),
-                  signupUser: SignupUser(UserRepositoryImpl(CascaUsersDB())))),
+                  signupUser: SignupUser(UserRepositoryImpl(CascaUsersDB())),
+                  updateUser: UpdateUser(UserRepositoryImpl(CascaUsersDB())))),
           BlocProvider<HomeBloc>(
               create: (context) => HomeBloc(
                   getData: GetData(BarberRepositoryImpl(CascaBarberDB())))),

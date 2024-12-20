@@ -48,3 +48,17 @@ class PasswordUpdateError extends AuthenticationState {
 
   PasswordUpdateError({required this.message});
 }
+
+class UserUpdateLoading extends AuthenticationState {}
+
+class UserUpdated extends AuthenticationState {
+  final User user;
+
+  UserUpdated({required this.user});
+}
+
+class UserUpdateError extends AuthenticationState {
+  final String message;
+
+  UserUpdateError({required this.message});
+}
