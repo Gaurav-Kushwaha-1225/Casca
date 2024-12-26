@@ -316,6 +316,7 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
                               .contains(nearbyLocationProductSelected) ||
                           nearbyLocationProductSelected == 'All') {
                         return BarberCard(
+                            id: state.barbers[index].id,
                             func: () {
                               String barberJson = jsonEncode(state.barbers[index].toMap());
                               GoRouter.of(context).pushNamed(

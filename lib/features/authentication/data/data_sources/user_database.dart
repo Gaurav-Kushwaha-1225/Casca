@@ -71,7 +71,6 @@ class CascaUsersDB {
     await db?.open();
     inspect(db);
     collection = db?.collection('Users');
-    print("Connected to Users Collection");
   }
 
   // Get All Data

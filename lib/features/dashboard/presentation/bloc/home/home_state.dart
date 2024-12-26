@@ -22,3 +22,17 @@ class BarbersError extends HomeState {
 
   BarbersError({required this.message});
 }
+
+class SavedBarbersLoading extends HomeState {}
+
+class SavedBarbersLoaded extends HomeState {
+  final List<Barber> barbers;
+
+  SavedBarbersLoaded({required this.barbers});
+}
+
+class SavedBarbersError extends HomeState {
+  final String message;
+
+  SavedBarbersError({required this.message});
+}

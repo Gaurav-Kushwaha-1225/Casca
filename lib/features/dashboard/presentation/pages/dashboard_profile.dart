@@ -273,6 +273,7 @@ class _DashboardProfilePageState extends State<DashboardProfilePage> {
                     onTap: () {
                       final storage = FlutterSecureStorage();
                       storage.delete(key: 'user');
+                      storage.delete(key: 'savedBarbers');
                       GoRouter.of(context)
                           .goNamed(CascaRoutesNames.authOnboardingPage);
                     },

@@ -12,18 +12,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required this.getData}) : super(HomeInitial()) {
     on<GetBarbersEvent>(onGetBarbersEvent);
+    on<GetSavedBarbersEvent>(onGetSavedBarbersEvent);
   }
 
   void onGetBarbersEvent(GetBarbersEvent event, Emitter<HomeState> emit) async {
     emit(BarbersLoading());
-    CascaBarberDB.connect();
     final data = await CascaBarberDB.getData();
     if (data != null) {
-      List<Barber> barbers = data.map((barber) => Barber.fromMap(barber)).toList();
+      List<Barber> barbers =
+          data.map((barber) => Barber.fromMap(barber)).toList();
       emit(BarbersLoaded(barbers: barbers));
-      await CascaBarberDB.close();
     } else {
       emit(BarbersError(message: "Barbers Data Loading Failed"));
+    }
+  }
+
+  void onGetSavedBarbersEvent(
+      GetSavedBarbersEvent event, Emitter<HomeState> emit) async {
+    emit(SavedBarbersLoading());
+    List<Barber> savedBarbers = [];
+    try {
+      for (int i = 0; i < event.barbers.length; i++) {
+        List<Barber> bars = await CascaBarberDB.getBerberById(event.barbers[i]);
+        savedBarbers.addAll(bars);
+      }
+      emit(SavedBarbersLoaded(barbers: savedBarbers));
+    } catch (e) {
+      emit(SavedBarbersError(message: "Barbers Data Loading Failed"));
     }
   }
 

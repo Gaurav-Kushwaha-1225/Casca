@@ -67,6 +67,7 @@ class _HomeServicePageState extends State<HomeServicePage> {
                               .listOfServices
                               .contains(widget.service)) {
                             return BarberCard(
+                                id: state.barbers[index].id,
                                 func: () {},
                                 imageLink: state.barbers[index].imageLink,
                                 name: state.barbers[index].name,

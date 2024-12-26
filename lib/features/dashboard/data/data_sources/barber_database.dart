@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:mongo_dart/mongo_dart.dart';
 
+import '../models/barber_model.dart';
+
 final connectionURL =
     "mongodb+srv://casca:casca@casca.gctq7.mongodb.net/CascaDB?retryWrites=true&w=majority";
 
@@ -79,6 +81,21 @@ class CascaBarberDB {
     try {
       final users = await collection?.find().toList();
       return users;
+    } catch (e) {
+      log(e as String);
+      return [];
+    }
+  }
+
+  static Future<List<Barber>> getBerberById(String id) async {
+    try {
+      ObjectId objId = ObjectId.fromHexString(id);
+      final barbers = await collection?.find(where.eq('_id', objId)).toList();
+      if (barbers!.isNotEmpty) {
+        return barbers.map((barber) => Barber.fromMap(barber)).toList();
+      } else {
+        return [];
+      }
     } catch (e) {
       log(e as String);
       return [];

@@ -1,5 +1,7 @@
+import 'package:mongo_dart/mongo_dart.dart';
 
 class Barber {
+  final String id;
   final name;
   final address;
   final stars;
@@ -14,6 +16,7 @@ class Barber {
   final List<dynamic> serviceTypeNos;
 
   Barber({
+    required this.id,
     required this.name,
     required this.address,
     required this.stars,
@@ -30,6 +33,7 @@ class Barber {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'address': address,
       'stars': stars,
@@ -47,6 +51,25 @@ class Barber {
 
   factory Barber.fromMap(Map<String, dynamic> map) {
     return Barber(
+      id: (map['_id'] as ObjectId).oid,
+      name: map['name'],
+      address: map['address'],
+      stars: map['stars'],
+      listOfServices: map['types_of_services'],
+      noOfReviews: map['no_reviews'],
+      imageLink: map['image_link'],
+      phoneNo: map['mob_no'],
+      website: map['website'],
+      about: map['about'],
+      monToFri: map['time_mon_fri'],
+      satSun: map['time_sat_sun'],
+      serviceTypeNos: map['service_types'],
+    );
+  }
+
+  factory Barber.fromJson(Map<String, dynamic> map) {
+    return Barber(
+      id: map['id'],
       name: map['name'],
       address: map['address'],
       stars: map['stars'],

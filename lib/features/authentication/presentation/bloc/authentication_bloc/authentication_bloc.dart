@@ -38,6 +38,8 @@ class AuthenticationBloc
           final flutterSecureStorage = FlutterSecureStorage();
           flutterSecureStorage.write(
               key: 'user', value: jsonEncode(user.toJson()));
+          flutterSecureStorage.write(
+              key: 'savedBarbers', value: jsonEncode([]));
           emit(UserLoaded(user: user));
         } else {
           emit(UserLoaded(user: user));
@@ -69,6 +71,8 @@ class AuthenticationBloc
           final flutterSecureStorage = FlutterSecureStorage();
           flutterSecureStorage.write(
               key: 'user', value: jsonEncode(profile.toJson()));
+          flutterSecureStorage.write(
+              key: 'savedBarbers', value: jsonEncode([]));
           emit(UserRegistered(user: profile));
         } else {
           emit(UserRegistered(user: profile));
@@ -101,6 +105,8 @@ class AuthenticationBloc
           final flutterSecureStorage = FlutterSecureStorage();
           flutterSecureStorage.write(
               key: 'user', value: jsonEncode(user.toMap()));
+          flutterSecureStorage.write(
+              key: 'savedBarbers', value: jsonEncode([]));
         }
         emit(PasswordUpdatedSuccessfully(user: User.fromModelUser(user)));
       } else {
@@ -129,6 +135,8 @@ class AuthenticationBloc
         final flutterSecureStorage = FlutterSecureStorage();
         flutterSecureStorage.write(
             key: 'user', value: jsonEncode(user.toJson()));
+        flutterSecureStorage.write(
+            key: 'savedBarbers', value: jsonEncode([]));
         emit(UserUpdated(user: user));
       } else {
         emit(UserUpdateError(message: "User Profile Update Failed 1"));
@@ -150,10 +158,10 @@ class AuthenticationBloc
             final flutterSecureStorage = FlutterSecureStorage();
             flutterSecureStorage.write(
                 key: 'user', value: jsonEncode(user.toJson()));
-            log("object5");
+            flutterSecureStorage.write(
+                key: 'savedBarbers', value: jsonEncode([]));
             yield UserLoaded(user: user);
           } else {
-            log("object");
             yield UserLoaded(user: user);
           }
         } else {

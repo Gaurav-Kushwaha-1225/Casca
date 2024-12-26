@@ -83,7 +83,7 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
 
   @override
   Widget build(BuildContext context) {
-    Barber barber = Barber.fromMap(widget.barberJson);
+    Barber barber = Barber.fromJson(widget.barberJson);
     String barberName = barber.name;
     barberName = barberName
         .replaceAll(" Barbers", "")
@@ -274,7 +274,7 @@ class _BarberDetailsPage1State extends State<BarberDetailsPage1> {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           // scrollBehavior: ScrollBehavior(),
-          physics: const BouncingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Image.network(

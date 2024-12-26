@@ -1,10 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../utils/consts.dart';
 
 class BarberCard extends StatefulWidget {
+  final String id;
   final GestureTapCallback func;
   final String imageLink;
   final String name;
@@ -12,6 +17,7 @@ class BarberCard extends StatefulWidget {
   final String address;
   const BarberCard(
       {Key? key,
+      required this.id,
       required this.func,
       required this.imageLink,
       required this.name,
@@ -24,6 +30,29 @@ class BarberCard extends StatefulWidget {
 }
 
 class _BarberCardState extends State<BarberCard> {
+  List savedBarbers = [];
+
+  @override
+  void initState() {
+    loadSavedBarbers();
+    super.initState();
+  }
+
+  void loadSavedBarbers() async {
+    final storage = FlutterSecureStorage();
+    String? isPresent = await storage.read(key: 'savedBarbers');
+    if (isPresent != null) {
+      setState(() {
+        savedBarbers = jsonDecode(isPresent);
+      });
+    }
+  }
+
+  void updateSavedBarbers(List barbers) async {
+    final storage = FlutterSecureStorage();
+    storage.write(key: 'savedBarbers', value: jsonEncode(barbers));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -145,9 +174,20 @@ class _BarberCardState extends State<BarberCard> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                if (savedBarbers.contains(widget.id)) {
+                  savedBarbers.remove(widget.id);
+                } else {
+                  savedBarbers.add(widget.id);
+                }
+                setState(() {
+                  updateSavedBarbers(savedBarbers);
+                });
+              },
               icon: Icon(
-                Icons.bookmark_border_rounded,
+                savedBarbers.contains(widget.id)
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_border_rounded,
                 size: 23,
                 color: Theme.of(context).brightness == Brightness.light
                     ? Constants.lightSecondary

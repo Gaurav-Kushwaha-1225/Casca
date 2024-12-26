@@ -441,6 +441,7 @@ class _DashboardExplorePageState extends State<DashboardExplorePage> {
                                 },
                                 itemBuilder: (context, index) {
                                   return BarberCard(
+                                      id: state.barbers[index].id,
                                       func: () {},
                                       imageLink: state.barbers[index].imageLink,
                                       name: state.barbers[index].name,

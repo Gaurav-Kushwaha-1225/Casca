@@ -10,3 +10,8 @@ abstract class HomeEvent extends Equatable {
 class GetBarbersEvent extends HomeEvent {
   GetBarbersEvent();
 }
+
+class GetSavedBarbersEvent extends HomeEvent {
+  final List<String> barbers;
+  GetSavedBarbersEvent({required this.barbers});
+}

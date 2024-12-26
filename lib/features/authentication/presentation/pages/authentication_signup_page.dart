@@ -86,9 +86,15 @@ class _AuthenticationSignupPageState extends State<AuthenticationSignupPage> {
                 },
                 onChanged: (String? value) async {
                   final List<User> users = await CascaUsersDB.getUserByEmail(
-                      emailTextEditingController.text);
+                      value ?? "");
                   if (users.length == 0) {
-                    _isEmailValid = true;
+                    setState(() {
+                      _isEmailValid = true;
+                    });
+                  } else {
+                    setState(() {
+                      _isEmailValid = false;
+                    });
                   }
                 },
                 keyboardType: TextInputType.emailAddress,
