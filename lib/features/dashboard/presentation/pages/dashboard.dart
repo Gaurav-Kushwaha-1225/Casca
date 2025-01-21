@@ -34,10 +34,10 @@ class _DashboardPageState extends State<DashboardPage> {
       DashboardHomePage(),
       DashboardExplorePage(),
       DashboardBookingPage(),
-      DashboardInboxPage(),
+      // DashboardInboxPage(),
       DashboardProfilePage(user: widget.user),
     ];
-    final appBarHeading = ["Casca", "Explore", "Bookings", "Inbox", "Profile"];
+    final appBarHeading = ["Casca", "Explore", "Bookings", "Profile"];
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -126,8 +126,8 @@ class _DashboardPageState extends State<DashboardPage> {
               BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.text_badge_checkmark),
                   label: "My Booking"),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.text_bubble), label: "Inbox"),
+              // BottomNavigationBarItem(
+              //     icon: Icon(CupertinoIcons.text_bubble), label: "Inbox"),
               BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.profile_circled), label: "Profile"),
             ]),
