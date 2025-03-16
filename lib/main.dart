@@ -4,7 +4,6 @@ import 'package:Casca/features/authentication/domain/usecases/login_user.dart';
 import 'package:Casca/features/authentication/domain/usecases/signup_user.dart';
 import 'package:Casca/features/authentication/domain/usecases/update_user.dart';
 import 'package:Casca/features/authentication/presentation/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:Casca/features/authentication/presentation/pages/authentication_signup_page.dart';
 import 'package:Casca/features/dashboard/data/data_sources/barber_database.dart';
 import 'package:Casca/features/dashboard/data/repository/barber_repository_impl.dart';
 import 'package:Casca/features/dashboard/domain/usecases/get_data.dart';

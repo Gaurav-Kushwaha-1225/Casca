@@ -393,8 +393,8 @@ class _DashboardExplorePageState extends State<DashboardExplorePage> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.urbanist(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? Constants.lightTextColor
@@ -418,8 +418,8 @@ class _DashboardExplorePageState extends State<DashboardExplorePage> {
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.urbanist(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.light
                                             ? Constants.lightTextColor

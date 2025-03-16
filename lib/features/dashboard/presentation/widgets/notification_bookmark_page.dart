@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../config/routes/routes_consts.dart';
+import '../../../../utils/consts.dart';
 import '../bloc/home/home_bloc.dart';
 import 'barber_card.dart';
 
@@ -25,14 +27,23 @@ class NotificationBookmarkPage extends StatefulWidget {
 class _NotificationBookmarkPageState extends State<NotificationBookmarkPage> {
   final storage = FlutterSecureStorage();
   List<String> savedBarbers = [];
+  bool notificationLoading = true;
 
   @override
   void initState() {
     if (widget.service == "Bookmark") {
       savedBarbersList();
-      print(savedBarbers.toString());
+      // print(savedBarbers.toString());
     }
+    startLoading();
     super.initState();
+  }
+
+  Future<void> startLoading() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      notificationLoading = false;
+    });
   }
 
   Future<void> savedBarbersList() async {
@@ -114,7 +125,22 @@ class _NotificationBookmarkPageState extends State<NotificationBookmarkPage> {
                     }
                   },
                 )
-              : Expanded(child: Center(child: CircularProgressIndicator()))),
+              : Expanded(
+                  child: Center(
+                  child: notificationLoading
+                      ? CircularProgressIndicator()
+                      : Text("No Notifications",
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.urbanist(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Constants.lightTextColor
+                                  : Constants.darkTextColor,
+                              fontStyle: FontStyle.normal)),
+                ))),
     );
   }
 }
