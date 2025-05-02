@@ -10,7 +10,6 @@ import 'package:Casca/config/routes/routes_consts.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/data_sources/user_database.dart';

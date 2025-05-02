@@ -7,6 +7,7 @@ abstract class ExploreEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// ignore: must_be_immutable
 class GetBarbersSearchEvent extends ExploreEvent {
   final String searchValue;
   String rating = "All";

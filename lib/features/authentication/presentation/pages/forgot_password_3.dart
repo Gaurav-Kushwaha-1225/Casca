@@ -15,8 +15,8 @@ import '../bloc/authentication_bloc/authentication_bloc.dart';
 import '../widgets/remember_me_check_box.dart';
 
 class ForgotPassword3 extends StatefulWidget {
-  String id;
-  ForgotPassword3({super.key, required this.id});
+  final String id;
+  const ForgotPassword3({super.key, required this.id});
 
   @override
   State<ForgotPassword3> createState() => _ForgotPassword3State();

@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:Casca/features/dashboard/presentation/pages/dashboard_explore.dart';
 import 'package:Casca/features/dashboard/presentation/pages/dashboard_home.dart';
-import 'package:Casca/features/dashboard/presentation/pages/dashboard_inbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../config/routes/routes_consts.dart';
 import '../../../../utils/consts.dart';
 import '../../../../widgets/app_bar.dart';
-import '../../../authentication/domain/entities/user.dart';
 import 'dashboard_mybookings.dart';
 import 'dashboard_profile.dart';
 
@@ -29,7 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    User currentUser = User.fromJson(widget.user);
+    // User currentUser = User.fromJson(widget.user);
     final List<Widget> dashboard_pages = [
       DashboardHomePage(),
       DashboardExplorePage(),

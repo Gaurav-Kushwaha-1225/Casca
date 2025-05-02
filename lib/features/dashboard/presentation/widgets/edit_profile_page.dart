@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:Casca/config/routes/routes_consts.dart';
-import 'package:Casca/features/authentication/domain/usecases/update_user.dart';
 import 'package:Casca/widgets/app_bar.dart';
 import 'package:Casca/widgets/screen_width_button.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +16,6 @@ import '../../../../utils/consts.dart';
 import '../../../authentication/data/data_sources/user_database.dart';
 import '../../../authentication/domain/entities/user.dart';
 import '../../../authentication/data/models/user_model.dart' as UserModel;
-import '../../../authentication/domain/usecases/login_user.dart';
-import '../../../authentication/domain/usecases/signup_user.dart';
 import '../../../authentication/presentation/bloc/authentication_bloc/authentication_bloc.dart';
 
 class EditProfilePage extends StatefulWidget {

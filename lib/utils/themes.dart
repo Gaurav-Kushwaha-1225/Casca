@@ -78,6 +78,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   // Load saved theme preference
   Future<void> loadSavedTheme() async {
     final isDark = (await storage.read(key: 'isDark')) == "true" ? true : false;
+    // ignore: invalid_use_of_visible_for_testing_member
     emit(ThemeState(isDark: isDark));
   }
 }
