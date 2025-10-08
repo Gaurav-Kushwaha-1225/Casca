@@ -124,8 +124,7 @@ class _NotificationBookmarkPageState extends State<NotificationBookmarkPage> {
                     }
                   },
                 )
-              : Expanded(
-                  child: Center(
+              : Center(
                   child: notificationLoading
                       ? CircularProgressIndicator()
                       : Text("No Notifications",
@@ -139,7 +138,7 @@ class _NotificationBookmarkPageState extends State<NotificationBookmarkPage> {
                                   ? Constants.lightTextColor
                                   : Constants.darkTextColor,
                               fontStyle: FontStyle.normal)),
-                ))),
+                )),
     );
   }
 }
