@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "/home/friday_code/Documents/Flutter/flutter_linux_3.19.4-stable/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/friday_code/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/friday_code/Desktop/Casca/android/app/.cxx/Debug/3l1z1k3c/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/friday_code/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/friday_code/Desktop/Casca/android/app/.cxx/Debug/3l1z1k3c/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {},
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/home/friday_code/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/home/friday_code/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": []
+}

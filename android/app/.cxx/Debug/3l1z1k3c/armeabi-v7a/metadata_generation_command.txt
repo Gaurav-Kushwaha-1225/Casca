@@ -1,0 +1,20 @@
+                        -H/home/friday_code/Documents/Flutter/flutter_linux_3.19.4-stable/flutter/packages/flutter_tools/gradle/src/main/groovy
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=armeabi-v7a
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DANDROID_NDK=/home/friday_code/Android/Sdk/ndk/26.3.11579264
+-DCMAKE_ANDROID_NDK=/home/friday_code/Android/Sdk/ndk/26.3.11579264
+-DCMAKE_TOOLCHAIN_FILE=/home/friday_code/Android/Sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/home/friday_code/Android/Sdk/cmake/3.22.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/friday_code/Desktop/Casca/build/app/intermediates/cxx/Debug/3l1z1k3c/obj/armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/friday_code/Desktop/Casca/build/app/intermediates/cxx/Debug/3l1z1k3c/obj/armeabi-v7a
+-DCMAKE_BUILD_TYPE=Debug
+-B/home/friday_code/Desktop/Casca/android/app/.cxx/Debug/3l1z1k3c/armeabi-v7a
+-GNinja
+-Wno-dev
+--no-warn-unused-cli
+                        Build command args: []
+                        Version: 2

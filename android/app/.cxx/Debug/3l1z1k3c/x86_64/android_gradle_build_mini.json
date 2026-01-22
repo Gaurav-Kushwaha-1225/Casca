@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/friday_code/Documents/Flutter/flutter_linux_3.19.4-stable/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/friday_code/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/friday_code/Desktop/Casca/android/app/.cxx/Debug/3l1z1k3c/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/friday_code/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/friday_code/Desktop/Casca/android/app/.cxx/Debug/3l1z1k3c/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
